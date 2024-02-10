@@ -1,4 +1,4 @@
-package org.music_player.demo;
+package org.music_player.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
