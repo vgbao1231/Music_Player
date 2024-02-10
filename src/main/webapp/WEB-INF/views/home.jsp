@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,9 +19,19 @@
 <div class="header">
     <div class="category">
         <div id="category-button"><i class="fa-solid fa-bars"></i></div>
-        <div id="category-content"></div>
+        <div id="category-content">
+            <div id="category-home" data-index=0>
+                <div id="cat-home-icon"><i class="mr-10 fas fa-home"></i> Trang chủ</div>
+            </div>
+            <div id="category-account" data-index=1>
+                <div id="cat-acc-icon"><i class="mr-10 fas fa-user"></i> Tài khoản</div>
+            </div>
+            <div id="category-playlist" data-index=2>
+                <div id="cat-list-icon"><i class="mr-10 fa-solid fa-list"></i> Danh sách phát</div>
+            </div>
+        </div>
     </div>
-    <div id="search-bar">BBBBBB</div>
+    <div id="search-bar">Search Bar</div>
     <div id="login">
         <ul>
             <li>Đăng ký</li>

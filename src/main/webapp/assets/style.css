@@ -6,6 +6,12 @@
     outline: none;
     list-style: none;
 }
+.ml-10 {
+    margin-left: 10px;
+}
+.mr-10 {
+    margin-right: 10px;
+}
 
 body {
     display: flex;
@@ -14,34 +20,50 @@ body {
     height: 93vh;
     margin-top: 7vh;
 }
+
 .header {
     position: fixed;
     top: 0;
     height: 8vh;
     width: 100%;
-    background-color: rgb(0,0,0,0.5);
+    background-color: rgb(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
 }
 
-.category{
+.category {
     line-height: 8vh;
     width: 50px;
     text-align: center;
 }
 
-#category-button{
+#category-button {
     font-size: 30px;
     color: white;
     opacity: 0.5;
 }
-#category-content{
+
+#category-content {
     height: 100vh;
     width: 0;
-    background-color: rgb(0,0,0,0.5);
+    background-color: rgb(0, 0, 0, 0.5);
     transition: width 0.5s ease;
+    overflow: clip;
 }
-.category:hover #category-button{
+#category-content div{
+    margin-left: 20px;
+    text-align: start;
+    white-space: nowrap;
+    font-size: 20px;
+    color: white;
+    opacity: 0.8;
+}
+#category-content div:hover{
+
+    opacity: 1;
+}
+
+.category:hover #category-button {
     opacity: 1;
 }
 
@@ -94,7 +116,7 @@ header h4 {
     width: 180px;
     margin: 2vh auto;
     text-align: center;
-    
+
 }
 
 .music-img {
@@ -140,12 +162,12 @@ header h4 {
     accent-color: rgba(255, 255, 255, 0.4);
 }
 
-.current-time,.duration{
+.current-time, .duration {
     display: inline;
     margin: 0 4px;
 }
 
-.duration{
+.duration {
     float: right
 }
 
@@ -164,9 +186,11 @@ header h4 {
     border-radius: 8px;
     display: flex;
 }
-.music-list .song:last-child{
+
+.music-list .song:last-child {
     margin-bottom: 0;
 }
+
 .music-list .song:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
@@ -202,5 +226,5 @@ header h4 {
 }
 
 .active {
-    color: rgba(255, 255, 255,0.8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
 }

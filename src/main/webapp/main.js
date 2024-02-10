@@ -1,7 +1,7 @@
 const $ = document.querySelector.bind(document)
-    const category = $('.category')
+    const category = $('#category-button')
     const background = $('.background')
-    const header = $('.music-name')
+    const musicName = $('.music-name')
     const cdThumb = $('.music-img')
     const audio = $('#audio')
     const player = $('.player')
@@ -19,9 +19,10 @@ const $ = document.querySelector.bind(document)
     category.addEventListener('click', function(){
         toggle = !toggle
         let categoryContent = $('#category-content')
+        let content = $('#category-content div')
         toggle ? player.style.marginLeft= '40vh' : player.style.marginLeft= '0'
         toggle ? categoryContent.style.width = "40vh" : categoryContent.style.width = "0"
-        
+
     })
     //Quay CD
     const cdThumbAnimation = cdThumb.animate([
@@ -92,7 +93,7 @@ const $ = document.querySelector.bind(document)
                 </div>
                 `
             })
-            $('.music-list').innerHTML = htmls.join('')
+            playlist.innerHTML = htmls.join('')
         },
 
         handleEvents: function () {
@@ -221,7 +222,7 @@ const $ = document.querySelector.bind(document)
         },
         loadCurrentSong: function () {
             background.style.background = `url('${this.currentSong.img}') no-repeat center/ cover`
-            header.innerText = this.currentSong.name
+            musicName.innerText = this.currentSong.name
             cdThumb.style.backgroundImage = `url('${this.currentSong.img}')`
             audio.src = this.currentSong.path
         },
