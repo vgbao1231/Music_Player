@@ -1,38 +1,31 @@
-const $ = document.querySelector.bind(document)
-    const category = $('#category-button')
-    const background = $('.background')
-    const musicName = $('.music-name')
-    const cdThumb = $('.music-img')
-    const audio = $('#audio')
-    const player = $('.player')
-    const timeBar = $('#progress')
-    const playBtn = $('.toggle-play')
-    const nextBtn = $('.next-btn')
-    const prevBtn = $('.prev-btn')
-    const shuffleBtn = $('.fa-shuffle')
-    const repeatBtn = $('.fa-rotate-right')
-    const playlist = $('.music-list')
+document.addEventListener("click", function(event) {
+    if (event.target.parentNode.matches(".playlist-item")) {
+        $.ajax({
+            url: '/playlist', // Đường dẫn tới endpoint Spring MVC để lấy nội dung
+            success: function(data) {
+                $('#content').html(data); // Cập nhật nội dung của phần content
+                getPlaylist()
+            },
+            error: function() {
+                console.error('Lỗi khi tải nội dung.');
+            }
+        });
 
-
-    // Mở thanh danh mục
-    let toggle = false
-    category.addEventListener('click', function(){
-        toggle = !toggle
-        let categoryContent = $('#category-content')
-        let content = $('#category-content div')
-        toggle ? player.style.marginLeft= '40vh' : player.style.marginLeft= '0'
-        toggle ? categoryContent.style.width = "40vh" : categoryContent.style.width = "0"
-
-    })
-    //Quay CD
-    const cdThumbAnimation = cdThumb.animate([
-        { transform: "rotate(360deg)" },
-    ], {
-        duration: 10000,
-        iterations: Infinity
-    })
-    cdThumbAnimation.pause()
-
+    }
+})
+function getPlaylist(){
+    const background = $$('.background')
+    const musicName = $$('.music-name')
+    const cdThumb = $$('.music-img')
+    const audio = $$('#audio')
+    const player = $$('.player')
+    const timeBar = $$('#progress')
+    const playBtn = $$('.toggle-play')
+    const nextBtn = $$('.next-btn')
+    const prevBtn = $$('.prev-btn')
+    const shuffleBtn = $$('.fa-shuffle')
+    const repeatBtn = $$('.fa-rotate-right')
+    const playlist = $$('.music-list')
 
     const app = {
         currentIndex: 0,
@@ -41,16 +34,16 @@ const $ = document.querySelector.bind(document)
         isRepeating: false,
         songs: [
             {
-                name: 'Cupid',
-                singer: 'FIFTY',
-                path: './assets/songs/song1.mp3',
-                img: './assets/imgs/1.jpg'
-            },
-            {
                 name: 'Be Alright (Official Video)',
                 singer: 'Dean Lewis',
                 path: './assets/songs/song2.mp3',
                 img: './assets/imgs/2.jpg'
+            },
+            {
+                name: 'Cupid',
+                singer: 'FIFTY',
+                path: './assets/songs/song1.mp3',
+                img: './assets/imgs/1.jpg'
             },
             {
                 name: 'Dự báo thời tiết hôm nay mưa',
@@ -97,7 +90,7 @@ const $ = document.querySelector.bind(document)
         },
 
         handleEvents: function () {
-            const cd = $('.cd')
+            const cd = $$('.cd')
             const cdWidth = cd.offsetWidth
             window.onscroll = function () {
                 console.log(window.scrollY);
@@ -113,7 +106,7 @@ const $ = document.querySelector.bind(document)
 
             //Quay CD
             const cdThumbAnimation = cdThumb.animate([
-                { transform: "rotate(360deg)" },
+                {transform: "rotate(360deg)"},
             ], {
                 duration: 10000,
                 iterations: Infinity
@@ -178,7 +171,7 @@ const $ = document.querySelector.bind(document)
                 app.playSong()
                 audio.play()
             }
-            
+
         },
         randomSong: function () {
             const newIndex = Math.floor(Math.random() * app.songs.length);
@@ -227,8 +220,8 @@ const $ = document.querySelector.bind(document)
             audio.src = this.currentSong.path
         },
         loadProgress: function () {
-            let currentTime = $('.current-time')
-            let duration = $('.duration')
+            let currentTime = $$('.current-time')
+            let duration = $$('.duration')
             if (audio.duration) {
                 let currentMinute = Math.floor(audio.currentTime / 60)
                 let currentSecond = Math.floor(audio.currentTime - currentMinute * 60)
@@ -240,7 +233,7 @@ const $ = document.querySelector.bind(document)
                 durationMinute = durationMinute < 10 ? "0" + durationMinute : durationMinute
                 durationSecond = durationSecond < 10 ? "0" + durationSecond : durationSecond
                 duration.innerText = durationMinute + ":" + durationSecond
-                
+
             }
         },
         start: function () {
@@ -251,3 +244,4 @@ const $ = document.querySelector.bind(document)
         }
     }
     app.start()
+}

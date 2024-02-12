@@ -5,8 +5,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
     @RequestMapping()
-    public String home() {
+    public String main() {
+        return "main";
+    }
+    @RequestMapping("home")
+    public String getHomeView() {
         return "home";
+    }
+    @RequestMapping("account")
+    public String getAccountView() {
+        return "account";
+    }
+    @RequestMapping("playlist")
+    public String getPlaylistView() {
+        return "playlist";
     }
 
 }
