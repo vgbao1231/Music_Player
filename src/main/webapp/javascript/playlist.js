@@ -37,31 +37,31 @@ function getPlaylist(){
                 name: 'Be Alright (Official Video)',
                 singer: 'Dean Lewis',
                 path: './assets/songs/song2.mp3',
-                img: './assets/imgs/2.jpg'
+                img: './assets/imgs/songs/2.jpg'
             },
             {
                 name: 'Cupid',
                 singer: 'FIFTY',
                 path: './assets/songs/song1.mp3',
-                img: './assets/imgs/1.jpg'
+                img: './assets/imgs/songs/1.jpg'
             },
             {
                 name: 'Dự báo thời tiết hôm nay mưa',
                 singer: 'GREY D',
                 path: './assets/songs/song3.mp3',
-                img: './assets/imgs/3.jpg'
+                img: './assets/imgs/songs/3.jpg'
             },
             {
                 name: 'Blue Tequila (Official Video)',
                 singer: 'Táo',
                 path: './assets/songs/song4.mp3',
-                img: './assets/imgs/4.jpg'
+                img: './assets/imgs/songs/4.jpg'
             },
             {
                 name: 'Tại vì em',
                 singer: 'buitruonglinh',
                 path: './assets/songs/song5.mp3',
-                img: './assets/imgs/5.jpg'
+                img: './assets/imgs/songs/5.jpg'
             },
 
         ],
@@ -127,7 +127,7 @@ function getPlaylist(){
                 audio.currentTime = audio.duration * e.target.value / 100
             }
 
-            //Next song
+            //Chạy bài hát sau đó
             nextBtn.onclick = function () {
                 if (app.isShuffling) {
                     app.randomSong()
@@ -137,19 +137,19 @@ function getPlaylist(){
                 app.playSong()
                 audio.play()
             }
-            //Prev song
+            //Chạy bài hát trước đó
             prevBtn.onclick = function () {
                 app.prevSong()
                 app.playSong()
                 audio.play()
             }
 
-            //Shuffle song
+            //Xáo bài hát
             shuffleBtn.onclick = function () {
                 app.isShuffling = !app.isShuffling
                 shuffleBtn.classList.toggle('active')
             }
-            //Repeat song
+            //Lặp lại bài hát
             repeatBtn.onclick = function () {
                 app.isRepeating = !app.isRepeating
                 repeatBtn.classList.toggle('active')

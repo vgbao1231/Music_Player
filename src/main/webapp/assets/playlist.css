@@ -1,5 +1,5 @@
 .background {
-    width: 120%;
+    width: 125%;
     height: 120%;
     position: fixed;
     z-index: -1;
@@ -11,7 +11,7 @@
     background-color: rgba(255, 255, 255, 0.4);
     padding: 20px 40px;
     border-radius: 16px;
-    width: 70vh;
+    width: 34vw;
     height: 85vh;
     box-shadow: 4px 4px 10px #0000009f;
     transition: margin-left 0.5s ease;
@@ -20,6 +20,9 @@
 .container {
     max-height: 594px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .container::-webkit-scrollbar {
@@ -27,7 +30,7 @@
 }
 
 .dashboard {
-    width: 420px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -36,10 +39,12 @@ header h4 {
     font-size: 20px;
     color: rgba(255, 255, 255, 0.6);
 }
-
 .music-name {
     text-align: center;
     font-size: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cd {
@@ -88,7 +93,8 @@ header h4 {
 .progress {
     height: 4px;
     width: 90%;
-    margin: 4px 5%;
+    margin: 0 5%;
+    margin-bottom: 8px;
     accent-color: rgba(255, 255, 255, 0.4);
 }
 

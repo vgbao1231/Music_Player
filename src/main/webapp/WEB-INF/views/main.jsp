@@ -58,9 +58,13 @@
         </form>
     </div>
     <div id="user">
-        <button class="user-button" id="sign-in"
-                style="border-right: 1px solid rgba(255,255,255,0.1);">Đăng nhập</button>
-        <button class="user-button" id="sign-up">Đăng ký</button>
+        <button class="user-button" id="login"
+                style="border-right: 1px solid rgba(255,255,255,0.1);">
+            <a href="login">Đăng Nhập</a>
+        </button>
+        <button class="user-button" id="register">
+            <a href="register">Đăng Ký</a>
+        </button>
     </div>
 </div>
 

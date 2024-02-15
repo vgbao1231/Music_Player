@@ -16,6 +16,9 @@
 .mr-20 {
     margin-right: 20px;
 }
+.m-10{
+    margin: 10px;
+}
 
 /*Hover*/
 #category-container .category-element:hover,
@@ -31,6 +34,7 @@ body {
     align-items: center;
     height: 92vh;
     margin-top: 8vh;
+    font-family: Inter,sans-serif;
 }
 
 #header {
@@ -45,7 +49,7 @@ body {
 
 #category {
     line-height: 8vh;
-    width: 30vh;
+    width: 16vw;
     transition: width 0.5s ease;
 }
 
@@ -85,10 +89,6 @@ body {
     background-color: rgba(255,255,255,0.4);
     border-radius: 8px;
 }
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
 .playlist-item{
     display: flex;
     justify-content: space-between;
@@ -125,19 +125,24 @@ body {
 /*Nút đăng nhập, đăng ký*/
 #user{
     padding: 1vh;
-    width: 30vh;
+    width: 16vw;
 }
 .user-button{
     background-color: transparent;
-    color: white;
+
     font-size: 16px;
     padding: 10px;
     opacity: 0.6;
+}
+.user-button a{
+    text-decoration: none;
+    color: white;
 }
 
 #content{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 80vw;
     transition: margin-left 0.5s ease;
 }

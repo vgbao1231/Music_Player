@@ -8,9 +8,9 @@ let openCategoryToggle = false
 categoryBtn.addEventListener('click', function () {
     openCategoryToggle = !openCategoryToggle
     let categoryContainer = $$('#category-container')
-    openCategoryToggle ? content.style.marginLeft = '40vh' : content.style.marginLeft = '0'
-    openCategoryToggle ? categoryContainer.style.width = "40vh" : categoryContainer.style.width = "0"
-    openCategoryToggle ? category.style.width = "70vh" : category.style.width = "30vh"
+    openCategoryToggle ? content.style.marginLeft = '20vw' : content.style.marginLeft = '0'
+    openCategoryToggle ? categoryContainer.style.width = "20vw" : categoryContainer.style.width = "0"
+    openCategoryToggle ? category.style.width = "40vw" : category.style.width = "20vw"
 
 })
 // Mở danh sách phát

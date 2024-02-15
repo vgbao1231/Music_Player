@@ -12,6 +12,10 @@ public class HomeController {
     public String getHomeView() {
         return "home";
     }
+    @RequestMapping("login")
+    public String getLoginView() {
+        return "login";
+    }
     @RequestMapping("account")
     public String getAccountView() {
         return "account";
