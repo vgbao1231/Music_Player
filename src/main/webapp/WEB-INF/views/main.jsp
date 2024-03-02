@@ -1,6 +1,4 @@
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,68 +8,207 @@
     <title>Music Player</title>
 </head>
 <link rel="stylesheet" href="<c:url value='/assets/main.css'/>">
-<link rel="stylesheet" href="<c:url value='/assets/home.css'/>">
-<link rel="stylesheet" href="<c:url value='/assets/account.css'/>">
-<link rel="stylesheet" href="<c:url value='/assets/playlist.css'/>">
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <body>
-<div id="header">
-    <div id="category">
-        <div id="category-button"><i class="fa-solid fa-bars"></i></div>
-        <div id="category-container">
-            <div class="category-element" id="category-home" data-index=0>
-                <div id="home-icon"><i class="mr-10 fas fa-home"></i>Trang chủ</div>
-            </div>
-            <div class="category-element" id="category-account" data-index=1>
-                <div id="acc-icon"><i class="mr-10 fas fa-user"></i>Tài khoản</div>
-            </div>
-            <div class="category-element" id="category-playlists" data-index=2>
-                <div id="list-icon"><i class="mr-10 fa-solid fa-list-ul"></i>Danh sách phát</div>
-            </div>
-            <div class="playlist-container">
-                <div class="playlist-item">
-                    <span class="playlist-name">Playlist 111111222222233333333</span>
-                    <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+<jsp:include page="header.jsp" />
+
+<div id="content">
+    <div class="background" style="background: url('<c:url
+            value='./assets/imgs/backgrounds/home.jpg'/>') center center / cover no-repeat;"></div>
+    <div class="home-container">
+        <div class="playlist-section">
+            <div class="playlist-section-name">Nổi Bật</div>
+            <div class="playlist-section-list">
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album1.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
-                <div class="playlist-item">
-                    <span class="playlist-name">Playlist 2</span>
-                    <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album2.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
-                <div class="playlist-item">
-                    <span class="playlist-name">Playlist 3</span>
-                    <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album3.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
-                <div>
-                    <i class="fa-solid fa-plus"></i>
-                    Thêm danh sách
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album4.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album5.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="search-bar">
-        <form action="" role="search">
-            <input id="search-field" type="text" placeholder="Tìm kiếm bài hát...">
-            <button id="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
-    </div>
-    <div id="user">
-        <button class="user-button" id="login"
-                style="border-right: 1px solid rgba(255,255,255,0.1);">
-            <a href="login">Đăng Nhập</a>
-        </button>
-        <button class="user-button" id="register">
-            <a href="register">Đăng Ký</a>
-        </button>
+        <div class="songs-section">
+            <div class="songs-section-name">Bài hát mới</div>
+            <div class="songs-section-list">
+                <%
+                    for(int i=0;i<3;i++){
+                %>
+                <div class="list-songs">
+                    <%
+                        for (int j=1;j<=4;j++){
+                            String imageURL = "./assets/imgs/songs/" + j + ".jpg";
+                    %>
+                    <div class="list-song-item">
+                        <div class="song-item">
+                            <div class="song-img" style="background-image: url('<c:url
+                                    value='<%=imageURL%>'/>');"></div>
+                            <div class="song-info">
+                                <h5>Be Alright (Official Video)</h5>
+                                <h6>Dean Lewis</h6>
+                            </div>
+                        </div>
+                        <div class="song-item-option">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <%
+                    }
+                %>
+            </div>
+        </div>
+        <div class="playlist-section">
+            <div class="playlist-section-name">Nổi Bật</div>
+            <div class="playlist-section-list">
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album1.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album2.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album3.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album4.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album5.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+            </div>
+        </div>
+        <div class="songs-section">
+            <div class="songs-section-name">Bài hát mới</div>
+            <div class="songs-section-list">
+                <%
+                    for(int i=0;i<3;i++){
+                %>
+                <div class="list-songs">
+                    <%
+                        for (int j=1;j<=4;j++){
+                            String imageURL = "./assets/imgs/songs/" + j + ".jpg";
+                    %>
+                    <div class="list-song-item">
+                        <div class="song-item">
+                            <div class="song-img" style="background-image: url('<c:url
+                                    value='<%=imageURL%>'/>');"></div>
+                            <div class="song-info">
+                                <h5>Be Alright (Official Video)</h5>
+                                <h6>Dean Lewis</h6>
+                            </div>
+                        </div>
+                        <div class="song-item-option">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <%
+                    }
+                %>
+            </div>
+        </div>
+        <div class="playlist-section">
+            <div class="playlist-section-name">Nổi Bật</div>
+            <div class="playlist-section-list">
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album1.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album2.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album3.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album4.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+                <div class="playlist-section-album">
+                    <div class="album-img" style="background: url('<c:url
+                            value='./assets/imgs/albums/album5.jpg'/>') center center / cover no-repeat;"></div>
+                    <div class="album-name">Nhạc trẻ gây nghiện</div>
+                </div>
+            </div>
+        </div>
+        <div class="songs-section">
+            <div class="songs-section-name">Bài hát mới</div>
+            <div class="songs-section-list">
+                <%
+                    for(int i=0;i<3;i++){
+                %>
+                <div class="list-songs">
+                    <%
+                        for (int j=1;j<=4;j++){
+                            String imageURL = "./assets/imgs/songs/" + j + ".jpg";
+                    %>
+                    <div class="list-song-item">
+                        <div class="song-item">
+                            <div class="song-img" style="background-image: url('<c:url
+                                    value='<%=imageURL%>'/>');"></div>
+                            <div class="song-info">
+                                <h5>Be Alright (Official Video)</h5>
+                                <h6>Dean Lewis</h6>
+                            </div>
+                        </div>
+                        <div class="song-item-option">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <%
+                    }
+                %>
+            </div>
+        </div>
     </div>
 </div>
-
-<div id="content"></div>
 </body>
 <script src="<c:url value='/javascript/main.js'/>"></script>
-<script src="<c:url value='/javascript/home.js'/>"></script>
-<script src="<c:url value='/javascript/account.js'/>"></script>
-<script src="<c:url value='/javascript/playlist.js'/>"></script>
 </html>

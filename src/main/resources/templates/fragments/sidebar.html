@@ -1,0 +1,67 @@
+<div th:fragment="sidebar" id="sidebar">
+    <div id="sidebar-button"><i class="fa-solid fa-bars"></i></div>
+    <div id="sidebar-container">
+        <div class="sidebar-element" id="sidebar-home" data-index=0>
+            <div id="home-icon">
+                <i class="mr-10 fas fa-home"></i>
+                <a href="/user/home">Trang chủ</a>
+            </div>
+        </div>
+        <div class="sidebar-element" id="sidebar-genres" data-index=1>
+            <div id="acc-icon">
+                <i class="mr-10 fas fa-user"></i>
+                <a href="/user/genres">Thể loại</a>
+            </div>
+        </div>
+        <div class="sidebar-element" id="sidebar-playlists" data-index=2>
+            <div id="list-icon">
+                <i class="mr-10 fa-solid fa-list-ul"></i>Danh sách phát
+            </div>
+        </div>
+        <div class="playlist-container">
+            <div class="playlist-item">
+                <span class="playlist-name">Playlist 1</span>
+                <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+            <div class="playlist-item">
+                <span class="playlist-name">Playlist 2</span>
+                <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+            <div class="playlist-item">
+                <span class="playlist-name">Playlist 3</span>
+                <span class="mr-20 playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+            <div>
+                <i class="fa-solid fa-plus"></i>
+                Thêm danh sách
+            </div>
+        </div>
+    </div>
+</div>
+<script th:fragment="script">
+    const sidebarBtn = document.querySelector('#sidebar-button')
+    sidebarBtn.addEventListener('click', function () {
+        const sidebar = document.querySelector("#sidebar")
+        const sidebarContainer = document.querySelector("#sidebar-container")
+        const mainContent = document.querySelector("#content")
+        if (sidebar.offsetWidth !== 0) {
+            sidebar.style.width = 0
+            sidebarContainer.style.width = 0
+            mainContent.style.marginLeft = 0
+        } else {
+            sidebar.style.width = "16vw"
+            sidebarContainer.style.width = "16vw"
+            mainContent.style.marginLeft = "16vw"
+        }
+
+    })
+    const sidebarPlaylist = document.querySelector('#sidebar-playlists')
+    sidebarPlaylist.addEventListener('click', function () {
+        const playlistContainer = document.querySelector('.playlist-container')
+        if (playlistContainer.offsetHeight === 0) {
+            playlistContainer.style.height = "24vh"
+        } else {
+            playlistContainer.style.height = "0"
+        }
+    })
+</script>

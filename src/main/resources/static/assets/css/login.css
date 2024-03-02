@@ -40,25 +40,25 @@
     height: 44px;
     width: 100%;
     margin: 20px 0;
-}
-.form-input input{
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 40px;
+}
+
+.form-input input{
+    height: 100%;
+    width: 90%;
+    background-color: transparent;
     padding: 0 20px;
     color: white;
     font-size: 16px;
 }
 .form-input input::placeholder{
-    color: white;
+    color: lightgrey;
     font-size: 16px;
 }
-
-#login-field {}
-
-#password-field {}
+.form-input:focus-within{
+    border: 2px solid white;
+}
 
 #forgot-password {
     text-align: right;

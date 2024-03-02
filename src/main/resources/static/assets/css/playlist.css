@@ -1,11 +1,3 @@
-.background {
-    width: 125%;
-    height: 120%;
-    position: fixed;
-    z-index: -1;
-    filter: blur(20px) brightness(60%);
-    transition: all 0.2s;
-}
 
 .player {
     background-color: rgba(255, 255, 255, 0.4);
