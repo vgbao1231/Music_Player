@@ -1,0 +1,23 @@
+CREATE DATABASE Music_Player
+
+CREATE TABLE User (
+    userId INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(10) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_User PRIMARY KEY (userId)
+);
+CREATE TABLE Role (
+    roleId INT AUTO_INCREMENT PRIMARY KEY,
+    roleName VARCHAR(50) NOT NULL
+);
+CREATE TABLE User_Role (
+    userRoleId INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT,
+    roleId INT,
+    FOREIGN KEY (userId) REFERENCES User(userId),
+    FOREIGN KEY (roleId) REFERENCES Role(roleId)
+);
+
+INSERT INTO `role` (`role_id`, `rolename`) VALUES (NULL, 'ADMIN');
+INSERT INTO `user` (`user_id`, `password`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'admin');
+INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`) VALUES (NULL, '1', '1');

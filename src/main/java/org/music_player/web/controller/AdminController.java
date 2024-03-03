@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
     @RequestMapping()
-    public String adminPage() {
-        return "redirect:/login";
+    public String index() {
+        return "redirect:/admin/";
+    }
+    @RequestMapping("/")
+    public String adminHomePage() {
+        return "admin/index";
     }
 }

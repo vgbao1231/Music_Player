@@ -13,10 +13,10 @@
 <div id="container">
     <div id="background" style="background: url('/assets/img/backgrounds/login.png') center center / cover no-repeat;"></div>
     <div id="login-form">
-        <form action="" method="post">
+        <form th:action="@{/login}" method="post">
             <div id="login-title">Login</div>
             <div class="form-input">
-                <input id="user" type="text" name="user" placeholder="Username" autocomplete="off">
+                <input id="user" type="text" name="username" placeholder="Username" autocomplete="off">
             </div>
             <div class="form-input">
                 <input id="password" type="password" name="password" placeholder="Password">
