@@ -7,7 +7,6 @@ import lombok.*;
 @Table(name = "user_role")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Getter
 @Setter
 public class UserRole {
