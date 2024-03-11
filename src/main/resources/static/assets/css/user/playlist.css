@@ -1,0 +1,159 @@
+.background{
+    filter: blur(20px) brightness(60%);
+}
+.player-container {
+    margin: 6vh 0;
+}
+
+.player {
+    width: 34vw;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 20px 40px;
+    border-radius: 16px;
+    box-shadow: 4px 4px 10px #0000009f;
+    max-height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.dashboard {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+header h4 {
+    text-align: center;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+.music-name {
+    text-align: center;
+    font-size: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cd {
+    width: 180px;
+    margin: 2vh auto;
+    text-align: center;
+
+}
+
+.music-img {
+    padding-bottom: 100%;
+    background-size: 180%;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 20px 2px #00000094;
+    transition: all 0.2s;
+}
+
+.controler {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 8px;
+}
+
+.controler .toggle-play {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    color: #fff;
+}
+
+.controler .toggle-play i {
+
+    color: #fff;
+}
+
+.controler i {
+    font-size: 24px;
+    padding: 12px;
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.progress {
+    height: 4px;
+    width: 90%;
+    margin: 0 5%;
+    margin-bottom: 8px;
+    accent-color: rgba(255, 255, 255, 0.4);
+}
+
+.current-time, .duration {
+    display: inline;
+    margin: 0 4px;
+}
+
+.duration {
+    float: right
+}
+
+.music-list {
+    overflow: scroll;
+    max-height: 180px;
+}
+
+.music-list::-webkit-scrollbar {
+    display: none;
+}
+
+.music-list .song {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 6px;
+    border-radius: 8px;
+    display: flex;
+}
+
+.music-list .song:last-child {
+    margin-bottom: 0;
+}
+
+.music-list .song:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.music-list .song .thumbnail {
+    width: 60px;
+    height: 40px;
+    background-size: 120%;
+    background-position: center;
+    border-radius: 6px;
+    margin: 8px 16px 8px;;
+}
+
+.music-list .song-info {
+    margin: auto 0;
+    font-size: 14px;
+}
+
+.music-list .song-info h4 {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.player .icon-pause {
+    display: none;
+}
+
+.player-container.playing .icon-play {
+    display: none;
+}
+
+.player-container.playing .icon-pause {
+    display: inline-block;
+}
+
+.active {
+    color: rgba(255, 255, 255, 0.8) !important;
+}

@@ -15,11 +15,13 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer userId;
     @Column(name = "username")
-    private String username;
+    private String userName;
     @Column(name = "password")
     private String password;
+    @Column(name = "email")
+    private String email;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;

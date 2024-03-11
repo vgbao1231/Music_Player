@@ -1,0 +1,61 @@
+<div th:fragment="sidebar" class="sidebar">
+    <div class="sidebar-container">
+        <div class="sidebar-item" id="sidebar-home" data-index=0>
+            <a href="/user/home" class="home-icon">
+                <i class="mr-10 fas fa-home"></i>
+                Trang chủ
+            </a>
+        </div>
+        <div class="sidebar-item" id="sidebar-genres" data-index=1>
+            <a href="/user/genres" class="genres-icon">
+                <i class="mr-10 fas fa-user"></i>
+                Thể loại
+            </a>
+        </div>
+        <div class="sidebar-item" id="sidebar-playlists" data-index=2>
+            <div class="list-icon">
+                <i class="mr-10 fa-solid fa-list-ul"></i>Danh sách phát
+            </div>
+        </div>
+        <div class="playlist-container">
+            <a href="/user/playlist" class="playlist-item center">
+                <span class="playlist-name">Playlist 1123123123 12312312</span>
+                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </a>
+            <div class="playlist-item center">
+                <span class="playlist-name">Playlist 2</span>
+                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+            <div class="playlist-item center">
+                <span class="playlist-name">Playlist 3</span>
+                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:fragment="script">
+    const menuBtn = document.querySelector('.menu-button')
+    menuBtn.addEventListener('click', function () {
+        const sidebar = document.querySelector(".sidebar")
+        const mainContent = document.querySelector(".content")
+        if (sidebar.offsetWidth !== 0) {
+            sidebar.style.width = 0
+            mainContent.style.left = "9vw"
+            mainContent.style.right = "9vw"
+        } else {
+            sidebar.style.width = "18vw"
+            mainContent.style.left = "18vw"
+            mainContent.style.right = 0
+        }
+
+    })
+    const sidebarPlaylist = document.querySelector('#sidebar-playlists')
+    sidebarPlaylist.addEventListener('click', function () {
+        const playlistContainer = document.querySelector('.playlist-container')
+        if (playlistContainer.offsetHeight === 0) {
+            playlistContainer.style.height = "24vh"
+        } else {
+            playlistContainer.style.height = "0"
+        }
+    })
+</script>

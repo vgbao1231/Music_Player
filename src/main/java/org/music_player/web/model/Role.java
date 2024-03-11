@@ -15,10 +15,10 @@ public class Role {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer roleId;
     @Column(name = "rolename")
-    private String name;
+    private String roleName;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
     private Set<UserRole> roleUsers;
 }

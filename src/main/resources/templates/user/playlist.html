@@ -7,15 +7,17 @@
     <title>Music Player</title>
 </head>
 <link rel="stylesheet" href="/assets/css/base.css">
-<link rel="stylesheet" href="/assets/css/playlist.css">
+<link rel="stylesheet" href="/assets/css/user/playlist.css">
+<link rel="stylesheet" href="/assets/img/songs/1.jpg">
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
-<div id="content">
-    <div class="background"></div>
-    <div class="player">
-        <div class="container">
+<div th:replace="~{fragments/headerUser :: header}"></div>
+<div th:replace="~{fragments/sidebarUser :: sidebar}"></div>
+<div class="background"></div>
+<div class="content">
+    <div class="player-container center">
+        <div class="player">
             <div class="dashboard">
                 <!-- Header -->
                 <header>
@@ -56,12 +58,11 @@
 
             <!-- Playlist -->
             <div class="music-list"></div>
-
         </div>
     </div>
 </div>
 </body>
-<script th:replace="~{fragments/sidebar :: script}"></script>
+<script th:replace="~{fragments/sidebarUser :: script}"></script>
 <script src="/assets/js/playlist.js"></script>
 </html>
 

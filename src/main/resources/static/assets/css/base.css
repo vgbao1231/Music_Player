@@ -1,4 +1,11 @@
 /* Base CSS*/
+:root {
+    --main-color: #479FFF;
+    --lightblue-background: #b8d9ff;
+    --lightgrey-background: #eeeeeeee;
+    --black-text: black;
+    --white-text: white;
+}
 * {
     padding: 0;
     margin: 0;
@@ -7,6 +14,24 @@
     outline: none;
     list-style: none;
     text-decoration: none;
+    font-family: Inter,sans-serif;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.p-20 {
+    padding: 20px;
+}
+
+.m-20{
+    margin: 20px;
 }
 .ml-10 {
     margin-left: 10px;
@@ -21,93 +46,103 @@
     margin: 10px;
 }
 /*Hover*/
-#sidebar-container .sidebar-element:hover,
-#sidebar-button:hover,
+.sidebar-button:hover,
 .user-button:hover {
-    opacity: 1;
+    opacity: 0.8;
 }
-/*Header*/
-#header {
+.sidebar-container .sidebar-item:hover,
+.playlist-item:hover{
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    opacity: 0.8;
+}
+/*User Header*/
+.header {
     position: fixed;
     top: 0;
     height: 8vh;
     width: 100%;
-    background-color: rgb(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: space-between;
+    background-color: rgb(0, 0, 0, 0.6);
+    font-size: 22px;
+    color: var(--white-text);
 }
-#search-bar{
-    height: 6vh;
+.header-container{
+    justify-content: space-between;
+    margin: 0 40px;
+    height: 100%;
+}
+.menu-button{
+    cursor: pointer;
+}
+.search-bar{
     width: 60vh;
     background-color: rgba(255,255,255,0.1);
     border-radius: 50px;
     padding-left: 2vh;
     margin: 1vh;
 }
-#search-field{
-    font-size: 16px;
+.search-field{
+    font-size: 20px;
     width: 52vh;
     background-color: transparent;
     height: 6vh;
-    color: white;
-    opacity: 0.6;
+    color: var(--white-text);
 }
-#search-button{
+.search-button{
     background-color: transparent;
     color: rgba(255,255,255,0.4);
-    font-size: 16px;
+    font-size: 20px;
 }
 
 /*Nút đăng nhập, đăng ký*/
-#user{
-    padding: 1vh;
-    width: 16vw;
-}
 .user-button{
     background-color: transparent;
-    font-size: 16px;
+    font-size: 20px;
     padding: 10px;
-    opacity: 0.6;
 }
 .user-button a{
     text-decoration: none;
-    color: white;
+    color: var(--white-text);
+}
+/*Admin Header*/
+.admin{
+    cursor: default;
+}
+.admin button{
+    background-color: transparent;
+    color: var(--white-text);
+    font-size: 22px;
+    cursor: pointer;
 }
 /*Sidebar*/
-#sidebar {
-    line-height: 8vh;
-    width: 16vw;
-    transition: width 0.5s ease;
-}
-
-#sidebar-button {
-    font-size: 30px;
-    color: white;
-    padding: 0 4vh;
-    opacity: 0.6;
-}
-
-#sidebar-container {
-    height: 100vh;
-    width: 16vw;
-    background-color: rgb(0, 0, 0, 0.5);
+.sidebar{
+    position: fixed;
+    top: 8vh;
+    left: 0;
+    bottom: 0;
+    width: 18vw;
+    color: var(--white-text);
+    background-color: rgb(0, 0, 0, 0.6);
     transition: width 0.5s ease;
     overflow: clip;
 }
-.sidebar-element,.playlist-container{
-    padding: 0 4vh;
+.sidebar-item{
+    padding: 10px 20px;
+    margin: 20px 20px 10px 20px;
     text-align: start;
     white-space: nowrap;
-    font-size: 20px;
-    color: white;
-    opacity: 0.6;
+    font-size: 22px;
+    transition: all 0.4s ease;
 }
-.sidebar-element a{
-    color: white;
+.sidebar-item a{
+    color: var(--white-text);
 }
 
 .playlist-container{
     height: 0;
+    margin: 0 20px;
     transition: height 0.4s ease;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -116,49 +151,51 @@
     width: 4px;
 }
 .playlist-container::-webkit-scrollbar-thumb{
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.2);
     border-radius: 8px;
 }
 .playlist-item{
-    display: flex;
+    color: var(--white-text);
     justify-content: space-between;
-    align-items: center;
-    border-bottom:1px solid rgba(255,255,255,0.2);
+    font-size: 22px;
+    padding: 10px 10px 10px 20px;
+    margin: 10px;
+    white-space: nowrap;
+    transition: all 0.4s ease;
 }
 .playlist-name{
     overflow: hidden;
     max-width: 24vh;
     text-overflow: ellipsis;
 }
-/*Hover*/
-#sidebar-container .sidebar-element:hover,
-#sidebar-button:hover,
-.user-button:hover {
-    opacity: 1;
+/*Table Frame*/
+.table-frame {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px 10px lightgrey;
 }
 
-/*Main content*/
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 92vh;
-    margin-top: 8vh;
-    font-family: Inter,sans-serif;
+.table-frame__name {
+    font-size: 30px;
+    font-weight: bolder;
 }
-#content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin-left: 16vw;
-    transition: margin-left 0.5s ease;
+/*Main content*/
+.content{
+    position: fixed;
+    top: 8vh;
+    left: 18vw;
+    right: 0;
+    bottom: 0;
+    transition: all 0.5s ease;
 }
 .background {
-    width: 125%;
-    height: 120%;
     position: fixed;
+    top: -20px;
+    left: -20px;
+    bottom: -20px;
+    right: -20px;
     z-index: -1;
-    filter: blur(20px) brightness(60%);
-    transition: all 0.2s;
+    filter: blur(4px);
 }

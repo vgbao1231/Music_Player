@@ -13,7 +13,7 @@ public class UserRole {
     @Id
     @Column(name = "user_role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer userRoleId;
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;

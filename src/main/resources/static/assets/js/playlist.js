@@ -3,7 +3,7 @@ const background = $$('.background')
 const musicName = $$('.music-name')
 const cdThumb = $$('.music-img')
 const audio = $$('#audio')
-const player = $$('.player')
+const playerContainer = $$('.player-container')
 const timeBar = $$('#progress')
 const playBtn = $$('.toggle-play')
 const nextBtn = $$('.next-btn')
@@ -12,6 +12,14 @@ const shuffleBtn = $$('.fa-shuffle')
 const repeatBtn = $$('.fa-rotate-right')
 const playlist = $$('.music-list')
 
+//Quay CD
+const cdThumbAnimation = cdThumb.animate([
+    { transform: "rotate(360deg)" },
+], {
+    duration: 10000,
+    iterations: Infinity
+})
+cdThumbAnimation.pause()
 const app = {
     currentIndex: 0,
     isPlaying: false,
@@ -21,32 +29,32 @@ const app = {
         {
             name: 'Be Alright (Official Video)',
             singer: 'Dean Lewis',
-            path: '/songs/song2.mp3',
-            img: '/img/songs/2.jpg'
+            path: '/assets/songs/song2.mp3',
+            img: '/assets/img/songs/2.jpg'
         },
         {
             name: 'Cupid',
             singer: 'FIFTY',
-            path: '/songs/song1.mp3',
-            img: '/img/songs/1.jpg'
+            path: '/assets/songs/song1.mp3',
+            img: '/assets/img/songs/1.jpg'
         },
         {
             name: 'Dự báo thời tiết hôm nay mưa',
             singer: 'GREY D',
-            path: '/songs/song3.mp3',
-            img: '/img/songs/3.jpg'
+            path: '/assets/songs/song3.mp3',
+            img: '/assets/img/songs/3.jpg'
         },
         {
             name: 'Blue Tequila (Official Video)',
             singer: 'Táo',
-            path: '/songs/song4.mp3',
-            img: '/img/songs/4.jpg'
+            path: '/assets/songs/song4.mp3',
+            img: '/assets/img/songs/4.jpg'
         },
         {
             name: 'Tại vì em',
             singer: 'buitruonglinh',
-            path: '/songs/song5.mp3',
-            img: '/img/songs/5.jpg'
+            path: '/assets/songs/song5.mp3',
+            img: '/assets/img/songs/5.jpg'
         },
 
     ],
@@ -76,28 +84,11 @@ const app = {
 
     handleEvents: function () {
         const cd = $$('.cd')
-        const cdWidth = cd.offsetWidth
-        window.onscroll = function () {
-            console.log(window.scrollY);
-            const scrollY = window.scrollY
-            const newCdWidth = cdWidth - scrollY
-            cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0
-        }
 
         // Play/pause
         playBtn.onclick = function () {
             app.playSong()
         }
-
-        //Quay CD
-        const cdThumbAnimation = cdThumb.animate([
-            {transform: "rotate(360deg)"},
-        ], {
-            duration: 10000,
-            iterations: Infinity
-        })
-        cdThumbAnimation.pause()
-
 
         // Tiến độ nhạc
         audio.ontimeupdate = function () {
@@ -174,12 +165,12 @@ const app = {
         }
 
         audio.onplay = function () {
-            player.classList.add('playing')
+            playerContainer.classList.add('playing')
             app.isPlaying = true
             cdThumbAnimation.play()
         }
         audio.onpause = function () {
-            player.classList.remove('playing')
+            playerContainer.classList.remove('playing')
             app.isPlaying = false
             cdThumbAnimation.pause()
         }

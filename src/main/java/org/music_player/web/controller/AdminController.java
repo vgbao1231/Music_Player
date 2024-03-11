@@ -9,6 +9,6 @@ public class AdminController {
 
     @RequestMapping()
     public String adminHomePage() {
-        return "admin/index";
+        return "admin/song";
     }
 }

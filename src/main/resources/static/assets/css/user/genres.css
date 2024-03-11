@@ -1,0 +1,40 @@
+.genres-container{
+    color: white;
+    padding: 2vh;
+    margin: 2vh;
+    height: 88vh;
+    transition: margin-left 0.5s ease;
+    overflow-y: scroll;
+}
+.genres-container::-webkit-scrollbar{
+    opacity: 1;
+}
+.genres-section{
+    padding: 4px;
+}
+.genres-section-name{
+    font-size: 20px;
+    margin: 10px;
+}
+.genres-section-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.genres-section-item{
+    width: 23%;
+    margin: 10px;
+}
+.genres-img{
+    display: flex;
+    width: 100%;
+    height: 22vh;
+    border-radius: 10px;
+    align-items: end;
+
+}
+.genres-name{
+    font-weight: bolder;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 20px;
+}
