@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
 </head>
-<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/user/base.css">
 <link rel="stylesheet" href="/assets/css/user/home.css">
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <body>
-<div th:replace="~{fragments/headerUser :: header}"></div>
-<div th:replace="~{fragments/sidebarUser :: sidebar}"></div>
+<div th:replace="~{user/fragments/header :: header}"></div>
+<div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
 <div class="background"
      style="background: url('/assets/img/backgrounds/home.png') center center / cover no-repeat;"></div>
 <div class="content">
@@ -209,5 +209,5 @@
     </div>
 </div>
 </body>
-<script th:replace="~{fragments/sidebarUser :: script}"></script>
+<script th:replace="~{user/fragments/sidebar :: script}"></script>
 </html>

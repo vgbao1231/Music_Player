@@ -10,7 +10,7 @@ const nextBtn = $$('.next-btn')
 const prevBtn = $$('.prev-btn')
 const shuffleBtn = $$('.fa-shuffle')
 const repeatBtn = $$('.fa-rotate-right')
-const playlist = $$('.music-list')
+const user = $$('.music-list')
 
 //Quay CD
 const cdThumbAnimation = cdThumb.animate([
@@ -79,7 +79,7 @@ const app = {
                 </div>
                 `
         })
-        playlist.innerHTML = htmls.join('')
+        user.innerHTML = htmls.join('')
     },
 
     handleEvents: function () {
@@ -140,7 +140,7 @@ const app = {
         }
 
         //Chọn bài hát
-        playlist.onclick = function (e) {
+        user.onclick = function (e) {
             const songNode = e.target.closest('.song')
             app.currentIndex = songNode.dataset.index
             app.loadCurrentSong()

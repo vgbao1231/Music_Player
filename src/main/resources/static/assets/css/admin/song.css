@@ -1,45 +1,109 @@
-.song-list{
-    margin: 20px;
-}
-.song-list__tool{
-    width: 50%;
+.song-list__tool {
+    margin: 10px 40px;
     font-size: 24px;
     justify-content: space-between;
+    white-space: nowrap;
 }
-.tool{
-    padding: 4px 8px;
-    border: 4px solid var(--lightblue-background);
+
+.song-list__tool > div {
+    background-color: var(--lightblue-background);
+    border-radius: 30px;
+}
+
+.tool {
+    height: 50px;
+    margin: 4px;
+    background-color: white;
     border-radius: 30px;
     cursor: pointer;
 }
 
-.song-list__table{
-    width: 100%;
+.tool {
+    position: relative;
 }
+
+.tool select {
+    appearance: none;
+    width: 11vw;
+    height: 100%;
+    border-radius: 30px;
+    font-size: 22px;
+    padding: 0 10px;
+}
+
+.tool i {
+    position: absolute;
+    right: 4px;
+    pointer-events: none;
+}
+
+#search-tool input {
+    height: 100%;
+    width: 8vw;
+    margin: 0 10px;
+    font-size: 22px;
+}
+
+#search-tool input::placeholder {
+    font-size: 22px;
+}
+
+.table-wrapper{
+    height: 66vh;
+    position: relative;
+    overflow-y: scroll;
+}
+.table-wrapper::-webkit-scrollbar{
+    width: 8px;
+}
+.table-wrapper::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.song-list__table {
+    width: 100%;
+    padding: 0 10px;
+}
+.song-list__table tr:first-child {
+    position: sticky;
+    z-index: 1;
+    top: -1px;
+    background-color: white;
+}
+
 .song-list__table th {
     font-size: 22px;
     height: 5vh;
 }
+
 .song-list__table td {
-    font-size: 20px;
+    font-size: 22px;
+    height: 72px;
     text-align: center;
+    padding: 4px;
 }
+
 .song-list__table tr:nth-child(even) {
-    background-color: var(--lightgrey-background);
+    background-color: var(--lightblue-background);
 }
-.update-btn,.delete-btn{
+
+.update-btn,
+.delete-btn {
     border: 2px solid black;
     border-radius: 16px;
-    font-size: 20px;
+    font-size: 22px;
     padding: 2px 4px;
 }
-.img-container{
+
+.img-container {
     width: 70px;
-    height: 50px;
+    height: 56px;
     overflow: hidden;
-    margin: 10px auto;
+    margin: 4px auto;
 }
-.img-container img{
+
+.img-container img {
     height: 100%;
     width: 100%;
     transform: scale(1.4);

@@ -1,4 +1,4 @@
-package org.music_player.web.model;
+package org.music_player.web.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,20 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "song_album")
+@Table(name = "song_playlist")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class SongAlbums {
+public class SongPlaylists {
     @Id
-    @Column(name = "song_album_id")
+    @Column(name = "song_playlist_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer songAlbumId;
+    private Integer songPlaylistId;
     @ManyToOne
     @JoinColumn(name = "song_id",referencedColumnName = "song_id")
     private Song song;
     @ManyToOne
-    @JoinColumn(name = "album_id",referencedColumnName = "album_id")
-    private Album album;
+    @JoinColumn(name = "playlist_id",referencedColumnName = "playlist_id")
+    private Playlist playlistId;
 }

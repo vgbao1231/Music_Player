@@ -1,8 +1,8 @@
 package org.music_player.web.service;
 
-import org.music_player.web.model.CustomUserDetails;
-import org.music_player.web.model.User;
-import org.music_player.web.model.UserRole;
+import org.music_player.web.entity.CustomUserDetails;
+import org.music_player.web.entity.User;
+import org.music_player.web.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

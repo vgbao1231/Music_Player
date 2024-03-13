@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
 </head>
-<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/admin/base.css">
 <link rel="stylesheet" href="/assets/css/admin/song.css">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
@@ -14,137 +13,306 @@
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
 <body>
-<div th:replace="~{fragments/headerAdmin :: header}" class="header"></div>
-<div th:replace="~{fragments/sidebarAdmin :: sidebar}" class="sidebar"></div>
-<div class="background" style="background-color: rgba(0,0,0,0.1);"></div>
-<div class="content">
-    <div class="song-list table-frame">
+<div th:replace="~{admin/fragments/header :: header}"></div>
+<div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
+<div class="main-content">
+    <div class="song-list table-frame m-20">
         <div class="table-frame__name">DANH SÁCH BÀI HÁT</div>
-        <div class="song-list__tool center m-20">
-            <div class="tool center" id="add-tool">
-                <i class="fa-regular fa-circle-plus mr-10" style="color: var(--admin-color);font-size: 34px"></i>
-                Thêm bài hát
+        <div class="song-list__tool center">
+            <div id="add-tool">
+                <div class="tool center p-10">
+                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/add.png" alt="add" />
+                    Thêm phòng
+                </div>
             </div>
-            <div class="tool center" id="filter-tool">
-                <i class="fa-regular fa-filter mr-10" style="color: var(--admin-color);font-size: 32px"></i>
-                Lọc
+            <div id="search-tool" class="center">
+                <form class="tool center p-10" action="" role="search">
+                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/search.png"
+                         alt="search" />
+                    <input type="search" placeholder="Tìm kiếm" name="song" autocomplete="off">
+                </form>
+                <div class="tool select-container center">
+                    <select onchange=getSelectedField()>
+                        <option value="1">Số phòng</option>
+                        <option value="2">Giá phòng</option>
+                        <option value="3">Loại</option>
+                        <option value="4">Sức chứa</option>
+                    </select>
+                    <i class="fa-solid fa-circle-chevron-down"
+                       style="color: var(--lightblue-background);font-size: 44px;"></i>
+                </div>
             </div>
-            <div class="tool center" id="search-tool">
-                <i class="fa-sharp fa-solid fa-magnifying-glass mr-10" style="color: var(--admin-color);font-size: 32px"></i>
-                Tìm kiếm
+            <div id="filter-tool" class="center">
+                <div class="tool center p-10">
+                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/filter.png"
+                         alt="filter" />
+                    Lọc
+                </div>
+                <div class="tool select-container center">
+                    <select>
+                        <option value="1">Tất cả</option>
+                        <option value="2">Trống</option>
+                        <option value="3">Đã thuê</option>
+                    </select>
+                    <i class="fa-solid fa-circle-chevron-down"
+                       style="color: var(--lightblue-background);font-size: 44px;"></i>
+                </div>
             </div>
         </div>
-        <table class="song-list__table p-10">
-            <tr>
-                <th style="width: 10%;">Ảnh</th>
-                <th style="width: 20%;">Tên Bài Hát</th>
-                <th style="width: 15%;">Nghệ Sĩ</th>
-                <th style="width: 15%;">Lượt nghe</th>
-                <th style="width: 15%;">Thể Loại</th>
-                <th style="width: 25%;">THAO TÁC</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="img-container">
-                        <img src="/assets/img/songs/1.jpg" alt="">
-                    </div>
-                </td>
-                <td>101</td>
-                <td>THƯỜNG</td>
-                <td>2.000.000</td>
-                <td>2</td>
-                <td>
-                    <div class="center">
+        <div class="table-wrapper">
+            <table class="song-list__table">
+                <tr>
+                    <th style="width: 10%;">STT</th>
+                    <th style="width: 12%;">SỐ PHÒNG</th>
+                    <th style="width: 15%;">LOẠI PHÒNG</th>
+                    <th style="width: 20%;">GIÁ PHÒNG</th>
+                    <th style="width: 13%;">SỨC CHỨA</th>
+                    <th style="width: 30%;">THAO TÁC</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
                         <div class="update-btn center mr-20">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/pencil.png"
-                                 alt="pencil"/>
-                            Sửa
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
                         </div>
                         <div class="delete-btn center">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/delete-trash.png"
-                                 alt="delete-trash"/>
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
                             Xóa
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="img-container">
-                        <img src="/assets/img/songs/1.jpg" alt="">
-                    </div>
-                </td>
-                <td>Khi Em Lớn</td>
-                <td>THƯỜNG</td>
-                <td>2.000.000</td>
-                <td>2</td>
-                <td>
-                    <div class="center">
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
                         <div class="update-btn center mr-20">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/pencil.png"
-                                 alt="pencil"/>
-                            Sửa
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
                         </div>
                         <div class="delete-btn center">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/delete-trash.png"
-                                 alt="delete-trash"/>
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
                             Xóa
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="img-container">
-                        <img src="/assets/img/songs/1.jpg" alt="">
-                    </div>
-                </td>
-                <td>101</td>
-                <td>THƯỜNG</td>
-                <td>2.000.000</td>
-                <td>2</td>
-                <td>
-                    <div class="center">
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
                         <div class="update-btn center mr-20">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/pencil.png"
-                                 alt="pencil"/>
-                            Sửa
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
                         </div>
                         <div class="delete-btn center">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/delete-trash.png"
-                                 alt="delete-trash"/>
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
                             Xóa
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="img-container">
-                        <img src="/assets/img/songs/1.jpg" alt="">
-                    </div>
-                </td>
-                <td>101</td>
-                <td>THƯỜNG</td>
-                <td>2.000.000</td>
-                <td>2</td>
-                <td>
-                    <div class="center">
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
                         <div class="update-btn center mr-20">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/pencil.png"
-                                 alt="pencil"/>
-                            Sửa
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
                         </div>
                         <div class="delete-btn center">
-                            <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/delete-trash.png"
-                                 alt="delete-trash"/>
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
                             Xóa
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="img-container">
+                            <img src="/assets/img/songs/1.jpg" alt="">
+                        </div>
+                    </td>
+                    <td>101</td>
+                    <td>THƯỜNG</td>
+                    <td>2.000.000</td>
+                    <td>2</td>
+                    <td class="center">
+                        <div class="update-btn center mr-20">
+                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                 alt="pencil" />
+                            Chỉnh sửa
+                        </div>
+                        <div class="delete-btn center">
+                            <img width="30" height="30"
+                                 src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash" />
+                            Xóa
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 </body>
+<script th:replace="~{admin/fragments/sidebar :: script}"></script>
 </html>

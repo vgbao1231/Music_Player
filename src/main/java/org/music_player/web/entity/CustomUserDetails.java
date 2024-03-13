@@ -1,4 +1,4 @@
-package org.music_player.web.model;
+package org.music_player.web.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

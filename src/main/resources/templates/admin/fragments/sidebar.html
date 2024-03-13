@@ -1,0 +1,35 @@
+<div th:fragment="sidebar" class="sidebar">
+    <div class="sidebar-title">Quản Lý</div>
+    <div class="sidebar-menu">
+        <ul>
+            <li id="song">
+                <a href="/admin/song">
+                    <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/music.png" alt="music"/>
+                    <span>Bài Hát</span>
+                </a>
+            </li>
+            <li id="genres">
+                <a href="#">
+                    <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/music-library.png" alt="music-library"/>
+                    <span>Thể Loại</span>
+                </a>
+            </li>
+            <li id="albums">
+                <a href="#">
+                    <img width="40" height="40" src="https://img.icons8.com/pulsar-color/40/stack-of-photos.png" alt="stack-of-photos"/>
+                    <span>Album</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script th:fragment="script">
+    // Kích hoạt active cho sidebar item
+    const currentPage = window.location.pathname.split('/').pop(); // Xác định trang hiện tại
+    const sidebarItems = document.querySelectorAll(".sidebar-menu li")
+    sidebarItems.forEach(item => {
+        if (item.id === currentPage) {
+            item.classList.add('active');
+        }
+    });
+</script>

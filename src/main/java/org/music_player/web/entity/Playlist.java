@@ -1,4 +1,4 @@
-package org.music_player.web.model;
+package org.music_player.web.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

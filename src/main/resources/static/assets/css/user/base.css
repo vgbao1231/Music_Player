@@ -1,11 +1,9 @@
 /* Base CSS*/
 :root {
-    --admin-color: #479FFF;
-    --lightblue-background: #b8d9ff;
-    --lightgrey-background: #eeeeeeee;
     --black-text: black;
     --white-text: white;
 }
+
 * {
     padding: 0;
     margin: 0;
@@ -14,9 +12,10 @@
     outline: none;
     list-style: none;
     text-decoration: none;
-    font-family: Inter,sans-serif;
+    font-family: Inter, sans-serif;
 }
-.center{
+
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,35 +29,43 @@
     padding: 20px;
 }
 
-.m-20{
+.m-20 {
     margin: 20px;
 }
+
 .ml-10 {
     margin-left: 10px;
 }
+
 .mr-10 {
     margin-right: 10px;
 }
+
 .mr-20 {
     margin-right: 20px;
 }
-.m-10{
+
+.m-10 {
     margin: 10px;
 }
+
 /*Hover*/
 .sidebar-button:hover,
 .user-button:hover {
     opacity: 0.8;
 }
+
 .sidebar-container .sidebar-item:hover,
-.playlist-item:hover{
-    background-color: rgba(255,255,255,0.2);
+.playlist-item:hover,
+.sidebar-item.active{
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 12px;
     padding-bottom: 12px;
     opacity: 0.8;
 }
-/*User Header*/
+
+/*Header*/
 .header {
     position: fixed;
     top: 0;
@@ -68,56 +75,50 @@
     font-size: 22px;
     color: var(--white-text);
 }
-.header-container{
+
+.header-container {
     justify-content: space-between;
     margin: 0 40px;
     height: 100%;
 }
-.menu-button{
+
+.menu-button {
     cursor: pointer;
 }
-.search-bar{
+
+.search-bar {
     width: 60vh;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     padding-left: 2vh;
     margin: 1vh;
 }
-.search-field{
+
+.search-field {
     font-size: 20px;
     width: 52vh;
     background-color: transparent;
     height: 6vh;
     color: var(--white-text);
 }
-.search-button{
+
+.search-button {
     background-color: transparent;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 20px;
 }
 
-/*Nút đăng nhập, đăng ký*/
-.user-button{
+/*Phần tài khoản*/
+.user button {
     background-color: transparent;
-    font-size: 20px;
-    padding: 10px;
-}
-.user-button a{
-    text-decoration: none;
-    color: var(--white-text);
-}
-/*Admin Header*/
-.admin{
-    cursor: default;
-}
-.admin button{
-    background-color: transparent;
-    color: var(--white-text);
     font-size: 22px;
+    padding: 10px;
+    color: var(--white-text);
     cursor: pointer;
 }
+
 /*Sidebar*/
-.sidebar{
+.sidebar {
     position: fixed;
     top: 8vh;
     left: 0;
@@ -128,7 +129,8 @@
     transition: width 0.5s ease;
     overflow: clip;
 }
-.sidebar-item{
+
+.sidebar-item {
     padding: 10px 20px;
     margin: 20px 20px 10px 20px;
     text-align: start;
@@ -136,25 +138,29 @@
     font-size: 22px;
     transition: all 0.4s ease;
 }
-.sidebar-item a{
+
+.sidebar-item a {
     color: var(--white-text);
 }
 
-.playlist-container{
+.playlist-container {
     height: 0;
     margin: 0 20px;
     transition: height 0.4s ease;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.playlist-container::-webkit-scrollbar{
+
+.playlist-container::-webkit-scrollbar {
     width: 4px;
 }
-.playlist-container::-webkit-scrollbar-thumb{
-    background-color: rgba(255,255,255,0.2);
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
 }
-.playlist-item{
+
+.playlist-item {
     color: var(--white-text);
     justify-content: space-between;
     font-size: 22px;
@@ -163,26 +169,15 @@
     white-space: nowrap;
     transition: all 0.4s ease;
 }
-.playlist-name{
+
+.playlist-name {
     overflow: hidden;
     max-width: 24vh;
     text-overflow: ellipsis;
 }
-/*Table Frame*/
-.table-frame {
-    padding: 20px;
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 10px;
-    box-shadow: 2px 2px 20px 10px lightgrey;
-}
 
-.table-frame__name {
-    font-size: 30px;
-    font-weight: bolder;
-}
 /*Main content*/
-.content{
+.content {
     position: fixed;
     top: 8vh;
     left: 18vw;
@@ -190,6 +185,7 @@
     bottom: 0;
     transition: all 0.5s ease;
 }
+
 .background {
     position: fixed;
     top: -20px;
