@@ -7,6 +7,7 @@ import org.music_player.web.entity.Song;
 import org.music_player.web.service.GenreService;
 import org.music_player.web.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class AdminController {
     }
 
     // Quản lý thao tác bên admin
-    @RequestMapping(value = {"/song"})
+    @RequestMapping(value = "/song", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public String adminHomePage(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
         List<GenreDTO> listAllGenre = genreService.listALlGenre();
@@ -51,7 +52,7 @@ public class AdminController {
         songDTO.setTitle(title);
         songDTO.setArtist(artist);
         songDTO.setGenre(genreService.findGenreByGenreId(genre));
-        songDTO.setAudio(audio.getBytes());
+        songDTO.setAudio(songService.encodingFileToString(audio));
         songDTO.setSongImg(songService.encodingFileToString(imageFile));
         Song song = songService.convertSongDTOToEntity(songDTO);
         songService.saveSong(song);

@@ -80,7 +80,11 @@
                         <td>[[${SongDTO.getTitle()}]]</td>
                         <td>[[${SongDTO.getArtist()}]]</td>
                         <td>[[${SongDTO.getGenre().getGenreName()}]]</td>
-                        <td>20/06/1999</td>
+                        <td>
+                            <audio controls>
+                                <source th:src="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3" />
+                            </audio>
+                        </td>
                         <td class="center">
                             <div class="update-btn center mr-20">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
@@ -101,7 +105,7 @@
 </div>
 <div class="modal modal-add">
     <div class="modal-container__add">
-        <form  th:action="@{/admin/addSong}" method="post" th:object="${Product}" enctype="multipart/form-data">
+        <form  th:action="@{/admin/addSong}" method="post" enctype="multipart/form-data">
             <div class="table-frame__name">Thêm bài hát mới</div>
             <div class="song-info m-20">
                 <input type="text" id="title" name="title" placeholder="Tên bài hát:">
@@ -112,7 +116,7 @@
                 </select>
                 <div>
                     <label for="audio">Chọn bài hát</label>
-                    <input type="file" id="audio" name="audio" placeholder="File bài hát:">
+                    <input type="file" id="audio" accept = "audio/mp3" name="audio" placeholder="File bài hát:">
                 </div>
                 <div>
                     <label for="img">Chọn hình ảnh</label>

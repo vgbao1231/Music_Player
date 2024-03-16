@@ -31,7 +31,7 @@ public class Song {
     @Column(name = "song_img", columnDefinition = "BLOB")
     private String songImg;
     @Column(name = "audio", columnDefinition = "MEDIUMBLOB")
-    private byte[] audio;
+    private String audio;
 
     @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
     private Set<SongAlbums> songAlbums;
