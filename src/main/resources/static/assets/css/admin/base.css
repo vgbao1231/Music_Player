@@ -2,7 +2,7 @@
 :root {
     --main-color: #479FFF;
     --lightblue-background: #b8d9ff;
-    --lightgrey-background: #eeeeeeee;
+    --lightgrey-background: rgb(238, 238, 238);
     --black-text: black;
     --white-text: white;
 }
@@ -222,14 +222,10 @@
 
 .sidebar-menu li {
     color: var(--black-text);
-    margin: 20px 10px 40px;
+    margin: 20px 10px 30px;
     font-size: 22px;
     padding-left: 20px;
     transition: all 0.4s ease;
-}
-
-.sidebar-menu li:last-child {
-    margin: 20px 10px;
 }
 
 .sidebar-menu li:hover,
@@ -263,10 +259,10 @@
 
 .table-frame {
     padding: 20px;
-    background-color: white;
     border: 1px solid gray;
     border-radius: 10px;
-    box-shadow: 2px 2px 20px 10px lightgrey;
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.1);
+    background-color: white;
 }
 
 .table-frame__name {

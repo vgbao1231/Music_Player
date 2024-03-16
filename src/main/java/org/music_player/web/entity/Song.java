@@ -21,11 +21,18 @@ public class Song {
     private Integer songId;
     @Column(name = "title")
     private String title;
-    @Column(name = "artist_id")
-    private String artistId;
+    @Column(name = "artist")
+    private String artist;
 
-    @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
-    private Set<SongGenres> songGenres;
+    @ManyToOne
+    @JoinColumn(name = "genre_id",referencedColumnName = "genre_id")
+    private Genre genre;
+
+    @Column(name = "song_img", columnDefinition = "BLOB")
+    private String songImg;
+    @Column(name = "audio", columnDefinition = "MEDIUMBLOB")
+    private byte[] audio;
+
     @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
     private Set<SongAlbums> songAlbums;
     @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)

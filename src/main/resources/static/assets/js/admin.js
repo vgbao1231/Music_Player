@@ -16,3 +16,17 @@ function openLogoutModal() {
         modalLogout.style.display = "none"
     })
 }
+// Bật modal thêm bài hát
+function openAddSongModal() {
+    const modalAdd = document.querySelector(".modal-add")
+    const modalContainer = document.querySelector(".modal-add .modal-container__add")
+    //Bật modal
+    modalAdd.style.display = "flex"
+    // Thoát modal khi nhấn ra ngoài
+    modalContainer.addEventListener("click", (event) => {
+        event.stopPropagation()
+    })
+    modalAdd.addEventListener("click", (event) => {
+        modalAdd.style.display = "none"
+    })
+}

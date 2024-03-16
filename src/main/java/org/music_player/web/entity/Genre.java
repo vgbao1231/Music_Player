@@ -21,7 +21,6 @@ public class Genre {
     private Integer genreId;
     @Column(name = "genre_name")
     private String genreName;
-
-    @OneToMany(mappedBy = "genre",fetch = FetchType.EAGER)
-    private Set<SongGenres> genreSongs;
+    @Column(name = "genre_img")
+    private String genreImg;
 }

@@ -1,3 +1,4 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="">
 <div th:fragment="header" class="header">
     <div class="header__container center">
         <a href="admin/song" class="header__left">
@@ -12,11 +13,11 @@
             <div class="account center">
                 <img class="mr-10" width="30" height="30" src="https://img.icons8.com/pulsar-color/30/reviewer-male.png"
                      alt="reviewer-male"/>
-                <span th:text="${name}"></span>
+                <span sec:authentication="name"></span>
                 <!-- Hiển thị khung tùy chọn tài khoản -->
                 <div class="account-setting">
                     <div class="option-wrapper">
-                        <a href="user/home" class="setting-option center" id="profile">
+                        <a href="../user/home" class="setting-option center" id="profile">
                             <span>Về trang chủ người dùng</span>
                             <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/music.png"
                                  alt="music"/>
@@ -39,9 +40,10 @@
             <div class="modal-btn">
                 <button type="button" class="refuse-btn p-10">Không</button>
                 <form th:action="@{/logout}">
-                    <button type="submit">Đăng xuất</button>
+                    <button class="accept-btn p-10" type="submit">Có</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+</html>

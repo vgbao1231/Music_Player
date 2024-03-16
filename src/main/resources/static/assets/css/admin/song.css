@@ -24,7 +24,7 @@
 
 .tool select {
     appearance: none;
-    width: 11vw;
+    width: 12vw;
     height: 100%;
     border-radius: 30px;
     font-size: 22px;
@@ -49,7 +49,7 @@
 }
 
 .table-wrapper{
-    height: 66vh;
+    height: 65vh;
     position: relative;
     overflow-y: scroll;
 }
@@ -108,4 +108,31 @@
     width: 100%;
     transform: scale(1.4);
     object-fit: cover;
+}
+
+/*Modal thêm bài hát*/
+.modal-container__add{
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.1);
+    width: 30vw;
+    background-color: var(--lightgrey-background);
+}
+
+.song-info input:not([type="file"]),.song-info select{
+    padding: 0 16px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 16px;
+    height: 48px;
+    width: 100%;
+}
+.song-info input[type="file"]{
+    font-size: 16px;
+}
+input + input,input + select,.song-info div {
+    margin-top: 20px;
+    font-size: 18px;
 }
