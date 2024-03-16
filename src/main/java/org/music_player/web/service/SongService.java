@@ -54,6 +54,9 @@ public class SongService {
         }
         return base64;
     }
+    public Song getSongById(int id){
+        return songRepository.getReferenceById(id);
+    }
     public void saveSong(Song song){
         songRepository.save(song);
     }

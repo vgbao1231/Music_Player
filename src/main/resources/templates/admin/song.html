@@ -53,7 +53,8 @@
                 <div class="tool select-container center">
                     <select>
                         <option>Thể Loại</option>
-                        <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}" th:text="${GenreDTO.getGenreName()}"></option>
+                        <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
+                                th:text="${GenreDTO.getGenreName()}"></option>
                     </select>
                     <i class="fa-solid fa-circle-chevron-down"
                        style="color: var(--lightblue-background);font-size: 44px;"></i>
@@ -64,11 +65,11 @@
             <table class="song-list__table">
                 <tr>
                     <th style="width: 10%;">Ảnh</th>
-                    <th style="width: 12%;">Tên Bài Hát</th>
+                    <th style="width: 20%;">Tên Bài Hát</th>
                     <th style="width: 15%;">Nghệ Sĩ</th>
-                    <th style="width: 20%;">Thể Loại</th>
-                    <th style="width: 13%;">Ngày Thêm</th>
-                    <th style="width: 30%;">Thao Tác</th>
+                    <th style="width: 15%;">Thể Loại</th>
+                    <th style="width: 15%;">Ngày Thêm</th>
+                    <th style="width: 25%;">Thao Tác</th>
                 </tr>
                 <th:block th:each="SongDTO : ${listAllSong}">
                     <tr>
@@ -81,21 +82,26 @@
                         <td>[[${SongDTO.getArtist()}]]</td>
                         <td>[[${SongDTO.getGenre().getGenreName()}]]</td>
                         <td>
-                            <audio controls>
-                                <source th:src="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3" />
+                            <audio>
+                                <source th:src="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3"/>
                             </audio>
                         </td>
                         <td class="center">
-                            <div class="update-btn center mr-20">
+                            <button class="update-btn center mr-20"
+                                    th:data-id="${SongDTO.getSongId()}"
+                                    th:data-img="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}"
+                                    th:data-title="${SongDTO.getTitle()}"
+                                    th:data-artist="${SongDTO.getArtist()}"
+                                    th:data-genre="${SongDTO.getGenre().getGenreId()}">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
                                      alt="pencil"/>
                                 Chỉnh sửa
-                            </div>
-                            <div class="delete-btn center">
+                            </button>
+                            <button class="delete-btn center">
                                 <img width="30" height="30"
                                      src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
                                 Xóa
-                            </div>
+                            </button>
                         </td>
                     </tr>
                 </th:block>
@@ -104,23 +110,24 @@
     </div>
 </div>
 <div class="modal modal-add">
-    <div class="modal-container__add">
-        <form  th:action="@{/admin/addSong}" method="post" enctype="multipart/form-data">
+    <div class="modal-container__info">
+        <form action="/admin/addSong" method="post" enctype="multipart/form-data">
             <div class="table-frame__name">Thêm bài hát mới</div>
             <div class="song-info m-20">
-                <input type="text" id="title" name="title" placeholder="Tên bài hát:">
-                <input type="text" id="artist" name="artist" placeholder="Nghệ sĩ:">
-                <select id="genre" name="genre">
-                    <option>Thể Loại</option>
-                    <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}" th:text="${GenreDTO.getGenreName()}"></option>
+                <input type="text" name="title" placeholder="Tên bài hát:">
+                <input type="text" name="artist" placeholder="Nghệ sĩ:">
+                <select name="genre">
+                    <option value="" selected disabled hidden>Thể Loại</option>
+                    <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
+                            th:text="${GenreDTO.getGenreName()}"></option>
                 </select>
-                <div>
-                    <label for="audio">Chọn bài hát</label>
-                    <input type="file" id="audio" accept = "audio/mp3" name="audio" placeholder="File bài hát:">
+                <div class="wrapper">
+                    <label>Chọn bài hát</label>
+                    <input type="file" accept="audio/mp3" name="audio" placeholder="File bài hát:">
                 </div>
-                <div>
-                    <label for="img">Chọn hình ảnh</label>
-                    <input type="file" id="img" name="img" placeholder="Hình ảnh:">
+                <div class="wrapper">
+                    <label>Chọn hình ảnh</label>
+                    <input type="file" name="img" placeholder="Hình ảnh:">
                 </div>
             </div>
             <div class="modal-btn">
@@ -129,6 +136,37 @@
         </form>
     </div>
 </div>
+<div class="modal modal-update">
+    <div class="modal-container__info">
+        <form action="/admin/updateSong" method="post" enctype="multipart/form-data">
+            <div class="table-frame__name">Chỉnh sửa bài hát</div>
+            <div class="song-info m-20">
+                <input type="text" name="id" hidden="hidden">
+                <input type="text" name="title" placeholder="Tên bài hát:">
+                <input type="text" name="artist" placeholder="Nghệ sĩ:">
+                <select name="genre">
+                    <option value="" selected disabled hidden>Thể Loại</option>
+                    <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
+                            th:text="${GenreDTO.getGenreName()}"></option>
+                </select>
+                <div class="wrapper">
+                    <label>Ảnh hiện tại</label>
+                    <div class="current-img">
+                        <img src="" alt="">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <label>Chọn hình ảnh</label>
+                    <input type="file" name="img" placeholder="Hình ảnh:">
+                </div>
+            </div>
+            <div class="modal-btn">
+                <button class="accept-btn p-10" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="test"></div>
 </body>
 <script th:replace="~{admin/fragments/sidebar :: script}"></script>
 <script src="/assets/js/admin.js"></script>

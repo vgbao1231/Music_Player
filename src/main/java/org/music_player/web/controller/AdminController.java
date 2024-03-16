@@ -1,5 +1,6 @@
 package org.music_player.web.controller;
 
+import jakarta.transaction.Transactional;
 import org.music_player.web.dto.GenreDTO;
 import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.Genre;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Transactional
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
@@ -41,20 +43,39 @@ public class AdminController {
         return "admin/song";
     }
     @PostMapping("addSong")
-    public String addNewSong(
+    public String addSong(
             @RequestParam("title") String title,
             @RequestParam("artist") String artist,
             @RequestParam("genre") Integer genre,
             @RequestParam("audio") MultipartFile audio,
-            @RequestParam("img") MultipartFile imageFile
+            @RequestParam("img") MultipartFile img
     ) throws IOException {
         SongDTO songDTO = new SongDTO();
         songDTO.setTitle(title);
         songDTO.setArtist(artist);
         songDTO.setGenre(genreService.findGenreByGenreId(genre));
         songDTO.setAudio(songService.encodingFileToString(audio));
-        songDTO.setSongImg(songService.encodingFileToString(imageFile));
+        songDTO.setSongImg(songService.encodingFileToString(img));
         Song song = songService.convertSongDTOToEntity(songDTO);
+        songService.saveSong(song);
+        return "redirect:/admin/song";
+    }
+    @PostMapping("updateSong")
+    public String updateSong(
+            @RequestParam("id") Integer id,
+            @RequestParam("title") String title,
+            @RequestParam("artist") String artist,
+            @RequestParam("genre") Integer genre,
+            @RequestParam("img") MultipartFile img
+    ) throws IOException {
+        Song song = songService.getSongById(id);
+        song.setTitle(title);
+        song.setArtist(artist);
+        song.setGenre(genreService.findGenreByGenreId(genre));
+        // Nếu có ảnh mới thì sửa ko thì thôi
+        if(!img.isEmpty()){
+            song.setSongImg(songService.encodingFileToString(img));
+        }
         songService.saveSong(song);
         return "redirect:/admin/song";
     }

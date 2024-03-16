@@ -90,6 +90,7 @@
 
 .update-btn,
 .delete-btn {
+    background-color: transparent;
     border: 2px solid black;
     border-radius: 16px;
     font-size: 22px;
@@ -97,7 +98,7 @@
 }
 
 .img-container {
-    width: 70px;
+    width: 80px;
     height: 56px;
     overflow: hidden;
     margin: 4px auto;
@@ -111,7 +112,7 @@
 }
 
 /*Modal thêm bài hát*/
-.modal-container__add{
+.modal-container__info{
     padding: 20px;
     border: 1px solid gray;
     border-radius: 10px;
@@ -132,7 +133,16 @@
 .song-info input[type="file"]{
     font-size: 16px;
 }
-input + input,input + select,.song-info div {
+input + input,input + select,.song-info .wrapper {
     margin-top: 20px;
     font-size: 18px;
+}
+/*Modal chỉnh sửa*/
+.modal-update .current-img{
+    height: 95px;
+}
+.modal-update .current-img img{
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
 }
