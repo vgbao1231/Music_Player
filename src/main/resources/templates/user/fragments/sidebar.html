@@ -1,35 +1,33 @@
 <div th:fragment="sidebar" class="sidebar">
-    <div class="sidebar-container">
-        <div class="sidebar-item" id="home" data-index=0>
-            <a href="/user/home" class="home-icon">
-                <i class="mr-10 fas fa-home"></i>
-                Trang chủ
-            </a>
+    <div class="sidebar-item" id="home">
+        <a href="/user/home" class="home-icon">
+            <i class="mr-10 fas fa-home"></i>
+            Trang chủ
+        </a>
+    </div>
+    <div class="sidebar-item" id="genres">
+        <a href="/user/genres" class="genres-icon">
+            <i class="mr-10 fas fa-user"></i>
+            Thể loại
+        </a>
+    </div>
+    <div class="sidebar-item" id="playlists">
+        <div class="list-icon">
+            <i class="mr-10 fa-solid fa-list-ul"></i>Danh sách phát
         </div>
-        <div class="sidebar-item" id="genres" data-index=1>
-            <a href="/user/genres" class="genres-icon">
-                <i class="mr-10 fas fa-user"></i>
-                Thể loại
-            </a>
+    </div>
+    <div class="playlist-container">
+        <a href="/user/playlist" class="playlist-item center">
+            <span class="playlist-name">Playlist 1</span>
+            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+        </a>
+        <div class="playlist-item center">
+            <span class="playlist-name">Playlist 2</span>
+            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
         </div>
-        <div class="sidebar-item" id="playlists" data-index=2>
-            <div class="list-icon">
-                <i class="mr-10 fa-solid fa-list-ul"></i>Danh sách phát
-            </div>
-        </div>
-        <div class="playlist-container">
-            <a href="/user/playlist" class="playlist-item center">
-                <span class="playlist-name">Playlist 1</span>
-                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-            </a>
-            <div class="playlist-item center">
-                <span class="playlist-name">Playlist 2</span>
-                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-            </div>
-            <div class="playlist-item center">
-                <span class="playlist-name">Playlist 3</span>
-                <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-            </div>
+        <div class="playlist-item center">
+            <span class="playlist-name">Playlist 3</span>
+            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
         </div>
     </div>
 </div>
@@ -68,5 +66,5 @@
             playlistContainer.style.height = "0"
         }
     })
-    if(currentPage === "playlist") sidebarPlaylist.click()
+    if (currentPage === "playlist") sidebarPlaylist.click()
 </script>

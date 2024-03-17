@@ -60,4 +60,7 @@ public class SongService {
     public void saveSong(Song song){
         songRepository.save(song);
     }
+    public void deleteSong(Integer songId){
+        songRepository.deleteById(songId);
+    }
 }

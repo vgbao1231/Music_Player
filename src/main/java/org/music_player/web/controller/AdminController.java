@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,7 @@ public class AdminController {
 
     // Quản lý thao tác bên admin
     @RequestMapping(value = "/song", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public String adminHomePage(Model model) {
+    public String adminSongPage(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
         List<GenreDTO> listAllGenre = genreService.listALlGenre();
         model.addAttribute("listAllGenre", listAllGenre);
@@ -77,6 +78,11 @@ public class AdminController {
             song.setSongImg(songService.encodingFileToString(img));
         }
         songService.saveSong(song);
+        return "redirect:/admin/song";
+    }
+    @RequestMapping(value = "/song/deleteId={songId}")
+    public String deleteSong(@PathVariable Integer songId){
+        songService.deleteSong(songId);
         return "redirect:/admin/song";
     }
 }

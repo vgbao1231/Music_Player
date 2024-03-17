@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
 </head>
 <link rel="stylesheet" href="/assets/css/user/base.css">
 <link rel="stylesheet" href="/assets/css/user/playlist.css">
-<link rel="stylesheet" href="/assets/img/songs/1.jpg">
+<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <body>
@@ -48,8 +47,8 @@
                     </div>
                 </div>
                 <!-- Time bar -->
-                <input id="progress" class="progress" type="range" value="0"
-                       step="1" min="0" max="100">
+                <label for="progress"></label>
+                <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
                 <div class="current-time">00:00</div>
                 <div class="duration">00:00</div>
                 <!-- Audio -->
@@ -57,7 +56,22 @@
             </div>
 
             <!-- Playlist -->
-            <div class="music-list"></div>
+            <div class="music-list">
+                <div th:each="SongDTO,song : ${listAllSong}" class="song"
+                     th:data-index="${song.index}"
+                     th:data-img="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}"
+                     th:data-audio="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3"
+                     th:data-title="${SongDTO.getTitle()}"
+                     th:data-artist="${SongDTO.getArtist()}">
+                    <div class="thumbnail">
+                        <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
+                    </div>
+                    <div class="song-info">
+                        <h2 th:text="${SongDTO.getTitle()}"></h2>
+                        <h4 th:text="${SongDTO.getArtist()}"></h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

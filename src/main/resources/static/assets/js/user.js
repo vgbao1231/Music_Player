@@ -10,54 +10,34 @@ const nextBtn = $$('.next-btn')
 const prevBtn = $$('.prev-btn')
 const shuffleBtn = $$('.fa-shuffle')
 const repeatBtn = $$('.fa-rotate-right')
-const user = $$('.music-list')
+const musicList = $$('.music-list')
 
 //Quay CD
 const cdThumbAnimation = cdThumb.animate([
-    { transform: "rotate(360deg)" },
+    {transform: "rotate(360deg)"},
 ], {
     duration: 10000,
     iterations: Infinity
 })
 cdThumbAnimation.pause()
+
+const songList = []
+// Lấy ra thông tin từng bài hát rồi thêm vào mảng các bài hát (songList)
+document.querySelectorAll(".song").forEach(song => {
+    const songInfo = {
+        title: song.dataset.title,
+        artist: song.dataset.artist,
+        audio: song.dataset.audio,
+        img: song.dataset.img
+    }
+    songList.push(songInfo)
+})
 const app = {
     currentIndex: 0,
     isPlaying: false,
     isShuffling: false,
     isRepeating: false,
-    songs: [
-        {
-            name: 'Be Alright (Official Video)',
-            singer: 'Dean Lewis',
-            path: '/assets/songs/song2.mp3',
-            img: '/assets/img/songs/2.jpg'
-        },
-        {
-            name: 'Cupid',
-            singer: 'FIFTY',
-            path: '/assets/songs/song1.mp3',
-            img: '/assets/img/songs/1.jpg'
-        },
-        {
-            name: 'Dự báo thời tiết hôm nay mưa',
-            singer: 'GREY D',
-            path: '/assets/songs/song3.mp3',
-            img: '/assets/img/songs/3.jpg'
-        },
-        {
-            name: 'Blue Tequila (Official Video)',
-            singer: 'Táo',
-            path: '/assets/songs/song4.mp3',
-            img: '/assets/img/songs/4.jpg'
-        },
-        {
-            name: 'Tại vì em',
-            singer: 'buitruonglinh',
-            path: '/assets/songs/song5.mp3',
-            img: '/assets/img/songs/5.jpg'
-        },
-
-    ],
+    songs: songList,
 
     defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
@@ -67,23 +47,7 @@ const app = {
         })
     },
 
-    render: function () {
-        const htmls = this.songs.map((song, index) => {
-            return `
-                <div class="song" data-index = "${index}">
-                    <div class="thumbnail" style= "background-image: url(${song.img})"></div>
-                    <div class="song-info">
-                        <h2>${song.name}</h2>
-                        <h4>${song.singer}</h4>
-                    </div>
-                </div>
-                `
-        })
-        user.innerHTML = htmls.join('')
-    },
-
     handleEvents: function () {
-        const cd = $$('.cd')
 
         // Play/pause
         playBtn.onclick = function () {
@@ -105,17 +69,13 @@ const app = {
 
         //Chạy bài hát sau đó
         nextBtn.onclick = function () {
-            if (app.isShuffling) {
-                app.randomSong()
-            } else {
-                app.nextSong()
-            }
+            app.isShuffling ? app.randomSong() : app.nextSong()
             app.playSong()
             audio.play()
         }
         //Chạy bài hát trước đó
         prevBtn.onclick = function () {
-            app.prevSong()
+            app.isShuffling ? app.randomSong() : app.prevSong()
             app.playSong()
             audio.play()
         }
@@ -140,9 +100,8 @@ const app = {
         }
 
         //Chọn bài hát
-        user.onclick = function (e) {
-            const songNode = e.target.closest('.song')
-            app.currentIndex = songNode.dataset.index
+        musicList.onclick = function (e) {
+            app.currentIndex = e.target.closest('.song').dataset.index
             app.loadCurrentSong()
             app.playSong()
             audio.play()
@@ -150,9 +109,10 @@ const app = {
 
     },
     randomSong: function () {
-        const newIndex = Math.floor(Math.random() * app.songs.length);
-        do {
-        } while (app.currentIndex === newIndex)
+        let newIndex = Math.floor(Math.random() * app.songs.length);
+        while (app.currentIndex === newIndex){
+            newIndex = Math.floor(Math.random() * app.songs.length);
+        }
         app.currentIndex = newIndex
         app.loadCurrentSong()
     },
@@ -191,9 +151,9 @@ const app = {
     },
     loadCurrentSong: function () {
         background.style.background = `url('${this.currentSong.img}') no-repeat center/ cover`
-        musicName.innerText = this.currentSong.name
+        musicName.innerText = this.currentSong.title
         cdThumb.style.backgroundImage = `url('${this.currentSong.img}')`
-        audio.src = this.currentSong.path
+        audio.src = this.currentSong.audio
     },
     loadProgress: function () {
         let currentTime = $$('.current-time')
@@ -214,7 +174,6 @@ const app = {
     },
     start: function () {
         this.defineProperties()
-        this.render()
         this.handleEvents()
         this.loadCurrentSong()
     }

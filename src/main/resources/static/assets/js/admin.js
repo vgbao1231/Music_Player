@@ -63,3 +63,17 @@ updateBtns.forEach(updateBtn =>{
         })
     })
 })
+// Search theo field
+function getSelectedField() {
+    const field = document.querySelector("#search-tool select")
+    const input = document.querySelector("#search-tool input")
+    switch (Number(field.value)) {
+        case 1:
+            input.name = "song"
+            break;
+        case 2:
+            input.name = "artist"
+            break;
+        default:
+    }
+}
