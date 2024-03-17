@@ -57,7 +57,7 @@
 
 .sidebar-item:hover,
 .playlist-item:hover,
-.sidebar-item.active{
+.sidebar-item.active {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 12px;
@@ -137,10 +137,16 @@
     white-space: nowrap;
     font-size: 22px;
     transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .sidebar-item a {
     color: var(--white-text);
+}
+
+#add-playlist {
+    position: absolute;
+    bottom: 0;
 }
 
 .playlist-container {
@@ -194,4 +200,60 @@
     right: -20px;
     z-index: -1;
     filter: blur(4px);
+}
+
+/*Modal*/
+.modal {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container__info {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.1);
+    width: 24vw;
+    background-color: #353535;
+}
+.table-frame__name {
+    font-size: 24px;
+    font-weight: bolder;
+    color: white;
+}
+.song-info input{
+    padding: 0 16px;
+    border-radius: 20px;
+    background-color: #ffffff1a;
+    color: white;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+}
+.song-info .wrapper {
+    margin-top: 10px;
+    font-size: 18px;
+}
+.modal-btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-btn button {
+    border-radius: 20px;
+    padding: 6px;
+}
+.accept-btn{
+    background-color: #eeeeee;
+    font-size: 20px;
+    width: 9vw;
+    margin-top: 20px;
+    cursor: pointer;
 }

@@ -33,6 +33,13 @@ public class UserController {
         return "user/genres";
     }
 
+    @RequestMapping("user/addPlaylist")
+    public String addPlaylist() {
+        return "user/genres";
+    }
+
+
+
     @RequestMapping(value = {"/user/playlist"}, method = RequestMethod.GET)
     public String userPlaylistPage(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
