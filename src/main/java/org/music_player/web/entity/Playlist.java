@@ -23,6 +23,6 @@ public class Playlist {
 
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
-    private User userId;
+    private User user;
 
 }

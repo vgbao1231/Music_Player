@@ -13,4 +13,7 @@ public class UserService {
     public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
+    public User findByUserId(Integer userId) {
+        return userRepository.findByUserId(userId);
+    }
 }

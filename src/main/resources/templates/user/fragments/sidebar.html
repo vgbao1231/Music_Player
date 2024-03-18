@@ -17,18 +17,10 @@
         </div>
     </div>
     <div class="playlist-container">
-        <a href="/user/playlist" class="playlist-item center">
-            <span class="playlist-name">Playlist 1</span>
+        <a th:each="PlaylistDTO : ${listAllPlaylist}" href="/user/playlist" class="playlist-item center">
+            <span th:text="${PlaylistDTO.getTitle()}" class="playlist-name"></span>
             <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
         </a>
-        <div class="playlist-item center">
-            <span class="playlist-name">Playlist 2</span>
-            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-        </div>
-        <div class="playlist-item center">
-            <span class="playlist-name">Playlist 3</span>
-            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-        </div>
     </div>
     <div class="sidebar-item" id="add-playlist">
         <div class="add-playlist-icon">

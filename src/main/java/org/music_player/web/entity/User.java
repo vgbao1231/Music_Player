@@ -16,12 +16,10 @@ public class User {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
-    @Column(name = "username")
+    @Column(name = "username",unique = true)
     private String userName;
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
-    private String email;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;
