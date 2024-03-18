@@ -22,5 +22,5 @@ public class Album {
     private String albumName;
 
     @OneToMany(mappedBy = "album",fetch = FetchType.EAGER)
-    private Set<SongAlbums> songAlbums;
+    private Set<SongAlbum> songAlbums;
 }

@@ -14,7 +14,6 @@ const musicList = $$('.music-list')
 
 //Gắn form tạo playlist
 const addPlaylistBtn = $$('#add-playlist')
-console.log("addPlaylistBtn")
 addPlaylistBtn.addEventListener("click", () => {
     const formAddPlaylist = document.createElement("div")
     formAddPlaylist.classList.add("modal", "modal-add-playlist")
@@ -57,8 +56,8 @@ const cdThumbAnimation = cdThumb.animate([
 })
 cdThumbAnimation.pause()
 
-const songList = []
 // Lấy ra thông tin từng bài hát rồi thêm vào mảng các bài hát (songList)
+const songList = []
 document.querySelectorAll(".song").forEach(song => {
     const songInfo = {
         title: song.dataset.title,
@@ -69,7 +68,7 @@ document.querySelectorAll(".song").forEach(song => {
     songList.push(songInfo)
 })
 const app = {
-    currentIndex: 0,
+    currentIndex: musicList.dataset.current_song,
     isPlaying: false,
     isShuffling: false,
     isRepeating: false,

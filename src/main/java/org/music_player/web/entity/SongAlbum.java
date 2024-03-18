@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SongAlbums {
+public class SongAlbum {
     @Id
     @Column(name = "song_album_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

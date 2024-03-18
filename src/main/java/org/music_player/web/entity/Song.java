@@ -34,8 +34,8 @@ public class Song {
     private String audio;
 
     @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
-    private Set<SongAlbums> songAlbums;
+    private Set<SongAlbum> songAlbum;
     @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
-    private Set<SongPlaylists> songPlaylists;
+    private Set<SongPlaylist> songPlaylist;
 
 }

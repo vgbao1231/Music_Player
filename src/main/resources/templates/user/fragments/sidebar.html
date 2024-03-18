@@ -17,7 +17,8 @@
         </div>
     </div>
     <div class="playlist-container">
-        <a th:each="PlaylistDTO : ${listAllPlaylist}" href="/user/playlist" class="playlist-item center">
+        <a th:each="PlaylistDTO : ${listAllPlaylist}"
+           th:href="'/user/playlist/' + ${PlaylistDTO.getTitle()}" class="playlist-item center">
             <span th:text="${PlaylistDTO.getTitle()}" class="playlist-name"></span>
             <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
         </a>

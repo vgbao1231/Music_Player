@@ -1,11 +1,9 @@
 package org.music_player.web.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.music_player.web.dto.PlaylistDTO;
 import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.CustomUserDetails;
 import org.music_player.web.entity.Playlist;
-import org.music_player.web.entity.User;
 import org.music_player.web.service.PlaylistService;
 import org.music_player.web.service.SongService;
 import org.music_player.web.service.UserService;
@@ -27,9 +25,19 @@ public class UserController {
     @Autowired
     private PlaylistService playlistService;
 
+    @ModelAttribute("userId")
+    public Integer getUserId(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof CustomUserDetails customUserDetails) {
+                return customUserDetails.getUser().getUserId();
+            }
+        }
+        return null;
+    }
     @ModelAttribute("listAllPlaylist")
-    public List<PlaylistDTO> listAllPlaylist(HttpServletRequest request){
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
+    public List<PlaylistDTO> listAllPlaylist(@ModelAttribute("userId") Integer userId){
         return playlistService.listALlPlaylist(userId);
     }
     @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
@@ -38,20 +46,19 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/user", "/user/home"}, method = RequestMethod.GET)
-    public String userHomePage(Model model) {
+    public String userHome(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
         model.addAttribute("listAllSong", listAllSong);
         return "user/home";
     }
 
     @RequestMapping("user/genres")
-    public String userGenresPage() {
+    public String userGenres() {
         return "user/genres";
     }
 
     @PostMapping("user/addPlaylist")
-    public String addPlaylist(@RequestParam("title") String title, HttpServletRequest request) {
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
+    public String addPlaylist(@RequestParam("title") String title, @ModelAttribute("userId") Integer userId) {
         PlaylistDTO playlistDTO = new PlaylistDTO();
         playlistDTO.setTitle(title);
         playlistDTO.setUser(userService.findByUserId(userId));
@@ -60,11 +67,17 @@ public class UserController {
         return "redirect:/user/home";
     }
 
-
-    @RequestMapping(value = {"/user/playlist"}, method = RequestMethod.GET)
-    public String userPlaylistPage(Model model) {
+    @RequestMapping("/user/playlist/{playlist}")
+    public String userPlaylist(Model model, @PathVariable String playlist) {
+        List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlist);
+        model.addAttribute("listAllSong", listAllSongByPlaylist);
+        return "user/playlist";
+    }
+    @RequestMapping("/user/playlist/songIndex={songIndex}")
+    public String userAllSong(Model model, @PathVariable Integer songIndex) {
         List<SongDTO> listAllSong = songService.listALlSong();
         model.addAttribute("listAllSong", listAllSong);
+        model.addAttribute("currentSong", songIndex);
         return "user/playlist";
     }
 }

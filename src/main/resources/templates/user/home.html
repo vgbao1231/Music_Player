@@ -54,7 +54,7 @@
                     <!-- biến song để lấy ra index và lệnh if để chỉ show ra 12 bài đầu-->
                     <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index < 12}"
                          class="list-song-item center">
-                        <div class="song-item center">
+                        <a th:href="'/user/playlist/songIndex='+${song.index}" class="song-item center">
                             <div class="song-img">
                                 <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
                             </div>
@@ -62,22 +62,7 @@
                                 <h5 th:text="${SongDTO.getTitle()}"></h5>
                                 <h6 th:text="${SongDTO.getArtist()}"></h6>
                             </div>
-                        </div>
-                        <div class="song-item-option p-10 mr-10">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </div>
-                    </div>
-                    <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index < 12}"
-                         class="list-song-item center">
-                        <div class="song-item center">
-                            <div class="song-img">
-                                <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
-                            </div>
-                            <div class="song-info">
-                                <h5 th:text="${SongDTO.getTitle()}"></h5>
-                                <h6 th:text="${SongDTO.getArtist()}"></h6>
-                            </div>
-                        </div>
+                        </a>
                         <div class="song-item-option p-10 mr-10">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </div>

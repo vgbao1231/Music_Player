@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SongPlaylists {
+public class SongPlaylist {
     @Id
     @Column(name = "song_playlist_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,5 @@ public class SongPlaylists {
     private Song song;
     @ManyToOne
     @JoinColumn(name = "playlist_id",referencedColumnName = "playlist_id")
-    private Playlist playlistId;
+    private Playlist playlist;
 }

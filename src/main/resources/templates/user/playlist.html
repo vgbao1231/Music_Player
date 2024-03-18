@@ -56,7 +56,7 @@
             </div>
 
             <!-- Playlist -->
-            <div class="music-list">
+            <div class="music-list" th:data-current_song="${currentSong}">
                 <div th:each="SongDTO,song : ${listAllSong}" class="song"
                      th:data-index="${song.index}"
                      th:data-img="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}"

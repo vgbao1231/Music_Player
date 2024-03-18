@@ -33,6 +33,9 @@ public class PlaylistService {
         }
         return listAllPlaylist;
     }
+    public Playlist findPlaylistIdByTitle(String title){
+        return playlistRepository.findByTitle(title);
+    }
     public void savePlaylist(Playlist playlist){
         playlistRepository.save(playlist);
     }

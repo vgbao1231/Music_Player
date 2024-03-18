@@ -1,7 +1,11 @@
 package org.music_player.web.service;
 
 import org.music_player.web.dto.SongDTO;
+import org.music_player.web.dto.SongPlaylistDTO;
+import org.music_player.web.entity.Playlist;
 import org.music_player.web.entity.Song;
+import org.music_player.web.repository.PlaylistRepository;
+import org.music_player.web.repository.SongPlaylistRepository;
 import org.music_player.web.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,10 @@ import java.util.List;
 public class SongService {
     @Autowired
     private SongRepository songRepository;
+    @Autowired
+    private SongPlaylistRepository songPlaylistRepository;
+    @Autowired
+    private PlaylistRepository playlistRepository;
     public SongDTO convertSongEntityToDTO(Song song){
         SongDTO songDTO = new SongDTO();
 
@@ -53,6 +61,14 @@ public class SongService {
             e.printStackTrace();
         }
         return base64;
+    }
+    public List<SongDTO> listAllSongByPlaylist(String playlistTitle){
+        List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
+        Playlist playlist = playlistRepository.findByTitle(playlistTitle);
+        for(Song song : songPlaylistRepository.listAllSongByPlaylist(playlist.getPlaylistId())){
+            listAllSongByPlaylist.add(convertSongEntityToDTO(song));
+        }
+        return listAllSongByPlaylist;
     }
     public Song getSongById(int id){
         return songRepository.getReferenceById(id);
