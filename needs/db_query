@@ -12,5 +12,3 @@ INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'EDM',
 
 INSERT INTO `song` (`song_id`, `artist`, `audio`, `genre_id`, `song_img`, `title`) VALUES (NULL, 'Gura', NULL, '1', NULL, 'Reflect');
 INSERT INTO `song` (`song_id`, `artist`, `audio`, `genre_id`, `song_img`, `title`) VALUES (NULL, 'Gura', NULL, '1', NULL, 'Promise of the world');
-
-GURAAAAAAAAAAA
