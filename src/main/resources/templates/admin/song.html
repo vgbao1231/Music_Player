@@ -79,9 +79,9 @@
                                 <img th:src="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}" alt="">
                             </div>
                         </td>
-                        <td>[[${SongDTO.getTitle()}]]</td>
-                        <td>[[${SongDTO.getArtist()}]]</td>
-                        <td>[[${SongDTO.getGenre().getGenreName()}]]</td>
+                        <td th:text="${SongDTO.getTitle()}"></td>
+                        <td th:text="${SongDTO.getArtist()}"></td>
+                        <td th:text="${SongDTO.getGenre().getGenreName()}"></td>
                         <td>
                             <audio>
                                 <source th:src="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3"/>

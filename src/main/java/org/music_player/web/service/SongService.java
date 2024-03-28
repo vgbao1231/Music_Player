@@ -62,9 +62,9 @@ public class SongService {
         }
         return base64;
     }
-    public List<SongDTO> listAllSongByPlaylist(String playlistTitle){
+    public List<SongDTO> listAllSongByPlaylist(Integer playlistId){
         List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
-        Playlist playlist = playlistRepository.findByTitle(playlistTitle);
+        Playlist playlist = playlistRepository.findByPlaylistId(playlistId);
         for(Song song : songPlaylistRepository.listAllSongByPlaylist(playlist.getPlaylistId())){
             listAllSongByPlaylist.add(convertSongEntityToDTO(song));
         }

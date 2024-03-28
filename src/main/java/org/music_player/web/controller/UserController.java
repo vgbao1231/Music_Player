@@ -40,11 +40,6 @@ public class UserController {
     public List<PlaylistDTO> listAllPlaylist(@ModelAttribute("userId") Integer userId){
         return playlistService.listALlPlaylist(userId);
     }
-    @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
-    public String getLoginView() {
-        return "login";
-    }
-
     @RequestMapping(value = {"/user", "/user/home"}, method = RequestMethod.GET)
     public String userHome(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
@@ -67,9 +62,9 @@ public class UserController {
         return "redirect:/user/home";
     }
 
-    @RequestMapping("/user/playlist/{playlist}")
-    public String userPlaylist(Model model, @PathVariable String playlist) {
-        List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlist);
+    @RequestMapping("/user/playlist/{playlistId}")
+    public String userPlaylist(Model model, @PathVariable Integer playlistId) {
+        List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlistId);
         model.addAttribute("listAllSong", listAllSongByPlaylist);
         return "user/playlist";
     }

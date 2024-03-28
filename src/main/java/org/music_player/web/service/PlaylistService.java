@@ -16,12 +16,14 @@ public class PlaylistService {
     private PlaylistRepository playlistRepository;
     public PlaylistDTO convertPlaylistEntityToDTO(Playlist playlist){
         PlaylistDTO playlistDTO = new PlaylistDTO();
+        playlistDTO.setPlaylistId(playlist.getPlaylistId());
         playlistDTO.setTitle(playlist.getTitle());
         playlistDTO.setUser(playlist.getUser());
         return playlistDTO;
     }
     public Playlist convertPlaylistDTOToEntity(PlaylistDTO playlistDTO){
         Playlist playlist = new Playlist();
+        playlist.setPlaylistId(playlistDTO.getPlaylistId());
         playlist.setTitle(playlistDTO.getTitle());
         playlist.setUser(playlistDTO.getUser());
         return playlist;
@@ -32,9 +34,6 @@ public class PlaylistService {
             listAllPlaylist.add(convertPlaylistEntityToDTO(playlist));
         }
         return listAllPlaylist;
-    }
-    public Playlist findPlaylistIdByTitle(String title){
-        return playlistRepository.findByTitle(title);
     }
     public void savePlaylist(Playlist playlist){
         playlistRepository.save(playlist);

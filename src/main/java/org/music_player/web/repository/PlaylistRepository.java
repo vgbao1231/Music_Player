@@ -10,5 +10,5 @@ import java.util.List;
 public interface PlaylistRepository extends JpaRepository<Playlist,Integer> {
     @Query(value = "select * from playlist where playlist.user_id = ?1", nativeQuery = true)
     List<Playlist> findAllByUserId(Integer userId);
-    Playlist findByTitle(String title);
+    Playlist findByPlaylistId(Integer playlistId);
 }
