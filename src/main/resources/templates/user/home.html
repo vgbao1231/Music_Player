@@ -9,7 +9,15 @@
 <link rel="stylesheet" href="/assets/user/css/base.css">
 <link rel="stylesheet" href="/assets/user/css/home.css">
 <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+<link rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+<link rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+<link rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+<link rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
 <body>
 <div th:replace="~{user/fragments/header :: header}"></div>
 <div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
@@ -63,16 +71,31 @@
                                 <h6 th:text="${SongDTO.getArtist()}"></h6>
                             </div>
                         </a>
-                        <div class="song-item-option p-10 mr-10">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <div class="song-item-option p-10 mr-10" th:data-id="${SongDTO.getSongId()}">
+                            <i class="fa-solid fa-plus"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal modal-select-playlist">
+        <div class="modal-container__info">
+            <form action="/user/addSongToPlaylist" method="post">
+                <label>
+                    <input type="text" name="songId" hidden>
+                </label>
+                <div class="table-frame__name center m-10">Chọn playlist:</div>
+                <button class="playlist" th:each="PlaylistDTO : ${listAllPlaylist}"
+                        name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
+                    <i class="fa-solid fa-list-music mr-10"></i>
+                    <span th:text="${PlaylistDTO.getTitle()}"></span>
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
-<script th:replace="~{user/fragments/sidebar :: script}"></script>
-<script src="/assets/user/js/user.js"></script>
+<script src="/assets/user/js/base.js"></script>
+<script src="/assets/user/js/home.js"></script>
 </html>

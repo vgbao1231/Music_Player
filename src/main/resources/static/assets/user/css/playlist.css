@@ -11,11 +11,10 @@
     padding: 20px 40px;
     border-radius: 16px;
     box-shadow: 4px 4px 10px #0000009f;
-    max-height: 82vh;
+    height: 82vh;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .container::-webkit-scrollbar {

@@ -11,4 +11,6 @@ public interface SongRepository extends JpaRepository<Song,Integer> {
     //@Query(value = "select * from User u where u.email_address = ?1", nativeQuery = true)
     @Query(value = "select * from song", nativeQuery = true)
     List<Song> findAllSong();
+    @Query(value = "select * from song s where s.song_id = ?1", nativeQuery = true)
+    Song findAllSongByPlaylist(Integer songId);
 }

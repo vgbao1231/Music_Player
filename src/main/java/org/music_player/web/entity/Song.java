@@ -28,7 +28,7 @@ public class Song {
     @JoinColumn(name = "genre_id",referencedColumnName = "genre_id")
     private Genre genre;
 
-    @Column(name = "song_img", columnDefinition = "BLOB")
+    @Column(name = "song_img", columnDefinition = "MEDIUMBLOB")
     private String songImg;
     @Column(name = "audio", columnDefinition = "MEDIUMBLOB")
     private String audio;

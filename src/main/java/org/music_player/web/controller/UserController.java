@@ -61,11 +61,21 @@ public class UserController {
         playlistService.savePlaylist(playlist);
         return "redirect:/user/home";
     }
+    @PostMapping("user/addSongToPlaylist")
+    public String addSongToPlaylist(@RequestParam("songId") Integer songId,
+                                    @RequestParam("playlistId") Integer playlistId,
+                                    @ModelAttribute("userId") Integer userId) {
+        System.out.println(songId);
+        System.out.println(playlistId);
+        songService.addSongToPlaylist(songId,playlistId);
+        return "redirect:/user/home";
+    }
 
     @RequestMapping("/user/playlist/{playlistId}")
     public String userPlaylist(Model model, @PathVariable Integer playlistId) {
         List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlistId);
         model.addAttribute("listAllSong", listAllSongByPlaylist);
+        model.addAttribute("currentSong", 0);
         return "user/playlist";
     }
     @RequestMapping("/user/playlist/songIndex={songIndex}")

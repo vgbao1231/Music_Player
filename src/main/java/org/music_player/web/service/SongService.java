@@ -4,6 +4,7 @@ import org.music_player.web.dto.SongDTO;
 import org.music_player.web.dto.SongPlaylistDTO;
 import org.music_player.web.entity.Playlist;
 import org.music_player.web.entity.Song;
+import org.music_player.web.entity.SongPlaylist;
 import org.music_player.web.repository.PlaylistRepository;
 import org.music_player.web.repository.SongPlaylistRepository;
 import org.music_player.web.repository.SongRepository;
@@ -24,9 +25,9 @@ public class SongService {
     private SongPlaylistRepository songPlaylistRepository;
     @Autowired
     private PlaylistRepository playlistRepository;
-    public SongDTO convertSongEntityToDTO(Song song){
-        SongDTO songDTO = new SongDTO();
 
+    public SongDTO convertSongEntityToDTO(Song song) {
+        SongDTO songDTO = new SongDTO();
         songDTO.setSongId(song.getSongId());
         songDTO.setTitle(song.getTitle());
         songDTO.setGenre(song.getGenre());
@@ -35,9 +36,9 @@ public class SongService {
         songDTO.setSongImg(song.getSongImg());
         return songDTO;
     }
-    public Song convertSongDTOToEntity(SongDTO songDTO){
+
+    public Song convertSongDTOToEntity(SongDTO songDTO) {
         Song song = new Song();
-        song.setSongId(songDTO.getSongId());
         song.setTitle(songDTO.getTitle());
         song.setGenre(songDTO.getGenre());
         song.setArtist(songDTO.getArtist());
@@ -45,38 +46,52 @@ public class SongService {
         song.setSongImg(songDTO.getSongImg());
         return song;
     }
-    public List<SongDTO> listALlSong(){
+
+    public String encodingFileToString(MultipartFile multipartFile) {
+        String base64 = null;
+        try {
+            base64 = Base64.getEncoder().encodeToString(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return base64;
+    }
+
+    public List<SongDTO> listALlSong() {
         List<SongDTO> listAllSong = new ArrayList<>();
-        for(Song song : songRepository.findAllSong()){
+        for (Song song : songRepository.findAllSong()) {
             listAllSong.add(convertSongEntityToDTO(song));
         }
         return listAllSong;
     }
 
-    public String encodingFileToString(MultipartFile multipartFile){
-        String base64 = null;
-        try {
-            base64 = Base64.getEncoder().encodeToString(multipartFile.getBytes());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return base64;
-    }
-    public List<SongDTO> listAllSongByPlaylist(Integer playlistId){
+    public List<SongDTO> listAllSongByPlaylist(Integer playlistId) {
         List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
-        Playlist playlist = playlistRepository.findByPlaylistId(playlistId);
-        for(Song song : songPlaylistRepository.listAllSongByPlaylist(playlist.getPlaylistId())){
-            listAllSongByPlaylist.add(convertSongEntityToDTO(song));
+        for (SongPlaylist songPlaylist : songPlaylistRepository.listAllSongByPlaylist(playlistId)) {
+
+            listAllSongByPlaylist.add(convertSongEntityToDTO
+                    (songRepository.findAllSongByPlaylist(songPlaylist.getSong().getSongId())));
         }
         return listAllSongByPlaylist;
     }
-    public Song getSongById(int id){
-        return songRepository.getReferenceById(id);
+
+    public void addSongToPlaylist(Integer songId, Integer playlistId) {
+        SongPlaylist songPlaylist = new SongPlaylist();
+        songPlaylist.setSong(getSongById(songId));
+        songPlaylist.setPlaylist(playlistRepository.findByPlaylistId(playlistId));
+        songPlaylistRepository.save(songPlaylist);
     }
-    public void saveSong(Song song){
+
+    public Song getSongById(Integer songId) {
+        return songRepository.getReferenceById(songId);
+    }
+
+    public void saveSong(Song song) {
         songRepository.save(song);
     }
-    public void deleteSong(Integer songId){
+
+    public void deleteSong(Integer songId) {
+        System.out.println("aaa" + songId);
         songRepository.deleteById(songId);
     }
 }

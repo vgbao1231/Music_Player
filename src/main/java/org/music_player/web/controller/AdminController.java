@@ -51,13 +51,12 @@ public class AdminController {
             @RequestParam("audio") MultipartFile audio,
             @RequestParam("img") MultipartFile img
     ) throws IOException {
-        SongDTO songDTO = new SongDTO();
-        songDTO.setTitle(title);
-        songDTO.setArtist(artist);
-        songDTO.setGenre(genreService.findGenreByGenreId(genre));
-        songDTO.setAudio(songService.encodingFileToString(audio));
-        songDTO.setSongImg(songService.encodingFileToString(img));
-        Song song = songService.convertSongDTOToEntity(songDTO);
+        Song song = new Song();
+        song.setTitle(title);
+        song.setArtist(artist);
+        song.setGenre(genreService.findGenreByGenreId(genre));
+        song.setAudio(songService.encodingFileToString(audio));
+        song.setSongImg(songService.encodingFileToString(img));
         songService.saveSong(song);
         return "redirect:/admin/song";
     }
@@ -80,9 +79,10 @@ public class AdminController {
         songService.saveSong(song);
         return "redirect:/admin/song";
     }
-    @RequestMapping(value = "/song/deleteId={songId}")
+    @PostMapping(value = "/deleteId={songId}")
     public String deleteSong(@PathVariable Integer songId){
         songService.deleteSong(songId);
+        System.out.println("vvv"+songId);
         return "redirect:/admin/song";
     }
 }

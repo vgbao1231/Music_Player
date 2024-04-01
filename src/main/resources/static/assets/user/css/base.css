@@ -62,7 +62,7 @@
     border-radius: 10px;
     padding-top: 12px;
     padding-bottom: 12px;
-    opacity: 0.8;
+    opacity: 1;
 }
 
 /*Header*/
@@ -124,7 +124,7 @@
     left: 0;
     bottom: 0;
     width: 18vw;
-    color: var(--white-text);
+    color: white;
     background-color: rgb(0, 0, 0, 0.6);
     transition: width 0.5s ease;
     overflow: clip;
@@ -133,6 +133,7 @@
 .sidebar-item {
     padding: 10px 20px;
     margin: 20px 20px 10px 20px;
+    opacity: 0.8;
     text-align: start;
     white-space: nowrap;
     font-size: 22px;
@@ -167,7 +168,8 @@
 }
 
 .playlist-item {
-    color: var(--white-text);
+    color: white;
+    opacity: 0.8;
     justify-content: space-between;
     font-size: 22px;
     padding: 10px 10px 10px 20px;
@@ -178,7 +180,7 @@
 
 .playlist-name {
     overflow: hidden;
-    max-width: 24vh;
+    max-width: 12vw;
     text-overflow: ellipsis;
 }
 
@@ -237,7 +239,7 @@
     height: 40px;
     width: 100%;
 }
-.song-info .wrapper {
+.song-info .input-wrapper {
     margin-top: 10px;
     font-size: 18px;
 }

@@ -30,7 +30,6 @@ public class GenreService {
     }
     public List<GenreDTO> listALlGenre(){
         List<GenreDTO> listAllGenre = new ArrayList<>();
-        System.out.println("List DTO: ");
         for(Genre genre : genreRepository.findAllGenre()){
             listAllGenre.add(convertGenreEntityToDTO(genre));
         }

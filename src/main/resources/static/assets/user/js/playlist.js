@@ -1,4 +1,3 @@
-const $$ = document.querySelector.bind(document)
 const background = $$('.background')
 const musicName = $$('.music-name')
 const cdThumb = $$('.music-img')
@@ -11,41 +10,6 @@ const prevBtn = $$('.prev-btn')
 const shuffleBtn = $$('.fa-shuffle')
 const repeatBtn = $$('.fa-rotate-right')
 const musicList = $$('.music-list')
-
-//Gắn form tạo playlist
-const addPlaylistBtn = $$('#add-playlist')
-addPlaylistBtn.addEventListener("click", () => {
-    const formAddPlaylist = document.createElement("div")
-    formAddPlaylist.classList.add("modal", "modal-add-playlist")
-    formAddPlaylist.innerHTML = `
-    <div class="modal-container__info">
-        <form action="/user/addPlaylist" method="post">
-            <div class="table-frame__name center m-10">Tạo playlist mới</div>
-            <div class="song-info m-20">
-                <div class="wrapper">
-                    <label>
-                        <input type="text" name="title" placeholder="Nhập tên playlist:">
-                    </label>
-                </div>
-            <div class="modal-btn">
-                <button class="accept-btn" type="submit">Thêm</button>
-            </div>
-        </form>
-    </div>
-`
-    $$('body').appendChild(formAddPlaylist)
-
-    const modalAdd = $$(".modal-add-playlist")
-    const modalContainer = $$(".modal-container__info")
-    // Thoát modal khi nhấn ra ngoài
-    modalContainer.addEventListener("click", (event) => {
-        event.stopPropagation()
-    })
-    modalAdd.addEventListener("click", (event) => {
-        $$('body').removeChild(formAddPlaylist)
-    })
-})
-
 
 //Quay CD
 const cdThumbAnimation = cdThumb.animate([
@@ -204,13 +168,13 @@ const app = {
             durationMinute = durationMinute < 10 ? "0" + durationMinute : durationMinute
             durationSecond = durationSecond < 10 ? "0" + durationSecond : durationSecond
             duration.innerText = durationMinute + ":" + durationSecond
-
         }
     },
     start: function () {
         this.defineProperties()
         this.handleEvents()
         this.loadCurrentSong()
+        this.playSong()
     }
 }
 app.start()

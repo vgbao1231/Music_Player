@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface SongPlaylistRepository extends JpaRepository<SongPlaylist,Integer> {
     @Query(value = "select * from song_playlist sp where sp.playlist_id = ?1", nativeQuery = true)
-    List<Song> listAllSongByPlaylist(Integer playlistId);
+    List<SongPlaylist> listAllSongByPlaylist(Integer playlistId);
 }

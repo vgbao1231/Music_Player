@@ -35,14 +35,14 @@ function openAddSongModal() {
 // Bật modal chỉnh sửa bài hát
 const updateBtns = document.querySelectorAll(".update-btn")
 updateBtns.forEach(updateBtn =>{
-    updateBtn.addEventListener("click",(e)=>{
+    updateBtn.addEventListener("click",()=>{
         //Lấy ra thông tin bài hát cần chỉnh sửa
         const songInfo = {
-            songId: e.target.getAttribute("data-id"),
-            songTitle:e.target.getAttribute("data-title"),
-            songArtist:e.target.getAttribute("data-artist"),
-            songGenre:e.target.getAttribute("data-genre"),
-            songImg:e.target.getAttribute("data-img")
+            songId: updateBtn.getAttribute("data-id"),
+            songTitle:updateBtn.getAttribute("data-title"),
+            songArtist:updateBtn.getAttribute("data-artist"),
+            songGenre:updateBtn.getAttribute("data-genre"),
+            songImg:updateBtn.getAttribute("data-img")
         }
         $$(".modal-update input[name='id']").value = songInfo.songId
         $$(".modal-update input[name='title']").value = songInfo.songTitle

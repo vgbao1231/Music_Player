@@ -78,3 +78,34 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+.song-item-option{
+    cursor: pointer;
+}
+
+.modal-select-playlist{
+    display: none;
+}
+.modal-select-playlist .modal-container__info{
+    width: 16vw;
+}
+
+.playlist{
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    width: 100%;
+    margin: 10px 0;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.4s ease;
+}
+
+.playlist:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
