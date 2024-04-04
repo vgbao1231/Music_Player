@@ -1,8 +1,6 @@
 package org.music_player.web.config;
 
-import org.music_player.web.service.CustomAuthenticationSuccessHandler;
-import org.music_player.web.service.CustomUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.music_player.web.service.custom.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

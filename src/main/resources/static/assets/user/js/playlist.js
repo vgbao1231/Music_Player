@@ -1,3 +1,4 @@
+//Thao tác nghe nhạc
 const background = $$('.background')
 const musicName = $$('.music-name')
 const cdThumb = $$('.music-img')
@@ -100,12 +101,18 @@ const app = {
 
         //Chọn bài hát
         musicList.onclick = function (e) {
-            app.currentIndex = e.target.closest('.song').dataset.index
-            app.loadCurrentSong()
-            app.playSong()
-            audio.play()
+            const songOption = e.target.closest('.song-option')
+            if (songOption) {
+                // Truyền @PathVariable playlistId và songId cho controller xử lý
+                $$(".modal-delete-song form").action = "/user/playlist/"+currentPage+"/deleteSongId=" + songOption.dataset.id
+                $$(".modal-delete-song").style.display = 'flex'
+            } else {
+                app.currentIndex = e.target.closest('.song').dataset.index
+                app.loadCurrentSong()
+                app.playSong()
+                audio.play()
+            }
         }
-
     },
     randomSong: function () {
         let newIndex = Math.floor(Math.random() * app.songs.length);
@@ -117,11 +124,7 @@ const app = {
     },
 
     playSong: function () {
-        if (app.isPlaying) {
-            audio.pause()
-        } else {
-            audio.play()
-        }
+        app.isPlaying ? audio.pause() : audio.play()
 
         audio.onplay = function () {
             playerContainer.classList.add('playing')
@@ -174,7 +177,6 @@ const app = {
         this.defineProperties()
         this.handleEvents()
         this.loadCurrentSong()
-        // this.playSong()
     }
 }
 app.start()

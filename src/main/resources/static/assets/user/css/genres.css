@@ -4,7 +4,6 @@
     margin: 2vh;
     height: 88vh;
     transition: margin-left 0.5s ease;
-    overflow-y: scroll;
 }
 .genres-container::-webkit-scrollbar{
 

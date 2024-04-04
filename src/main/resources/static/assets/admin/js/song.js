@@ -53,12 +53,12 @@ function openUpdateSongModal() {
     acceptBtn.textContent = "Lưu"
     //Gắn các thông tin hiện tại của bài hát vào các input
     const updateBtn = event.currentTarget;
-    songId.value = updateBtn.getAttribute("data-id")
-    songName.value = updateBtn.getAttribute("data-title")
-    songArtist.value = updateBtn.getAttribute("data-artist")
-    songGenre.value = updateBtn.getAttribute("data-genre")
+    songId.value = updateBtn.dataset.id
+    songName.value = updateBtn.dataset.title
+    songArtist.value = updateBtn.dataset.artist
+    songGenre.value = updateBtn.dataset.genre
     audioInput.style.display = "none"
-    previewImage.src = updateBtn.getAttribute("data-img")
+    previewImage.src = updateBtn.dataset.img
     //Bật modal
     modalSong.style.display = "flex"
 }

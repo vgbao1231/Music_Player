@@ -5,6 +5,7 @@ import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.CustomUserDetails;
 import org.music_player.web.entity.Playlist;
 import org.music_player.web.service.PlaylistService;
+import org.music_player.web.service.SongPlaylistService;
 import org.music_player.web.service.SongService;
 import org.music_player.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PlaylistService playlistService;
+    @Autowired
+    private SongPlaylistService songPlaylistService;
 
     @ModelAttribute("userId")
     public Integer getUserId() {
@@ -101,6 +104,12 @@ public class UserController {
     public String deletePlaylist(@PathVariable("playlistId") Integer playlistId) {
         playlistService.deletePlaylist(playlistId);
         return "redirect:/user/home";
+    }
+    @PostMapping("user/playlist/{playlistId}/deleteSongId={songId}")
+    public String deleteSong(@PathVariable("playlistId") Integer playlistId,
+                             @PathVariable("songId") Integer songId) {
+        songPlaylistService.deleteSongFromPlaylist(playlistId,songId);
+        return "redirect:/user/playlist/{playlistId}";
     }
 
 }

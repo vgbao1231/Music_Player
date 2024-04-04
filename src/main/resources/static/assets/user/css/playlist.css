@@ -112,7 +112,8 @@ header h4 {
     background-color: rgba(255, 255, 255, 0.2);
     margin-bottom: 6px;
     border-radius: 8px;
-    display: flex;
+    justify-content: unset;
+    transition: all  0.3s ease;
 }
 
 .music-list .song:last-child {
@@ -120,7 +121,7 @@ header h4 {
 }
 
 .music-list .song:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .music-list .song .thumbnail {
@@ -140,10 +141,17 @@ header h4 {
 .music-list .song-info {
     margin: auto 0;
     font-size: 14px;
+    flex-grow: 1;
 }
 
 .music-list .song-info h4 {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.music-list .song-option {
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .player .icon-pause {

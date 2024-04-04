@@ -37,16 +37,6 @@ public class SongService {
         return songDTO;
     }
 
-    public Song convertSongDTOToEntity(SongDTO songDTO) {
-        Song song = new Song();
-        song.setTitle(songDTO.getTitle());
-        song.setGenre(songDTO.getGenre());
-        song.setArtist(songDTO.getArtist());
-        song.setAudio(songDTO.getAudio());
-        song.setSongImg(songDTO.getSongImg());
-        return song;
-    }
-
     public String encodingFileToString(MultipartFile multipartFile) {
         String base64 = null;
         try {

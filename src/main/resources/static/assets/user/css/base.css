@@ -56,7 +56,6 @@
     border-radius: 10px;
     padding-top: 12px;
     padding-bottom: 12px;
-
 }
 
 .playlist-item:hover {
@@ -273,6 +272,7 @@
 }
 
 .modal-message {
+    color: white;
     font-size: 24px;
     text-align: center;
     white-space: normal;

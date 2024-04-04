@@ -20,14 +20,6 @@ public class GenreService {
         genreDTO.setGenreImg(genre.getGenreImg());
         return genreDTO;
     }
-    public Genre convertGenreDTOToEntity(GenreDTO genreDTO){
-        Genre genre = new Genre();
-
-        genre.setGenreId(genreDTO.getGenreId());
-        genre.setGenreName(genreDTO.getGenreName());
-        genre.setGenreImg(genreDTO.getGenreImg());
-        return genre;
-    }
     public List<GenreDTO> listALlGenre(){
         List<GenreDTO> listAllGenre = new ArrayList<>();
         for(Genre genre : genreRepository.findAllGenre()){

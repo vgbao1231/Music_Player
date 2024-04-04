@@ -21,13 +21,6 @@ public class PlaylistService {
         playlistDTO.setUser(playlist.getUser());
         return playlistDTO;
     }
-    public Playlist convertPlaylistDTOToEntity(PlaylistDTO playlistDTO){
-        Playlist playlist = new Playlist();
-        playlist.setPlaylistId(playlistDTO.getPlaylistId());
-        playlist.setTitle(playlistDTO.getTitle());
-        playlist.setUser(playlistDTO.getUser());
-        return playlist;
-    }
     public List<PlaylistDTO> listALlPlaylist(Integer userId){
         List<PlaylistDTO> listAllPlaylist = new ArrayList<>();
         for(Playlist playlist : playlistRepository.findAllByUserId(userId)){

@@ -42,7 +42,7 @@
 }
 .songs-section-list{
     display: flex;
-    max-height: 30vh;
+    max-height: 32vh;
 }
 .list-song{
     display: flex;
@@ -53,9 +53,18 @@
 .list-song-item{
     width: 100%;
     padding: 4px;
-    justify-content: space-between;
+    margin: 4px;
+    transition: all 0.2s ease;
+}
+.list-song-item:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 .song-item{
+    flex-grow: 1;
+    padding: 0 10px;
     color: var(--white-text);
 }
 .song-img{
@@ -73,10 +82,19 @@
     object-fit: cover;
 }
 .song-info{
+    flex-grow: 1;
     margin: 0 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+.song-info span:first-child{
+    font-size: 18px;
+    font-weight: 600;
+}
+.song-info span:last-child{
+    font-size: 14px;
+    color: gray;
 }
 
 .song-item-option{

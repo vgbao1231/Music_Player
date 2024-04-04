@@ -48,11 +48,11 @@
                                 <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
                             </div>
                             <div class="song-info">
-                                <h5 th:text="${SongDTO.getTitle()}"></h5>
-                                <h6 th:text="${SongDTO.getArtist()}"></h6>
+                                <span th:text="${SongDTO.getTitle()}"></span>
+                                <span th:text="${SongDTO.getArtist()}"></span>
                             </div>
                         </a>
-                        <div class="song-item-option p-10 mr-10" th:data-id="${SongDTO.getSongId()}">
+                        <div class="song-item-option p-10" th:data-id="${SongDTO.getSongId()}">
                             <i class="fa-solid fa-plus"></i>
                         </div>
                     </div>

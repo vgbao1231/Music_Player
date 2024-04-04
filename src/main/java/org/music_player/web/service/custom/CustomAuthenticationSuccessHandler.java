@@ -1,4 +1,4 @@
-package org.music_player.web.service;
+package org.music_player.web.service.custom;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

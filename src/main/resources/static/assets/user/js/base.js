@@ -56,8 +56,8 @@ $$('#add-playlist').addEventListener("click", () => {
 const updatePlaylistBtn = document.querySelectorAll('.update-playlist__btn')
 updatePlaylistBtn.forEach(btn => {
     btn.addEventListener("click",()=>{
-        const playlist = $$(".playlist-item[data-id='"+btn.getAttribute("data-id")+"'] a")
-        const formPlaylist = $$(".playlist-item[data-id='" + btn.getAttribute("data-id")+"'] form")
+        const playlist = $$(".playlist-item[data-id='" + btn.dataset.id + "'] a")
+        const formPlaylist = $$(".playlist-item[data-id='" + btn.dataset.id + "'] form")
         const inputPlaylist = playlist.querySelector(".playlist-name")
         //Ngăn không cho chuyển trang khi đang sửa
         playlist.addEventListener("click",(e)=>{e.preventDefault()})
@@ -77,7 +77,7 @@ updatePlaylistBtn.forEach(btn => {
                 inputPlaylist.disabled = true
                 inputPlaylist.style.pointerEvents = 'none'
                 playlist.addEventListener("click",()=>{
-                    window.location.href = "/user/playlist/"+btn.getAttribute("data-id")
+                    window.location.href = "/user/playlist/"+btn.dataset.id
                 })
             }
         }
@@ -91,7 +91,7 @@ updatePlaylistBtn.forEach(btn => {
 const deletePlaylistBtn = document.querySelectorAll('.delete-playlist__btn')
 deletePlaylistBtn.forEach(btn => {
     btn.addEventListener("click", () => {
-        $$(".modal-delete-playlist form").action = "/user/deletePlaylistId=" + btn.getAttribute("data-id")
+        $$(".modal-delete-playlist form").action = "/user/deletePlaylistId=" + btn.dataset.id
         $$(".modal-delete-playlist").style.display = 'flex'
     })
 })

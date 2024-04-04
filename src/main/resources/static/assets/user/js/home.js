@@ -2,7 +2,7 @@
 const addSongToPlaylistBtns = document.querySelectorAll('.song-item-option')
 addSongToPlaylistBtns.forEach(addBtn => {
     addBtn.addEventListener("click", (e)=>{
-        $$(".modal-select-playlist input[name='songId']").value = addBtn.getAttribute("data-id")
+        $$(".modal-select-playlist input[name='songId']").value = addBtn.dataset.id
         $$(".modal-select-playlist").style.display = 'flex'
     })
 })
