@@ -68,11 +68,13 @@
                 <input type="text" name="songId" hidden>
             </label>
             <div class="table-frame__name center m-10">Chọn playlist:</div>
-            <button class="playlist" th:each="PlaylistDTO : ${listAllPlaylist}"
-                    name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
-                <i class="fa-solid fa-list-music mr-10"></i>
-                <span th:text="${PlaylistDTO.getTitle()}"></span>
-            </button>
+            <div class="playlist">
+                <button class="playlist-btn" th:each="PlaylistDTO : ${listAllPlaylist}"
+                        name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
+                    <i class="fa-solid fa-list-music mr-10"></i>
+                    <span th:text="${PlaylistDTO.getTitle()}"></span>
+                </button>
+            </div>
         </form>
     </div>
 </div>

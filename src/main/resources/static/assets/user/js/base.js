@@ -27,13 +27,13 @@ menuBtn.addEventListener('click', function () {
     const sidebar = $$(".sidebar")
     const mainContent = $$(".content")
     if (sidebar.offsetWidth !== 0) {
-        sidebar.style.width = 0
+        sidebar.style.width = "0"
         mainContent.style.left = "9vw"
         mainContent.style.right = "9vw"
     } else {
         sidebar.style.width = "18vw"
         mainContent.style.left = "18vw"
-        mainContent.style.right = 0
+        mainContent.style.right = "0"
     }
 
 })
@@ -55,14 +55,17 @@ $$('#add-playlist').addEventListener("click", () => {
 //Bật tính năng chỉnh sửa playlist
 const updatePlaylistBtn = document.querySelectorAll('.update-playlist__btn')
 updatePlaylistBtn.forEach(btn => {
-    btn.addEventListener("click",(e)=>{
+    btn.addEventListener("click",()=>{
         const playlist = $$(".playlist-item[data-id='"+btn.getAttribute("data-id")+"'] a")
         const formPlaylist = $$(".playlist-item[data-id='" + btn.getAttribute("data-id")+"'] form")
         const inputPlaylist = playlist.querySelector(".playlist-name")
-        inputPlaylist.style.cursor = 'auto'
         //Ngăn không cho chuyển trang khi đang sửa
         playlist.addEventListener("click",(e)=>{e.preventDefault()})
+        playlist.addEventListener("keypress",(e)=>{
+            if (e.keyCode === 13) e.preventDefault()
+        })
         //Cho phép chỉnh sửa playlist
+        inputPlaylist.style.cursor = 'auto'
         const inputValue = inputPlaylist.value
         inputPlaylist.disabled = false
         inputPlaylist.style.pointerEvents = 'auto'
@@ -71,17 +74,16 @@ updatePlaylistBtn.forEach(btn => {
         function submitForm(){
             if (inputPlaylist.value !== inputValue ) formPlaylist.submit()
             else {
+                inputPlaylist.disabled = true
+                inputPlaylist.style.pointerEvents = 'none'
                 playlist.addEventListener("click",()=>{
                     window.location.href = "/user/playlist/"+btn.getAttribute("data-id")
                 })
-                inputPlaylist.blur()
-                inputPlaylist.disabled = true
-                inputPlaylist.style.pointerEvents = 'none'
             }
         }
         inputPlaylist.addEventListener("focusout",submitForm)
         inputPlaylist.addEventListener("keypress",(e)=>{
-            if (e.keyCode === 13) submitForm()
+            if (e.keyCode === 13) inputPlaylist.blur()
         })
     })
 })
@@ -94,7 +96,7 @@ deletePlaylistBtn.forEach(btn => {
     })
 })
 
-// Tạo sự kiện click cho nút
+// Bật menu tùy chỉnh playlist
 const playlistOptionBtn = document.querySelectorAll('.playlist-option');
 const menus = document.querySelectorAll('.menu-option');
 playlistOptionBtn.forEach(optionBtn => {
@@ -112,7 +114,7 @@ playlistOptionBtn.forEach(optionBtn => {
     menu.addEventListener("click", (event) => {
         event.stopPropagation()
     })
-    document.addEventListener('click', function (event) {
+    document.addEventListener('click', function () {
         menu.style.display = 'none';
     });
 })

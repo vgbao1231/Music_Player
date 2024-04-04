@@ -91,6 +91,21 @@
 }
 
 .playlist{
+    padding-right: 10px;
+    max-height: 26vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.playlist::-webkit-scrollbar {
+    width: 4px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.playlist-btn{
     padding: 10px;
     font-size: 20px;
     color: white;
@@ -103,7 +118,7 @@
     transition: all 0.4s ease;
 }
 
-.playlist:hover{
+.playlist-btn:hover{
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 12px;
