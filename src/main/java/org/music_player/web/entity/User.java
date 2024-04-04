@@ -3,6 +3,8 @@ package org.music_player.web.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private List<Playlist> playlists;
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;
 }

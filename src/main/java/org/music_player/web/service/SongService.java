@@ -79,7 +79,11 @@ public class SongService {
         SongPlaylist songPlaylist = new SongPlaylist();
         songPlaylist.setSong(getSongById(songId));
         songPlaylist.setPlaylist(playlistRepository.findByPlaylistId(playlistId));
-        songPlaylistRepository.save(songPlaylist);
+        try{
+            songPlaylistRepository.save(songPlaylist);
+        } catch (Exception e){
+            System.out.println("Bài hát đã có trong playlist");
+        }
     }
 
     public Song getSongById(Integer songId) {
@@ -91,7 +95,6 @@ public class SongService {
     }
 
     public void deleteSong(Integer songId) {
-        System.out.println("aaa" + songId);
         songRepository.deleteById(songId);
     }
 }

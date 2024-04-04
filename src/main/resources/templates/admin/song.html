@@ -88,7 +88,7 @@
                             </audio>
                         </td>
                         <td class="center">
-                            <button class="update-btn center mr-20"
+                            <button onclick="openUpdateSongModal()" class="update-btn center mr-20"
                                     th:data-id="${SongDTO.getSongId()}"
                                     th:data-img="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}"
                                     th:data-title="${SongDTO.getTitle()}"
@@ -99,7 +99,6 @@
                                 Chỉnh sửa
                             </button>
                             <form th:action="'/admin/deleteId=' + ${SongDTO.getSongId()}" method="post">
-                                <input type="hidden" name="action" value="delete"/>
                                 <button type="submit" class="delete-btn center">
                                     <img width="30" height="30"
                                          src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
@@ -113,10 +112,11 @@
         </div>
     </div>
 </div>
-<div class="modal modal-add">
-    <div class="modal-container__info">
-        <form action="/admin/addSong" method="post" enctype="multipart/form-data">
+<div class="modal modal-song">
+    <div class="modal-container">
+        <form method="post" enctype="multipart/form-data">
             <div class="table-frame__name">Thêm bài hát mới</div>
+            <label><input type="text" name="id" hidden="hidden"></label>
             <div class="song-info m-20">
                 <div class="input-wrapper">
                     <label>
@@ -137,9 +137,15 @@
                         </select>
                     </label>
                 </div>
-                <div class="input-wrapper">
+                <div class="input-wrapper audio-input">
                     <label>Chọn bài hát</label>
                     <input type="file" accept="audio/mp3" name="audio" placeholder="File bài hát:">
+                </div>
+                <div class="input-wrapper">
+                    <label>Ảnh hiện tại</label>
+                    <div class="preview-img">
+                        <img src="" alt="Chưa có hình ảnh">
+                    </div>
                 </div>
                 <div class="input-wrapper">
                     <label>Chọn hình ảnh</label>
@@ -152,54 +158,7 @@
         </form>
     </div>
 </div>
-<div class="modal modal-update">
-    <div class="modal-container__info">
-        <form action="/admin/updateSong" method="post" enctype="multipart/form-data">
-            <div class="table-frame__name">Chỉnh sửa bài hát</div>
-            <div class="song-info m-20">
-                <div class="input-wrapper">
-                    <label>
-                        <input type="text" name="id" hidden="hidden">
-                    </label>
-                </div>
-                <div class="input-wrapper">
-                    <label>
-                        <input type="text" name="title" placeholder="Tên bài hát:">
-                    </label>
-                </div>
-                <div class="input-wrapper">
-                    <label>
-                        <input type="text" name="artist" placeholder="Nghệ sĩ:">
-                    </label>
-                </div>
-                <div class="input-wrapper">
-                    <label>
-                        <select name="genre">
-                            <option value="" selected disabled hidden>Thể Loại</option>
-                            <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
-                                    th:text="${GenreDTO.getGenreName()}"></option>
-                        </select>
-                    </label>
-                </div>
-                <div class="input-wrapper">
-                    <label>Ảnh hiện tại</label>
-                    <div class="current-img">
-                        <img src="" alt="">
-                    </div>
-                </div>
-                <div class="input-wrapper">
-                    <label>Chọn hình ảnh</label>
-                    <input type="file" name="img" placeholder="Hình ảnh:">
-                </div>
-            </div>
-            <div class="modal-btn">
-                <button class="accept-btn p-10" type="submit">Lưu</button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="test"></div>
 </body>
-<script th:replace="~{admin/fragments/sidebar :: script}"></script>
-<script src="/assets/admin/js/admin.js"></script>
+<script src="/assets/admin/js/base.js"></script>
+<script src="/assets/admin/js/song.js"></script>
 </html>

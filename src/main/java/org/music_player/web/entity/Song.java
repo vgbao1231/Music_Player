@@ -33,9 +33,9 @@ public class Song {
     @Column(name = "audio", columnDefinition = "MEDIUMBLOB")
     private String audio;
 
-    @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "song")
     private Set<SongAlbum> songAlbum;
-    @OneToMany(mappedBy = "song",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "song")
     private Set<SongPlaylist> songPlaylist;
 
 }

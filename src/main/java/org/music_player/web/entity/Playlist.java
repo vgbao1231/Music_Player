@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "playlist")
@@ -21,7 +24,9 @@ public class Playlist {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.REMOVE)
+    private List<SongPlaylist> songPlaylists;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 

@@ -8,6 +8,19 @@ sidebarItems.forEach(item => {
         item.classList.add('active');
     }
 });
+
+// Áp dụng thoát modal khi nhấn Không hoặc khi nhấn ra ngoài cho tất cả modal
+const modals = document.querySelectorAll(".modal")
+modals.forEach((modal) => {
+    const modalContainer = modal.querySelector(".modal-container")
+    modalContainer.addEventListener("click", (event) => {
+        event.stopPropagation()
+    })
+    modal.addEventListener("click", () => {
+        modal.style.display = "none"
+    })
+})
+
 //Bật tắt sidebar
 const menuBtn = $$('.menu-button')
 menuBtn.addEventListener('click', function () {
@@ -28,45 +41,81 @@ menuBtn.addEventListener('click', function () {
 const sidebarPlaylist = $$('#playlists')
 sidebarPlaylist.addEventListener('click', function () {
     const playlistContainer = $$('.playlist-container')
-    if (playlistContainer.offsetHeight === 0) {
-        playlistContainer.style.height = "24vh"
-    } else {
+    if (playlistContainer.offsetHeight !== 0) {
         playlistContainer.style.height = "0"
+    } else {
+        playlistContainer.style.height = "38vh"
     }
 })
-if (currentPage === "playlist") sidebarPlaylist.click()
 
-//Gắn modal thêm playlist vào sidebar
-const addPlaylistBtn = $$('#add-playlist')
-addPlaylistBtn.addEventListener("click", () => {
-    const formAddPlaylist = document.createElement("div")
-    formAddPlaylist.classList.add("modal", "modal-add-playlist")
-    formAddPlaylist.innerHTML = `
-    <div class="modal-container__info">
-        <form action="/user/addPlaylist" method="post">
-            <div class="table-frame__name center m-10">Tạo playlist mới</div>
-            <div class="song-info m-20">
-                <div class="input-wrapper">
-                    <label>
-                        <input type="text" name="title" placeholder="Nhập tên playlist:">
-                    </label>
-                </div>
-            </div>
-            <div class="modal-btn">
-                <button class="accept-btn" type="submit">Thêm</button>
-            </div>
-        </form>
-    </div>
-`
-    $$('body').appendChild(formAddPlaylist)
-
-    const modalAdd = $$(".modal-add-playlist")
-    const modalContainer = $$(".modal-add-playlist .modal-container__info")
-    // Thoát modal khi nhấn ra ngoài
-    modalContainer.addEventListener("click", (event) => {
-        event.stopPropagation()
-    })
-    modalAdd.addEventListener("click", () => {
-        $$('body').removeChild(formAddPlaylist)
+//Bật modal thêm playlist
+$$('#add-playlist').addEventListener("click", () => {
+    $$(".modal-add-playlist").style.display = 'flex'
+})
+//Bật tính năng chỉnh sửa playlist
+const updatePlaylistBtn = document.querySelectorAll('.update-playlist__btn')
+updatePlaylistBtn.forEach(btn => {
+    btn.addEventListener("click",(e)=>{
+        const playlist = $$(".playlist-item[data-id='"+btn.getAttribute("data-id")+"'] a")
+        const formPlaylist = $$(".playlist-item[data-id='" + btn.getAttribute("data-id")+"'] form")
+        const inputPlaylist = playlist.querySelector(".playlist-name")
+        inputPlaylist.style.cursor = 'auto'
+        //Ngăn không cho chuyển trang khi đang sửa
+        playlist.addEventListener("click",(e)=>{e.preventDefault()})
+        //Cho phép chỉnh sửa playlist
+        const inputValue = inputPlaylist.value
+        inputPlaylist.disabled = false
+        inputPlaylist.style.pointerEvents = 'auto'
+        inputPlaylist.focus()
+        inputPlaylist.setSelectionRange(inputValue.length,inputValue.length)
+        function submitForm(){
+            if (inputPlaylist.value !== inputValue ) formPlaylist.submit()
+            else {
+                playlist.addEventListener("click",()=>{
+                    window.location.href = "/user/playlist/"+btn.getAttribute("data-id")
+                })
+                inputPlaylist.blur()
+                inputPlaylist.disabled = true
+                inputPlaylist.style.pointerEvents = 'none'
+            }
+        }
+        inputPlaylist.addEventListener("focusout",submitForm)
+        inputPlaylist.addEventListener("keypress",(e)=>{
+            if (e.keyCode === 13) submitForm()
+        })
     })
 })
+//Bật modal xác nhận xóa playlist
+const deletePlaylistBtn = document.querySelectorAll('.delete-playlist__btn')
+deletePlaylistBtn.forEach(btn => {
+    btn.addEventListener("click", () => {
+        $$(".modal-delete-playlist form").action = "/user/deletePlaylistId=" + btn.getAttribute("data-id")
+        $$(".modal-delete-playlist").style.display = 'flex'
+    })
+})
+
+// Tạo sự kiện click cho nút
+const playlistOptionBtn = document.querySelectorAll('.playlist-option');
+const menus = document.querySelectorAll('.menu-option');
+playlistOptionBtn.forEach(optionBtn => {
+    const menu = optionBtn.querySelector('.menu-option');
+    // Hiển thị bảng menu khi nhấn nút option
+    optionBtn.addEventListener('click', function (event) {
+        menus.forEach(item=>{
+            item.style.display = 'none';
+        })
+        menu.style.display = 'block';
+        event.stopPropagation()
+    });
+
+    // Ẩn bảng menu khi click ra ngoài
+    menu.addEventListener("click", (event) => {
+        event.stopPropagation()
+    })
+    document.addEventListener('click', function (event) {
+        menu.style.display = 'none';
+    });
+})
+
+
+

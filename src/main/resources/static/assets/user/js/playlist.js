@@ -174,7 +174,7 @@ const app = {
         this.defineProperties()
         this.handleEvents()
         this.loadCurrentSong()
-        this.playSong()
+        // this.playSong()
     }
 }
 app.start()

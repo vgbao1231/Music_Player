@@ -7,7 +7,7 @@
     overflow-y: scroll;
 }
 .genres-container::-webkit-scrollbar{
-    opacity: 1;
+
 }
 .genres-section{
     padding: 4px;

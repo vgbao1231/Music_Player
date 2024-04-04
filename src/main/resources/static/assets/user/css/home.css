@@ -6,7 +6,7 @@
     transition: margin-left 0.5s ease;
 }
 .home-container::-webkit-scrollbar{
-    opacity: 1;
+
 }
 .playlist-section,.songs-section{
     padding: 4px;
@@ -86,7 +86,7 @@
 .modal-select-playlist{
     display: none;
 }
-.modal-select-playlist .modal-container__info{
+.modal-select-playlist .modal-container{
     width: 16vw;
 }
 

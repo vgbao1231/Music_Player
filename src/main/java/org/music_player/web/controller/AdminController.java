@@ -66,8 +66,7 @@ public class AdminController {
             @RequestParam("title") String title,
             @RequestParam("artist") String artist,
             @RequestParam("genre") Integer genre,
-            @RequestParam("img") MultipartFile img
-    ) throws IOException {
+            @RequestParam("img") MultipartFile img) throws IOException {
         Song song = songService.getSongById(id);
         song.setTitle(title);
         song.setArtist(artist);
@@ -82,7 +81,6 @@ public class AdminController {
     @PostMapping(value = "/deleteId={songId}")
     public String deleteSong(@PathVariable Integer songId){
         songService.deleteSong(songId);
-        System.out.println("vvv"+songId);
         return "redirect:/admin/song";
     }
 }

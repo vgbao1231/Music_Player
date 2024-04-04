@@ -28,29 +28,10 @@
         <div class="playlist-section">
             <div class="playlist-section-name">Nổi Bật</div>
             <div class="playlist-section-list">
-                <div class="playlist-section-album">
+                <div class="playlist-section-album"
+                     th:each="index : ${#numbers.sequence(1, 5)}">
                     <div class="album-img"
-                         style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
-                    <div class="album-name">Nhạc trẻ gây nghiện</div>
-                </div>
-                <div class="playlist-section-album">
-                    <div class="album-img"
-                         style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
-                    <div class="album-name">Nhạc trẻ gây nghiện</div>
-                </div>
-                <div class="playlist-section-album">
-                    <div class="album-img"
-                         style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
-                    <div class="album-name">Nhạc trẻ gây nghiện</div>
-                </div>
-                <div class="playlist-section-album">
-                    <div class="album-img"
-                         style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
-                    <div class="album-name">Nhạc trẻ gây nghiện</div>
-                </div>
-                <div class="playlist-section-album">
-                    <div class="album-img"
-                         style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
+                         th:style="'background: url(/assets/img/background/album'+${index}+'.jpg) center center / cover no-repeat;'"></div>
                     <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
             </div>
@@ -79,20 +60,20 @@
             </div>
         </div>
     </div>
-    <div class="modal modal-select-playlist">
-        <div class="modal-container__info">
-            <form action="/user/addSongToPlaylist" method="post">
-                <label>
-                    <input type="text" name="songId" hidden>
-                </label>
-                <div class="table-frame__name center m-10">Chọn playlist:</div>
-                <button class="playlist" th:each="PlaylistDTO : ${listAllPlaylist}"
-                        name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
-                    <i class="fa-solid fa-list-music mr-10"></i>
-                    <span th:text="${PlaylistDTO.getTitle()}"></span>
-                </button>
-            </form>
-        </div>
+</div>
+<div class="modal modal-select-playlist">
+    <div class="modal-container">
+        <form action="/user/addSongToPlaylist" method="post">
+            <label>
+                <input type="text" name="songId" hidden>
+            </label>
+            <div class="table-frame__name center m-10">Chọn playlist:</div>
+            <button class="playlist" th:each="PlaylistDTO : ${listAllPlaylist}"
+                    name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
+                <i class="fa-solid fa-list-music mr-10"></i>
+                <span th:text="${PlaylistDTO.getTitle()}"></span>
+            </button>
+        </form>
     </div>
 </div>
 </body>

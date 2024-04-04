@@ -23,13 +23,3 @@
         </ul>
     </div>
 </div>
-<script th:fragment="script">
-    // Kích hoạt active cho sidebar item
-    const currentPage = window.location.pathname.split('/').pop(); // Xác định trang hiện tại
-    const sidebarItems = document.querySelectorAll(".sidebar-menu li")
-    sidebarItems.forEach(item => {
-        if (item.id === currentPage) {
-            item.classList.add('active');
-        }
-    });
-</script>

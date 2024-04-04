@@ -21,6 +21,6 @@ public class Album {
     @Column(name = "album_name")
     private String albumName;
 
-    @OneToMany(mappedBy = "album",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album")
     private Set<SongAlbum> songAlbums;
 }

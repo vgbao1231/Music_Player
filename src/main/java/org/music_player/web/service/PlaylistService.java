@@ -35,7 +35,13 @@ public class PlaylistService {
         }
         return listAllPlaylist;
     }
+    public Playlist getPlaylistById(Integer playlistId) {
+        return playlistRepository.getReferenceById(playlistId);
+    }
     public void savePlaylist(Playlist playlist){
         playlistRepository.save(playlist);
+    }
+    public void deletePlaylist(Integer playlistId){
+        playlistRepository.deleteById(playlistId);
     }
 }

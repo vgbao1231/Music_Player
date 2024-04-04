@@ -17,15 +17,67 @@
         </div>
     </div>
     <div class="playlist-container">
-        <a th:each="PlaylistDTO : ${listAllPlaylist}"
-           th:href="'/user/playlist/' + ${PlaylistDTO.getPlaylistId()}" class="playlist-item center">
-            <span th:text="${PlaylistDTO.getTitle()}" class="playlist-name"></span>
-            <span class="playlist-option"><i class="fa-solid fa-ellipsis-vertical"></i></span>
-        </a>
+        <div class="playlist-item center"
+             th:each="PlaylistDTO : ${listAllPlaylist}"
+             th:data-id="${PlaylistDTO.getPlaylistId()}">
+            <a th:href="'/user/playlist/' + ${PlaylistDTO.getPlaylistId()}">
+                <form action="/user/updatePlaylist" method="post">
+                    <label>
+                        <input name="playlistId" hidden th:value="${PlaylistDTO.getPlaylistId()}">
+                    </label>
+                    <input class="playlist-name" disabled name="title" th:value="${PlaylistDTO.getTitle()}">
+                    <button type="submit" hidden=""></button>
+                </form>
+            </a>
+            <div class="playlist-option">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <div class="menu-option" style="display: none;">
+                    <ul>
+                        <li class="update-playlist__btn" th:data-id="${PlaylistDTO.getPlaylistId()}">
+                            <i class="fa-solid fa-pen-to-square mr-10"></i>
+                            Chỉnh sửa
+                        </li>
+                        <li class="delete-playlist__btn" th:data-id="${PlaylistDTO.getPlaylistId()}">
+                            <i class="fa-solid fa-trash-can mr-10"></i>
+                            Xóa
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="sidebar-item" id="add-playlist">
         <div class="add-playlist-icon">
             <i class="fa-solid fa-plus mr-10"></i>Tạo playlist mới
+        </div>
+    </div>
+    <div class="modal modal-add-playlist">
+        <div class="modal-container">
+            <form action="/user/addPlaylist" method="post">
+                <div class="table-frame__name center m-10">Tạo playlist mới</div>
+                <div class="song-info m-20">
+                    <div class="input-wrapper">
+                        <label>
+                            <input type="text" name="title" placeholder="Nhập tên playlist:">
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-btn">
+                    <button class="accept-btn" type="submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal modal-delete-playlist">
+        <div class="modal-container">
+            <div class="modal-message">
+                <span>Bạn có chắc chắn muốn xóa playlist này?</span>
+            </div>
+            <div class="modal-btn">
+                <form action="/user/deletePlaylistId=" method="post">
+                    <button class="accept-btn p-10" type="submit">Xóa</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

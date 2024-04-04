@@ -114,7 +114,7 @@
 }
 
 /*Modal thêm bài hát*/
-.modal-container__info{
+.modal-song .modal-container{
     padding: 20px;
     border: 1px solid gray;
     border-radius: 10px;
@@ -139,12 +139,11 @@
     margin-top: 10px;
     font-size: 18px;
 }
-/*Modal chỉnh sửa*/
-.modal-update .current-img{
-    height: 95px;
+.preview-img{
+    max-height: 100px;
 }
-.modal-update .current-img img{
-    width: 50%;
-    height: 110%;
+.preview-img img{
+    width: 28%;
+    max-height: 110%;
     object-fit: cover;
 }
