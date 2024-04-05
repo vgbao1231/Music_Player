@@ -13,4 +13,6 @@ public interface SongRepository extends JpaRepository<Song,Integer> {
     List<Song> findAllSong();
     @Query(value = "select * from song s where s.song_id = ?1", nativeQuery = true)
     Song findAllSongByPlaylist(Integer songId);
+    boolean existsBySongImg(String img);
+    boolean existsByAudio(String audio);
 }

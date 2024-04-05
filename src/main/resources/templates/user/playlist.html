@@ -60,12 +60,12 @@
                 <div class="song center"
                      th:each="SongDTO,song : ${listAllSong}"
                      th:data-index="${song.index}"
-                     th:data-img="'data:image/jpeg;base64,' + ${SongDTO.getSongImg()}"
-                     th:data-audio="'data:audio/mp3;base64,' + ${SongDTO.getAudio()}" type="audio/mp3"
+                     th:data-img="${SongDTO.getSongImg()}"
+                     th:data-audio="${SongDTO.getAudio()}"
                      th:data-title="${SongDTO.getTitle()}"
                      th:data-artist="${SongDTO.getArtist()}">
                     <div class="thumbnail">
-                        <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
+                        <img th:src="${SongDTO.getSongImg()}" alt="">
                     </div>
                     <div class="song-info">
                         <h2 th:text="${SongDTO.getTitle()}"></h2>

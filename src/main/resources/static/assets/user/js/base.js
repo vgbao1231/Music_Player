@@ -5,7 +5,7 @@ const currentPage = window.location.pathname.split('/').pop(); // Xác định t
 const sidebarItems = document.querySelectorAll(".sidebar-item")
 sidebarItems.forEach(item => {
     if (item.id === currentPage) {
-        item.classList.add('active');
+        item.querySelector('a').classList.add('active');
     }
 });
 

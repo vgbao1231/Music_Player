@@ -22,7 +22,7 @@
 <div th:replace="~{user/fragments/header :: header}"></div>
 <div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
 <div class="background"
-     style="background: url('/assets/img/home.png') center center / cover no-repeat;"></div>
+     style="background: url('/assets/img/background/home.png') center center / cover no-repeat;"></div>
 <div class="content">
     <div class="home-container">
         <div class="playlist-section">
@@ -31,7 +31,7 @@
                 <div class="playlist-section-album"
                      th:each="index : ${#numbers.sequence(1, 5)}">
                     <div class="album-img"
-                         th:style="'background: url(/assets/img/background/album'+${index}+'.jpg) center center / cover no-repeat;'"></div>
+                         th:style="'background: url(/assets/img/album/album'+${index}+'.jpg) center center / cover no-repeat;'"></div>
                     <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                          class="list-song-item center">
                         <a th:href="'/user/playlist/songIndex='+${song.index}" class="song-item center">
                             <div class="song-img">
-                                <img th:src="'data:image/jpg;base64,' + ${SongDTO.getSongImg()}" alt="">
+                                <img th:src="${SongDTO.getSongImg()}" alt="">
                             </div>
                             <div class="song-info">
                                 <span th:text="${SongDTO.getTitle()}"></span>

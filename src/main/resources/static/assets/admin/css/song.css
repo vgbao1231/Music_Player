@@ -51,30 +51,28 @@
 .table-wrapper{
     height: 65vh;
     position: relative;
+    border-radius: 10px;
     overflow-y: scroll;
 }
 .table-wrapper::-webkit-scrollbar{
-    width: 8px;
-}
-.table-wrapper::-webkit-scrollbar-thumb{
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 8px;
+    display: none;
 }
 
 .song-list__table {
     width: 100%;
-    padding: 0 10px;
+    border-spacing: 0;
 }
-.song-list__table tr:first-child {
+.song-list__table thead tr:first-child {
     position: sticky;
     z-index: 1;
-    top: -1px;
-    background-color: white;
+    top: 0;
+    color: white;
+    background-color: #66b0ff;
 }
 
 .song-list__table th {
     font-size: 22px;
-    height: 5vh;
+    height: 6vh;
 }
 
 .song-list__table td {

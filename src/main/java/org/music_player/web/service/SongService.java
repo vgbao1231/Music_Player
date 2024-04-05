@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -69,11 +70,19 @@ public class SongService {
         SongPlaylist songPlaylist = new SongPlaylist();
         songPlaylist.setSong(getSongById(songId));
         songPlaylist.setPlaylist(playlistRepository.findByPlaylistId(playlistId));
-        try{
+        try {
             songPlaylistRepository.save(songPlaylist);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Bài hát đã có trong playlist");
         }
+    }
+
+    public boolean imgIsExisted(String img) {
+        return songRepository.existsBySongImg(img);
+    }
+
+    public boolean audioIsExisted(String audio) {
+        return songRepository.existsByAudio(audio);
     }
 
     public Song getSongById(Integer songId) {
@@ -85,6 +94,22 @@ public class SongService {
     }
 
     public void deleteSong(Integer songId) {
+        Song song = songRepository.getReferenceById(songId);
+        deleteFile("./src/main/resources/static" + song.getSongImg());
+        deleteFile("./src/main/resources/static" + song.getAudio());
         songRepository.deleteById(songId);
+    }
+
+    public void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Xóa file thành công: " + filePath);
+            } else {
+                System.out.println("Không thể xóa file: " + filePath);
+            }
+        } else {
+            System.out.println("File không tồn tại: " + filePath);
+        }
     }
 }

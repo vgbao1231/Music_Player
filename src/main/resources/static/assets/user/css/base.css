@@ -50,8 +50,8 @@
 }
 
 /*Hover*/
-.sidebar-item:hover,
-.sidebar-item.active {
+.sidebar-item a:hover,
+.sidebar-item a.active {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 12px;
@@ -133,18 +133,21 @@
 }
 
 .sidebar-item {
-    padding: 10px 20px;
     margin: 20px 20px 10px 20px;
-
     text-align: start;
     white-space: nowrap;
     font-size: 22px;
-    transition: all 0.4s ease;
     cursor: pointer;
 }
 
 .sidebar-item a {
+    display: flex;
     color: var(--white-text);
+    padding: 10px 20px;
+    transition: all 0.4s ease;
+}
+.list-icon {
+    padding: 10px 20px;
 }
 
 #add-playlist {
@@ -196,6 +199,10 @@
     max-width: 12vw;
     text-overflow: ellipsis;
     pointer-events: none;
+}
+
+.playlist-name:focus{
+    border: 1px solid gray;
 }
 
 .playlist-option {

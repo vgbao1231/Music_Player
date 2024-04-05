@@ -28,14 +28,14 @@ public class Song {
     @JoinColumn(name = "genre_id",referencedColumnName = "genre_id")
     private Genre genre;
 
-    @Column(name = "song_img", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "song_img")
     private String songImg;
-    @Column(name = "audio", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "audio")
     private String audio;
 
-    @OneToMany(mappedBy = "song")
+    @OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
     private Set<SongAlbum> songAlbum;
-    @OneToMany(mappedBy = "song")
+    @OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
     private Set<SongPlaylist> songPlaylist;
 
 }
