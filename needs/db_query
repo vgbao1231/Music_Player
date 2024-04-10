@@ -1,13 +1,6 @@
 
-INSERT INTO `role` (`role_id`, `rolename`) VALUES (NULL, 'ADMIN');
-INSERT INTO `role` (`role_id`, `rolename`) VALUES (NULL, 'USER');
-INSERT INTO `user` (`user_id`, `password`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'admin');
-INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`) VALUES (NULL, '1', '1');
-INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`) VALUES (NULL, '1', '2');
-
-
-INSERT INTO `user` (`user_id`, `password`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'user');
-INSERT INTO `user_role` (`user_role_id`, `user_id`, `role_id`) VALUES (NULL, '2', '2');
+INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'ADMIN', 'admin');
+INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'USER', 'user');
 
 INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'EDM', NULL);
 INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Pop', NULL);
