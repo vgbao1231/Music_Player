@@ -1,31 +1,15 @@
-const modalSong = $$('.modal-song')
-const form = $$(".modal-song form");
-const modalName = $$(".modal-song .table-frame__name")
+const modalSong = $('.modal-song')
+const form = $(".modal-song form");
+const modalName = $(".modal-song .table-frame__name")
 //Thông tin phòng trong modal
-const songId = $$('.modal-song input[name="id"]');
-const songName = $$('.modal-song input[name="title"]');
-const songArtist = $$('.modal-song input[name="artist"]');
-const songGenre = $$('.modal-song select[name="genre"]');
-const songAudio = $$('.modal-song input[name="audio"]');
-const audioInput = $$('.audio-input')
-const songImg = $$('.modal-song input[name="img"]');
-const previewImage = $$('.modal-song .preview-img img');
-const acceptBtn = $$(".modal-song .accept-btn")
-
-//Hiển thị ảnh xem trước
-songImg.addEventListener('change', function() {
-    // Kiểm tra xem có ảnh nào được chọn không
-    if (this.files && this.files[0]) {
-        let reader = new FileReader();
-        // Thực hiện khi đọc tệp hoàn tất
-        reader.onload = function(e) {
-            // Thiết lập đường dẫn của hình ảnh được chọn vào thuộc tính src của thẻ img
-            previewImage.src = e.target.result;
-        }
-        // Đọc tệp hình ảnh
-        reader.readAsDataURL(this.files[0]);
-    }else previewImage.src = "";
-});
+const songId = $('.modal-song input[name="id"]');
+const songName = $('.modal-song input[name="title"]');
+const songArtist = $('.modal-song input[name="artist"]');
+const songGenre = $('.modal-song select[name="genre"]');
+const songAudio = $('.modal-song input[name="audio"]');
+const audioInput = $('.audio-input')
+const songImg = $('.modal-song input[name="img"]');
+const acceptBtn = $(".modal-song .accept-btn")
 
 // Bật modal thêm bài hát
 function openAddSongModal() {

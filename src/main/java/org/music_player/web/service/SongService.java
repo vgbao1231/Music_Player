@@ -4,10 +4,9 @@ import org.music_player.web.dto.SongDTO;
 import org.music_player.web.dto.SongPlaylistDTO;
 import org.music_player.web.entity.Playlist;
 import org.music_player.web.entity.Song;
+import org.music_player.web.entity.SongAlbum;
 import org.music_player.web.entity.SongPlaylist;
-import org.music_player.web.repository.PlaylistRepository;
-import org.music_player.web.repository.SongPlaylistRepository;
-import org.music_player.web.repository.SongRepository;
+import org.music_player.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +24,11 @@ public class SongService {
     @Autowired
     private SongPlaylistRepository songPlaylistRepository;
     @Autowired
+    private SongAlbumRepository songAlbumRepository;
+    @Autowired
     private PlaylistRepository playlistRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
     public SongDTO convertSongEntityToDTO(Song song) {
         SongDTO songDTO = new SongDTO();
@@ -36,16 +39,6 @@ public class SongService {
         songDTO.setAudio(song.getAudio());
         songDTO.setSongImg(song.getSongImg());
         return songDTO;
-    }
-
-    public String encodingFileToString(MultipartFile multipartFile) {
-        String base64 = null;
-        try {
-            base64 = Base64.getEncoder().encodeToString(multipartFile.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return base64;
     }
 
     public List<SongDTO> listALlSong() {
@@ -59,9 +52,16 @@ public class SongService {
     public List<SongDTO> listAllSongByPlaylist(Integer playlistId) {
         List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
         for (SongPlaylist songPlaylist : songPlaylistRepository.listAllSongByPlaylist(playlistId)) {
-
             listAllSongByPlaylist.add(convertSongEntityToDTO
-                    (songRepository.findAllSongByPlaylist(songPlaylist.getSong().getSongId())));
+                    (songRepository.findBySongId(songPlaylist.getSong().getSongId())));
+        }
+        return listAllSongByPlaylist;
+    }
+    public List<SongDTO> listAllSongByAlbum(Integer albumId) {
+        List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
+        for (SongAlbum songAlbum : songAlbumRepository.listAllSongByAlbum(albumId)) {
+            listAllSongByPlaylist.add(convertSongEntityToDTO
+                    (songRepository.findBySongId(songAlbum.getSong().getSongId())));
         }
         return listAllSongByPlaylist;
     }
@@ -74,6 +74,17 @@ public class SongService {
             songPlaylistRepository.save(songPlaylist);
         } catch (Exception e) {
             System.out.println("Bài hát đã có trong playlist");
+        }
+    }
+    public void addSongToAlbum(Integer songId, Integer albumId) {
+        SongAlbum songAlbum = new SongAlbum();
+        songAlbum.setSong(getSongById(songId));
+        songAlbum.setAlbum(albumRepository.findByAlbumId(albumId));
+        try {
+            System.out.println("Chạy");
+            songAlbumRepository.save(songAlbum);
+        } catch (Exception e) {
+            System.out.println("Bài hát đã có trong album");
         }
     }
 

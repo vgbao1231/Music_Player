@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+</head>
+<link rel="stylesheet" href="/assets/admin/css/base.css">
+<link rel="stylesheet" href="/assets/admin/css/album-detail.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body>
+<div th:replace="~{admin/fragments/header :: header}"></div>
+<div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
+<div class="main-content">
+    <div class="table-frame m-20">
+        <div class="table-frame__name">CHI TIẾT ALBUM</div>
+        <div class="album-container">
+            <div class="album-detail">
+                <div class="album-img">
+                    <img th:src="${album.getAlbumImg()}" alt="Chưa có hình ảnh">
+                </div>
+                <div class="album-name m-10">
+                    <span th:text="${album.getAlbumName()}"></span>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <div class="add-song m-10">
+                    <button class="add-btn">Thêm bài hát</button>
+                </div>
+            </div>
+            <div class="album-song">
+                <div class="table-wrapper">
+                    <table class="song-list__table">
+                        <thead>
+                        <tr>
+                            <th style="width: 15%;">Ảnh</th>
+                            <th style="width: 30%;">Tên Bài Hát</th>
+                            <th style="width: 15%;">Nghệ Sĩ</th>
+                            <th style="width: 15%;">Thể Loại</th>
+                            <th style="width: 25%;">Thao Tác</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="SongDTO : ${listAllSongAlbum}">
+                            <td>
+                                <div class="img-container">
+                                    <img th:src="${SongDTO.getSongImg()}" alt="">
+                                </div>
+                            </td>
+                            <td th:text="${SongDTO.getTitle()}"></td>
+                            <td th:text="${SongDTO.getArtist()}"></td>
+                            <td th:text="${SongDTO.getGenre().getGenreName()}"></td>
+                            <td class="center">
+                                <a th:href="${album.getAlbumId()} + '/deleteSongId=' + ${SongDTO.getSongId()}"
+                                   class="delete-btn center">
+                                    <img width="30" height="30"
+                                         src="https://img.icons8.com/pulsar-color/30/delete-trash.png"
+                                         alt="delete-trash"/>
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-select-song">
+    <div class="modal-container">
+        <form action="/admin/album/addSongToAlbum" method="post">
+            <label>
+                <input type="text" name="albumId" hidden th:value="${albumId}">
+            </label>
+            <div class="table-frame__name center">Chọn bài hát:</div>
+            <div class="search-bar">
+                <label>
+                    <input class="search-field" type="text" name="song" placeholder="Tìm kiếm bài hát...">
+                </label>
+            </div>
+            <div class="song">
+                <button class="song-btn" th:each="SongDTO : ${listAllSong}"
+                        name="songId" th:value="${SongDTO.getSongId()}">
+                    <i class="fa-solid fa-list-music mr-10"></i>
+                    <span th:text="${SongDTO.getTitle()}"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="/assets/admin/js/base.js"></script>
+<script src="/assets/admin/js/album-detail.js"></script>
+</html>

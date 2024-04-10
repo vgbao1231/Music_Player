@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private SongService songService;
@@ -46,19 +47,19 @@ public class UserController {
         return playlistService.listALlPlaylist(userId);
     }
 
-    @RequestMapping(value = {"/user", "/user/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/home"}, method = RequestMethod.GET)
     public String userHome(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
         model.addAttribute("listAllSong", listAllSong);
         return "user/home";
     }
 
-    @RequestMapping("user/genres")
+    @RequestMapping("/genres")
     public String userGenres() {
         return "user/genres";
     }
 
-    @RequestMapping("/user/playlist/{playlistId}")
+    @RequestMapping("/playlist/{playlistId}")
     public String userPlaylist(Model model, @PathVariable Integer playlistId) {
         List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlistId);
         model.addAttribute("listAllSong", listAllSongByPlaylist);
@@ -66,7 +67,7 @@ public class UserController {
         return "user/playlist";
     }
 
-    @RequestMapping("/user/playlist/songIndex={songIndex}")
+    @RequestMapping("/playlist/songIndex={songIndex}")
     public String userAllSong(Model model, @PathVariable Integer songIndex) {
         List<SongDTO> listAllSong = songService.listALlSong();
         model.addAttribute("listAllSong", listAllSong);
@@ -74,7 +75,7 @@ public class UserController {
         return "user/playlist";
     }
 
-    @PostMapping("user/addPlaylist")
+    @PostMapping("/addPlaylist")
     public String addPlaylist(@RequestParam("title") String title, @ModelAttribute("userId") Integer userId) {
         Playlist playlist = new Playlist();
         playlist.setTitle(title);
@@ -83,7 +84,7 @@ public class UserController {
         return "redirect:/user/home";
     }
 
-    @PostMapping("user/addSongToPlaylist")
+    @PostMapping("/addSongToPlaylist")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
                                     @RequestParam("playlistId") Integer playlistId,
                                     @ModelAttribute("userId") Integer userId) {
@@ -91,7 +92,7 @@ public class UserController {
         return "redirect:/user/home";
     }
 
-    @PostMapping("/user/updatePlaylist")
+    @PostMapping("/updatePlaylist")
     public String updatePlaylist(@RequestParam("playlistId") Integer playlistId,
                                  @RequestParam("title") String title) throws IOException {
         Playlist playlist = playlistService.getPlaylistById(playlistId);
@@ -100,12 +101,12 @@ public class UserController {
         return "redirect:/user/home";
     }
 
-    @PostMapping("user/deletePlaylistId={playlistId}")
+    @RequestMapping("/playlist/deletePlaylistId={playlistId}")
     public String deletePlaylist(@PathVariable("playlistId") Integer playlistId) {
         playlistService.deletePlaylist(playlistId);
         return "redirect:/user/home";
     }
-    @PostMapping("user/playlist/{playlistId}/deleteSongId={songId}")
+    @RequestMapping("/playlist/{playlistId}/deleteSongId={songId}")
     public String deleteSong(@PathVariable("playlistId") Integer playlistId,
                              @PathVariable("songId") Integer songId) {
         songPlaylistService.deleteSongFromPlaylist(playlistId,songId);

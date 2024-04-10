@@ -20,6 +20,8 @@ public class Album {
     private Integer albumId;
     @Column(name = "album_name")
     private String albumName;
+    @Column(name = "album_img")
+    private String albumImg;
 
     @OneToMany(mappedBy = "album")
     private Set<SongAlbum> songAlbums;

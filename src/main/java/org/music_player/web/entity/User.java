@@ -22,9 +22,9 @@ public class User {
     private String userName;
     @Column(name = "password")
     private String password;
+    @Column(name = "role")
+    private String role;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Playlist> playlists;
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    private Set<UserRole> userRoles;
 }

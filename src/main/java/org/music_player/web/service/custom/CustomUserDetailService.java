@@ -2,7 +2,6 @@ package org.music_player.web.service.custom;
 
 import org.music_player.web.entity.CustomUserDetails;
 import org.music_player.web.entity.User;
-import org.music_player.web.entity.UserRole;
 import org.music_player.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
@@ -27,10 +25,8 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("User does not exist!");
         }
         Collection <GrantedAuthority> grantedAuthoritySet = new HashSet<>();
-        Set<UserRole> roles = user.getUserRoles();
-        for (UserRole userRole : roles){
-            grantedAuthoritySet.add(new SimpleGrantedAuthority(userRole.getRole().getRoleName()));
-        }
+        String role = user.getRole();
+        grantedAuthoritySet.add(new SimpleGrantedAuthority(role));
         return new CustomUserDetails(user,grantedAuthoritySet);
     }
 }

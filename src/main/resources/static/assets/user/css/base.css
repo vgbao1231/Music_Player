@@ -74,7 +74,7 @@
     width: 100%;
     background-color: rgb(0, 0, 0, 0.6);
     font-size: 22px;
-    color: var(--white-text);
+    color: white;
 }
 
 .header-container {
@@ -100,7 +100,7 @@
     width: 52vh;
     background-color: transparent;
     height: 6vh;
-    color: var(--white-text);
+    color: white;
 }
 
 .search-button {
@@ -114,7 +114,7 @@
     background-color: transparent;
     font-size: 22px;
     padding: 10px;
-    color: var(--white-text);
+    color: white;
     cursor: pointer;
 }
 
@@ -142,7 +142,7 @@
 
 .sidebar-item a {
     display: flex;
-    color: var(--white-text);
+    color: white;
     padding: 10px 20px;
     transition: all 0.4s ease;
 }

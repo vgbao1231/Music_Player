@@ -1,10 +1,7 @@
 /* Base CSS*/
 :root {
     --main-color: #479FFF;
-    --lightblue-background: #b8d9ff;
-    --lightgrey-background: rgb(238, 238, 238);
-    --black-text: black;
-    --white-text: white;
+    --lightblue-background: #cfe3ff;
 }
 
 * {
@@ -15,7 +12,7 @@
     outline: none;
     list-style: none;
     text-decoration: none;
-    font-family: Quicksand, sans-serif;
+    font-family: Inter, sans-serif;
 }
 
 .center {
@@ -68,13 +65,13 @@
 .header__container {
     height: 8vh;
     font-size: 20px;
-    color: var(--white-text);
+    color: white;
     justify-content: space-between;
     margin: 0 40px 0 28px;
 }
 
 .header__left {
-    color: var(--white-text);
+    color: white;
     font-size: 28px;
 }
 
@@ -144,7 +141,7 @@
     margin: 10px;
     padding: 4px;
     background-color: white;
-    color: var(--black-text);
+    color: black;
     border-radius: 10px;
     justify-content: space-between;
     cursor: pointer;
@@ -165,10 +162,10 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-.modal-logout .modal-container {
+.modal-container {
     width: 24vw;
     background-color: var(--lightblue-background);
     padding: 20px;
@@ -191,7 +188,7 @@
 
 .accept-btn,
 .refuse-btn {
-    color: var(--white-text);
+    color: white;
     background-color: #737373;
     font-size: 26px;
     width: 9vw;
@@ -217,11 +214,11 @@
 .sidebar-title {
     font-size: 22px;
     padding: 20px 20px 10px;
-    color: var(--black-text);
+    color: black;
 }
 
 .sidebar-menu li {
-    color: var(--black-text);
+    color: black;
     margin: 20px 10px 30px;
     font-size: 22px;
     padding-left: 20px;
@@ -234,13 +231,13 @@
     padding-top: 6px;
     padding-bottom: 6px;
     border-radius: 20px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .sidebar-menu li a {
     display: flex;
     align-items: center;
-    color: var(--black-text);
+    color: black;
 }
 
 .sidebar-menu li span {
@@ -249,7 +246,7 @@
 
 /* Wrapper content*/
 .main-content {
-    background-color: var(--lightgrey-background);
+    background-color: rgb(238, 238, 238);
     position: fixed;
     top: 8vh;
     left: 16vw;
@@ -267,5 +264,5 @@
 
 .table-frame__name {
     font-size: 30px;
-    font-weight: bolder;
+    font-weight: 500;
 }

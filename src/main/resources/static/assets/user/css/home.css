@@ -65,7 +65,7 @@
 .song-item{
     flex-grow: 1;
     padding: 0 10px;
-    color: var(--white-text);
+    color: white;
 }
 .song-img{
     width: 40px;

@@ -17,7 +17,7 @@
                 <!-- Hiển thị khung tùy chọn tài khoản -->
                 <div class="account-setting">
                     <div class="option-wrapper">
-                        <a href="../user/home" class="setting-option center" id="profile">
+                        <a href="/user/home" class="setting-option center" id="profile">
                             <span>Về trang chủ người dùng</span>
                             <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/music.png"
                                  alt="music"/>
@@ -38,7 +38,6 @@
                 <h2>Bạn có chắc chắn muốn đăng xuất không?</h2>
             </div>
             <div class="modal-btn">
-                <button type="button" class="refuse-btn p-10">Không</button>
                 <form th:action="@{/logout}">
                     <button class="accept-btn p-10" type="submit">Có</button>
                 </form>

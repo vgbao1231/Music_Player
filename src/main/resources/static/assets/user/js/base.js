@@ -1,8 +1,9 @@
-const $$ = document.querySelector.bind(document)
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
 
 // Kích hoạt active cho sidebar item
 const currentPage = window.location.pathname.split('/').pop(); // Xác định trang hiện tại
-const sidebarItems = document.querySelectorAll(".sidebar-item")
+const sidebarItems = $$(".sidebar-item")
 sidebarItems.forEach(item => {
     if (item.id === currentPage) {
         item.querySelector('a').classList.add('active');
@@ -10,7 +11,7 @@ sidebarItems.forEach(item => {
 });
 
 // Áp dụng thoát modal khi nhấn Không hoặc khi nhấn ra ngoài cho tất cả modal
-const modals = document.querySelectorAll(".modal")
+const modals = $$(".modal")
 modals.forEach((modal) => {
     const modalContainer = modal.querySelector(".modal-container")
     modalContainer.addEventListener("click", (event) => {
@@ -22,10 +23,10 @@ modals.forEach((modal) => {
 })
 
 //Bật tắt sidebar
-const menuBtn = $$('.menu-button')
+const menuBtn = $('.menu-button')
 menuBtn.addEventListener('click', function () {
-    const sidebar = $$(".sidebar")
-    const mainContent = $$(".content")
+    const sidebar = $(".sidebar")
+    const mainContent = $(".content")
     if (sidebar.offsetWidth !== 0) {
         sidebar.style.width = "0"
         mainContent.style.left = "9vw"
@@ -38,9 +39,9 @@ menuBtn.addEventListener('click', function () {
 
 })
 // Bật tắt sidebar playlist
-const sidebarPlaylist = $$('#playlists')
+const sidebarPlaylist = $('#playlists')
 sidebarPlaylist.addEventListener('click', function () {
-    const playlistContainer = $$('.playlist-container')
+    const playlistContainer = $('.playlist-container')
     if (playlistContainer.offsetHeight !== 0) {
         playlistContainer.style.height = "0"
     } else {
@@ -49,15 +50,15 @@ sidebarPlaylist.addEventListener('click', function () {
 })
 
 //Bật modal thêm playlist
-$$('#add-playlist').addEventListener("click", () => {
-    $$(".modal-add-playlist").style.display = 'flex'
+$('#add-playlist').addEventListener("click", () => {
+    $(".modal-add-playlist").style.display = 'flex'
 })
 //Bật tính năng chỉnh sửa playlist
-const updatePlaylistBtn = document.querySelectorAll('.update-playlist__btn')
+const updatePlaylistBtn = $$('.update-playlist__btn')
 updatePlaylistBtn.forEach(btn => {
     btn.addEventListener("click",()=>{
-        const playlist = $$(".playlist-item[data-id='" + btn.dataset.id + "'] a")
-        const formPlaylist = $$(".playlist-item[data-id='" + btn.dataset.id + "'] form")
+        const playlist = $(".playlist-item[data-id='" + btn.dataset.id + "'] a")
+        const formPlaylist = $(".playlist-item[data-id='" + btn.dataset.id + "'] form")
         const inputPlaylist = playlist.querySelector(".playlist-name")
         //Ngăn không cho chuyển trang khi đang sửa
         playlist.addEventListener("click",(e)=>{e.preventDefault()})
@@ -88,17 +89,17 @@ updatePlaylistBtn.forEach(btn => {
     })
 })
 //Bật modal xác nhận xóa playlist
-const deletePlaylistBtn = document.querySelectorAll('.delete-playlist__btn')
+const deletePlaylistBtn = $$('.delete-playlist__btn')
 deletePlaylistBtn.forEach(btn => {
     btn.addEventListener("click", () => {
-        $$(".modal-delete-playlist form").action = "/user/deletePlaylistId=" + btn.dataset.id
-        $$(".modal-delete-playlist").style.display = 'flex'
+        $(".modal-delete-playlist a").href = "/user/playlist/deletePlaylistId=" + btn.dataset.id
+        $(".modal-delete-playlist").style.display = 'flex'
     })
 })
 
 // Bật menu tùy chỉnh playlist
-const playlistOptionBtn = document.querySelectorAll('.playlist-option');
-const menus = document.querySelectorAll('.menu-option');
+const playlistOptionBtn = $$('.playlist-option');
+const menus = $$('.menu-option');
 playlistOptionBtn.forEach(optionBtn => {
     const menu = optionBtn.querySelector('.menu-option');
     // Hiển thị bảng menu khi nhấn nút option

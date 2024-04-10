@@ -1,0 +1,175 @@
+.album-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.album-detail {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+.album-img {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.album-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.album-name{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.album-name i{
+    cursor: pointer;
+}
+
+.add-song {
+    display: flex;
+    justify-content: center;
+}
+.add-song .add-btn{
+    border-radius: 10px;
+    background-color: #479FFF;
+    color: white;
+    font-size: 24px;
+    padding: 8px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.album-song{
+    flex-grow: 1;
+}
+
+.table-wrapper{
+    height: 72vh;
+    position: relative;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+.table-wrapper::-webkit-scrollbar{
+    display: none;
+}
+
+.song-list__table {
+    width: 100%;
+    border-spacing: 0;
+}
+.song-list__table thead tr:first-child {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    color: white;
+    background-color: #66b0ff;
+}
+
+.song-list__table th {
+    font-size: 22px;
+    height: 6vh;
+}
+
+.song-list__table td {
+    font-size: 22px;
+    height: 72px;
+    text-align: center;
+    padding: 4px;
+}
+
+.song-list__table tr:nth-child(even) {
+    background-color: var(--lightblue-background);
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 16px;
+    font-size: 22px;
+    padding: 2px 4px;
+    color: black;
+    cursor: pointer;
+}
+
+.img-container {
+    width: 80px;
+    height: 56px;
+    overflow: hidden;
+    margin: 4px auto;
+}
+
+.img-container img {
+    height: 100%;
+    width: 100%;
+    transform: scale(1.4);
+    object-fit: cover;
+}
+
+.modal-select-song{
+    display: none;
+}
+
+.modal-select-song .modal-container{
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.1);
+    width: 24vw;
+    background-color: white;
+}
+
+.search-bar {
+    background-color: rgb(238, 238, 238);
+    border-radius: 50px;
+    padding-left: 2vh;
+    margin: 1vh;
+}
+
+.search-field {
+    font-size: 20px;
+    width: 16vw;
+    background-color: transparent;
+    height: 6vh;
+}
+
+.song{
+    padding-right: 10px;
+    max-height: 26vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.song::-webkit-scrollbar {
+    width: 4px;
+}
+
+.song::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.song-btn{
+    padding: 10px;
+    font-size: 20px;
+    background-color: transparent;
+    width: 100%;
+    margin: 10px 0;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.4s ease;
+}
+
+.song-btn:hover{
+    background-color: rgb(238, 238, 238);
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 600;
+}

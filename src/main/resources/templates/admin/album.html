@@ -2,9 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
 </head>
+<link rel="stylesheet" href="/assets/admin/css/base.css">
+<link rel="stylesheet" href="/assets/admin/css/album.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <body>
-
+<div th:replace="~{admin/fragments/header :: header}"></div>
+<div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
+<div class="main-content" style="display: flex;">
+    <div class="album-add m-20">
+        <div class="album-add__container">
+            <div class="table-frame__name m-10">Thêm album mới</div>
+            <form action="/admin/addAlbum" method="post" enctype="multipart/form-data">
+                <div class="album-info m-10">
+                    <div class="input-wrapper">
+                        <label>
+                            <input type="text" name="title" placeholder="Tên album:">
+                        </label>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Ảnh hiện tại</label>
+                        <div class="preview-img">
+                            <img src="" alt="Chưa có hình ảnh">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Chọn hình ảnh</label>
+                        <input type="file" name="img" placeholder="Hình ảnh:">
+                    </div>
+                </div>
+                <div class="modal-btn">
+                    <button class="accept-btn p-10" type="submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="album-list m-20">
+        <div class="table-frame__name m-10">DANH SÁCH ALBUM</div>
+        <div class="table-wrapper">
+            <table class="album-list__table">
+                <thead>
+                <tr>
+                    <th style="width: 10%;">STT</th>
+                    <th style="width: 15%;">Ảnh</th>
+                    <th style="width: 45%;">Tên Album</th>
+                    <th style="width: 30%;">Chi Tiết</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="AlbumDTO,album : ${listAllAlbum}">
+                    <td th:text="${album.index} + 1"></td>
+                    <td>
+                        <div class="img-container">
+                            <img th:src="${AlbumDTO.getAlbumImg()}" alt="">
+                        </div>
+                    </td>
+                    <td th:text="${AlbumDTO.getAlbumName()}"></td>
+                    <td>
+                        <div class="center">
+                            <a th:href="'/admin/album/' + ${AlbumDTO.getAlbumId()}" class="view-btn center mr-10">
+                                <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/fine-print.png"
+                                     alt="fine-print"/>
+                                Xem
+                            </a>
+                            <a th:href="'/admin/album/deleteId=' + ${AlbumDTO.getAlbumId()}" class="delete-btn center">
+                                <img width="30" height="30"
+                                     src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
+                                Xóa
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
+<script src="/assets/admin/js/base.js"></script>
+<script src="/assets/admin/js/album.js"></script>
 </html>

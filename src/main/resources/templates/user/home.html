@@ -41,7 +41,7 @@
             <div class="songs-section-list">
                 <div class="list-song">
                     <!-- biến song để lấy ra index và lệnh if để chỉ show ra 12 bài đầu-->
-                    <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index < 12}"
+                    <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index} < 12"
                          class="list-song-item center">
                         <a th:href="'/user/playlist/songIndex='+${song.index}" class="song-item center">
                             <div class="song-img">

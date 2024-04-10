@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/user/**").hasAuthority("USER")
+                        .requestMatchers("/user/**").hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated())
                 .formLogin(formLogin ->
                         formLogin

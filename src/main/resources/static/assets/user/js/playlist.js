@@ -1,16 +1,16 @@
 //Thao tác nghe nhạc
-const background = $$('.background')
-const musicName = $$('.music-name')
-const cdThumb = $$('.music-img')
-const audio = $$('#audio')
-const playerContainer = $$('.player-container')
-const timeBar = $$('#progress')
-const playBtn = $$('.toggle-play')
-const nextBtn = $$('.next-btn')
-const prevBtn = $$('.prev-btn')
-const shuffleBtn = $$('.fa-shuffle')
-const repeatBtn = $$('.fa-rotate-right')
-const musicList = $$('.music-list')
+const background = $('.background')
+const musicName = $('.music-name')
+const cdThumb = $('.music-img')
+const audio = $('#audio')
+const playerContainer = $('.player-container')
+const timeBar = $('#progress')
+const playBtn = $('.toggle-play')
+const nextBtn = $('.next-btn')
+const prevBtn = $('.prev-btn')
+const shuffleBtn = $('.fa-shuffle')
+const repeatBtn = $('.fa-rotate-right')
+const musicList = $('.music-list')
 
 //Quay CD
 const cdThumbAnimation = cdThumb.animate([
@@ -23,7 +23,7 @@ cdThumbAnimation.pause()
 
 // Lấy ra thông tin từng bài hát rồi thêm vào mảng các bài hát (songList)
 const songList = []
-document.querySelectorAll(".song").forEach(song => {
+$$(".song").forEach(song => {
     const songInfo = {
         title: song.dataset.title,
         artist: song.dataset.artist,
@@ -104,8 +104,8 @@ const app = {
             const songOption = e.target.closest('.song-option')
             if (songOption) {
                 // Truyền @PathVariable playlistId và songId cho controller xử lý
-                $$(".modal-delete-song form").action = "/user/playlist/"+currentPage+"/deleteSongId=" + songOption.dataset.id
-                $$(".modal-delete-song").style.display = 'flex'
+                $(".modal-delete-song a").href = "/user/playlist/"+currentPage+"/deleteSongId=" + songOption.dataset.id
+                $(".modal-delete-song").style.display = 'flex'
             } else {
                 app.currentIndex = e.target.closest('.song').dataset.index
                 app.loadCurrentSong()
@@ -158,8 +158,8 @@ const app = {
         audio.src = this.currentSong.audio
     },
     loadProgress: function () {
-        let currentTime = $$('.current-time')
-        let duration = $$('.duration')
+        let currentTime = $('.current-time')
+        let duration = $('.duration')
         if (audio.duration) {
             let currentMinute = Math.floor(audio.currentTime / 60)
             let currentSecond = Math.floor(audio.currentTime - currentMinute * 60)

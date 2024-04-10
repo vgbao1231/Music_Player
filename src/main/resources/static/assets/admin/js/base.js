@@ -1,8 +1,9 @@
-const $$ = document.querySelector.bind(document)
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
 
 // Kích hoạt active cho sidebar item
 const currentPage = window.location.pathname.split('/').pop(); // Xác định trang hiện tại
-const sidebarItems = document.querySelectorAll(".sidebar-menu li")
+const sidebarItems = $$(".sidebar-menu li")
 sidebarItems.forEach(item => {
     if (item.id === currentPage) {
         item.classList.add('active');
@@ -10,7 +11,7 @@ sidebarItems.forEach(item => {
 });
 
 // Áp dụng thoát modal khi nhấn Không hoặc khi nhấn ra ngoài cho tất cả modal
-const modals = document.querySelectorAll(".modal")
+const modals = $$(".modal")
 modals.forEach((modal) => {
     const modalContainer = modal.querySelector(".modal-container")
     modalContainer.addEventListener("click", (event) => {
@@ -25,22 +26,26 @@ modals.forEach((modal) => {
 // Bật thông báo xác nhận đăng xuất
 function openLogoutModal() {
     //Bật modal
-    $$('.modal-logout').style.display = "flex"
+    $('.modal-logout').style.display = "flex"
 }
 
+//Hiển thị ảnh xem trước
+const inputImgs = $$('input[name="img"]');
+const previewImage = $('.preview-img img');
 
-//
-// // Search theo field
-// function getSelectedField() {
-//     const field = document.querySelector("#search-tool select")
-//     const input = document.querySelector("#search-tool input")
-//     switch (Number(field.value)) {
-//         case 1:
-//             input.name = "song"
-//             break;
-//         case 2:
-//             input.name = "artist"
-//             break;
-//         default:
-//     }
-// }
+inputImgs.forEach(inputImg => {
+    inputImg.addEventListener('change', function () {
+        // Kiểm tra xem có ảnh nào được chọn không
+        if (this.files && this.files[0]) {
+            let reader = new FileReader();
+            // Thực hiện khi đọc tệp hoàn tất
+            reader.onload = function (e) {
+                // Thiết lập đường dẫn của hình ảnh được chọn vào thuộc tính src của thẻ img
+                previewImage.src = e.target.result;
+            }
+            // Đọc tệp hình ảnh
+            reader.readAsDataURL(this.files[0]);
+        } else previewImage.src = "";
+    });
+})
+

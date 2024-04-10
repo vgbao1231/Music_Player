@@ -93,7 +93,7 @@
     border-radius: 16px;
     font-size: 22px;
     padding: 2px 4px;
-    color: var(--black-text);
+    color: black;
     cursor: pointer;
 }
 
@@ -118,7 +118,7 @@
     border-radius: 10px;
     box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.1);
     width: 30vw;
-    background-color: var(--lightgrey-background);
+    background-color: rgb(238, 238, 238);
 }
 
 .song-info input:not([type="file"]),.song-info select{
