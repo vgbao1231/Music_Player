@@ -68,7 +68,7 @@ public class SongService {
 
     public void addSongToPlaylist(Integer songId, Integer playlistId) {
         SongPlaylist songPlaylist = new SongPlaylist();
-        songPlaylist.setSong(getSongById(songId));
+        songPlaylist.setSong(findBySongId(songId));
         songPlaylist.setPlaylist(playlistRepository.findByPlaylistId(playlistId));
         try {
             songPlaylistRepository.save(songPlaylist);
@@ -78,7 +78,7 @@ public class SongService {
     }
     public void addSongToAlbum(Integer songId, Integer albumId) {
         SongAlbum songAlbum = new SongAlbum();
-        songAlbum.setSong(getSongById(songId));
+        songAlbum.setSong(findBySongId(songId));
         songAlbum.setAlbum(albumRepository.findByAlbumId(albumId));
         try {
             System.out.println("Chạy");
@@ -96,8 +96,8 @@ public class SongService {
         return songRepository.existsByAudio(audio);
     }
 
-    public Song getSongById(Integer songId) {
-        return songRepository.getReferenceById(songId);
+    public Song findBySongId(Integer songId) {
+        return songRepository.findBySongId(songId);
     }
 
     public void saveSong(Song song) {

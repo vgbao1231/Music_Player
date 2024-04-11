@@ -1,13 +1,11 @@
 package org.music_player.web.controller;
 
+import org.music_player.web.dto.AlbumDTO;
 import org.music_player.web.dto.PlaylistDTO;
 import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.CustomUserDetails;
 import org.music_player.web.entity.Playlist;
-import org.music_player.web.service.PlaylistService;
-import org.music_player.web.service.SongPlaylistService;
-import org.music_player.web.service.SongService;
-import org.music_player.web.service.UserService;
+import org.music_player.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +21,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private SongService songService;
+    @Autowired
+    private AlbumService albumService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -50,7 +50,9 @@ public class UserController {
     @RequestMapping(value = {"", "/home"}, method = RequestMethod.GET)
     public String userHome(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
+        List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
         model.addAttribute("listAllSong", listAllSong);
+        model.addAttribute("listAllAlbum", listAllAlbum);
         return "user/home";
     }
 

@@ -25,13 +25,13 @@
      style="background: url('/assets/img/background/home.png') center center / cover no-repeat;"></div>
 <div class="content">
     <div class="home-container">
-        <div class="playlist-section">
-            <div class="playlist-section-name">Nổi Bật</div>
-            <div class="playlist-section-list">
-                <div class="playlist-section-album"
-                     th:each="index : ${#numbers.sequence(1, 5)}">
+        <div class="album-section">
+            <div class="album-section-name">Nổi Bật</div>
+            <div class="album-section-list">
+                <div class="album-section-album"
+                     th:each="AlbumDTO : ${listAllAlbum}">
                     <div class="album-img"
-                         th:style="'background: url(/assets/img/album/album'+${index}+'.jpg) center center / cover no-repeat;'"></div>
+                         th:style="'background: url('+${AlbumDTO.getAlbumImg()}+') center center / cover no-repeat;'"></div>
                     <div class="album-name">Nhạc trẻ gây nghiện</div>
                 </div>
             </div>

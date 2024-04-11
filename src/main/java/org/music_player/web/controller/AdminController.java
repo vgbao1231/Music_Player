@@ -145,7 +145,7 @@ public class AdminController {
             @RequestParam("artist") String artist,
             @RequestParam("genre") Integer genre,
             @RequestParam("img") MultipartFile img) throws IOException {
-        Song song = songService.getSongById(id);
+        Song song = songService.findBySongId(id);
         song.setTitle(title);
         song.setArtist(artist);
         song.setGenre(genreService.findGenreByGenreId(genre));
@@ -164,6 +164,16 @@ public class AdminController {
         }
         songService.saveSong(song);
         return "redirect:/admin/song";
+    }
+
+    @PostMapping("/album/{albumId}/updateAlbum")
+    public String updateSong(
+            @PathVariable("albumId") Integer albumId,
+            @RequestParam("albumName") String albumName) throws IOException {
+        Album album = albumService.findByAlbumId(albumId);
+        album.setAlbumName(albumName);
+        albumService.saveAlbum(album);
+        return "redirect:/admin/album/{albumId}";
     }
 
     @RequestMapping("/song/deleteSongId={songId}")

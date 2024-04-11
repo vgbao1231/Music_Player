@@ -24,10 +24,13 @@
                 <div class="album-img">
                     <img th:src="${album.getAlbumImg()}" alt="Chưa có hình ảnh">
                 </div>
-                <div class="album-name m-10">
+                <form th:action="${albumId} + '/updateAlbum'" method="post" class="album-name">
                     <span th:text="${album.getAlbumName()}"></span>
+                    <label>
+                        <input name="albumName" th:value="${album.getAlbumName()}">
+                    </label>
                     <i class="fa-solid fa-pen-to-square"></i>
-                </div>
+                </form>
                 <div class="add-song m-10">
                     <button class="add-btn">Thêm bài hát</button>
                 </div>
