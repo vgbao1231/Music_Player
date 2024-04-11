@@ -14,8 +14,8 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/resources/static/assets/song/
-/resources/static/assets/img/
+src/main/resources/static/assets/song
+src/main/resources/static/assets/img
 application.properties
 .idea
 *.iws
