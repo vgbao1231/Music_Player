@@ -166,16 +166,22 @@ public class AdminController {
         return "redirect:/admin/song";
     }
 
-    @PostMapping(value = "/deleteId={songId}")
+    @RequestMapping("/song/deleteSongId={songId}")
     public String deleteSong(@PathVariable Integer songId) {
         songService.deleteSong(songId);
         return "redirect:/admin/song";
     }
 
     @RequestMapping("/album/{albumId}/deleteSongId={songId}")
-    public String deleteSong(@PathVariable("albumId") Integer albumId,
+    public String deleteSongFromAlbum(@PathVariable("albumId") Integer albumId,
                              @PathVariable("songId") Integer songId) {
         songAlbumService.deleteSongFromAlbum(albumId,songId);
         return "redirect:/admin/album/{albumId}";
+    }
+
+    @RequestMapping("/album/deleteAlbumId={albumId}")
+    public String deleteAlbum(@PathVariable("albumId") Integer albumId){
+        albumService.deleteAlbum(albumId);
+        return "redirect:/admin/album";
     }
 }

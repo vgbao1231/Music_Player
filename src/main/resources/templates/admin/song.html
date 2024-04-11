@@ -102,13 +102,13 @@
                                      alt="pencil"/>
                                 Chỉnh sửa
                             </button>
-                            <form th:action="'/admin/deleteId=' + ${SongDTO.getSongId()}" method="post">
-                                <button type="submit" class="delete-btn center">
+                            <a th:href="'/admin/song/deleteSongId=' + ${SongDTO.getSongId()}">
+                                <button class="delete-btn center">
                                     <img width="30" height="30"
                                          src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
                                     Xóa
                                 </button>
-                            </form>
+                            </a>
                         </td>
                     </tr>
                 </tbody>

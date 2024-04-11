@@ -8,6 +8,7 @@ import org.music_player.web.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,24 @@ public class AlbumService {
             listAllAlbum.add(convertAlbumEntityToDTO(album));
         }
         return listAllAlbum;
+    }
+
+    public void deleteAlbum(Integer albumId) {
+        Album album = albumRepository.getReferenceById(albumId);
+        deleteFile("./src/main/resources/static" + album.getAlbumImg());
+        albumRepository.deleteById(albumId);
+    }
+    public void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Xóa file thành công: " + filePath);
+            } else {
+                System.out.println("Không thể xóa file: " + filePath);
+            }
+        } else {
+            System.out.println("File không tồn tại: " + filePath);
+        }
     }
     public boolean imgIsExisted(String img) {
         return albumRepository.existsByAlbumImg(img);

@@ -23,6 +23,6 @@ public class Album {
     @Column(name = "album_img")
     private String albumImg;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     private Set<SongAlbum> songAlbums;
 }
