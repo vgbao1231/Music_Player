@@ -92,7 +92,7 @@
                             </audio>
                         </td>
                         <td class="center">
-                            <button onclick="openUpdateSongModal()" class="update-btn center mr-20"
+                            <button onclick="openUpdateSongModal()" class="update-btn center mr-10"
                                     th:data-id="${SongDTO.getSongId()}"
                                     th:data-img="${SongDTO.getSongImg()}"
                                     th:data-song_name="${SongDTO.getSongName()}"
@@ -119,7 +119,7 @@
 <div class="modal modal-song">
     <div class="modal-container">
         <form method="post" enctype="multipart/form-data">
-            <div class="table-frame__name">Thêm bài hát mới</div>
+            <div class="table-frame__name"></div>
             <label><input type="text" name="id" hidden="hidden"></label>
             <div class="song-info m-20">
                 <div class="input-wrapper">
@@ -150,8 +150,6 @@
                     <div class="preview-img">
                         <img src="" alt="Chưa có hình ảnh">
                     </div>
-                </div>
-                <div class="input-wrapper">
                     <label>Chọn hình ảnh</label>
                     <input type="file" name="img" placeholder="Hình ảnh:">
                 </div>

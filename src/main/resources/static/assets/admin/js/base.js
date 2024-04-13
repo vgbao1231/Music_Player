@@ -30,10 +30,10 @@ function openLogoutModal() {
 }
 
 //Hiển thị ảnh xem trước
-const inputImgs = $$('input[name="img"]');
-const previewImage = $('.preview-img img');
+const inputImgs = $$('.input-wrapper input[name="img"]');
 
 inputImgs.forEach(inputImg => {
+    const previewImage = inputImg.parentNode.querySelector(".preview-img img")
     inputImg.addEventListener('change', function () {
         // Kiểm tra xem có ảnh nào được chọn không
         if (this.files && this.files[0]) {

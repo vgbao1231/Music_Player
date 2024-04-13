@@ -1,13 +1,8 @@
 .home-container {
     color: white;
-    padding: 2vh;
-    margin: 2vh;
-    height: 88vh;
+    padding: 20px;
+    height: 100%;
     transition: margin-left 0.5s ease;
-}
-
-.home-container::-webkit-scrollbar {
-
 }
 
 .album-section, .songs-section {

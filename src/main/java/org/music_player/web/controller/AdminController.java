@@ -5,6 +5,7 @@ import org.music_player.web.dto.AlbumDTO;
 import org.music_player.web.dto.GenreDTO;
 import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.Album;
+import org.music_player.web.entity.Genre;
 import org.music_player.web.entity.Song;
 import org.music_player.web.service.AlbumService;
 import org.music_player.web.service.GenreService;
@@ -40,7 +41,7 @@ public class AdminController {
         return "redirect:admin/song";
     }
 
-    // Quản lý thao tác bên admin
+    // Quản lý bài hát (Song)
     @RequestMapping("/song")
     public String adminSongPage(Model model) {
         List<SongDTO> listAllSong = songService.listALlSong();
@@ -48,32 +49,6 @@ public class AdminController {
         model.addAttribute("listAllGenre", listAllGenre);
         model.addAttribute("listAllSong", listAllSong);
         return "admin/song";
-    }
-
-    @RequestMapping("/album")
-    public String adminAlbumPage(Model model) {
-        List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
-        model.addAttribute("listAllAlbum", listAllAlbum);
-        return "admin/album";
-    }
-
-    @RequestMapping("/album/{albumId}")
-
-    public String adminAlbumDetailPage(Model model, @PathVariable Integer albumId) {
-        List<SongDTO> listAllSong = songService.listALlSong();
-        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
-        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(albumId));
-        model.addAttribute("listAllSong", listAllSong);
-        model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
-        model.addAttribute("album", album);
-        return "admin/album-detail";
-    }
-
-    @PostMapping("/album/addSongToAlbum")
-    public String addSongToPlaylist(@RequestParam("songId") Integer songId,
-                                    @RequestParam("albumId") Integer albumId) {
-        songService.addSongToAlbum(songId, albumId);
-        return "redirect:/admin/album/" + albumId;
     }
 
     @PostMapping("/addSong")
@@ -94,7 +69,7 @@ public class AdminController {
         Song song = new Song();
         song.setSongName(songName);
         song.setArtist(artist);
-        song.setGenre(genreService.findGenreByGenreId(genre));
+        song.setGenre(genreService.findByGenreId(genre));
         song.setAudio(audioUploadDir.replace("./src/main/resources/static", ""));
         song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
 
@@ -113,8 +88,131 @@ public class AdminController {
         return "redirect:/admin/song";
     }
 
+    @PostMapping("/updateSong")
+    public String updateSong(
+            @RequestParam("id") Integer id,
+            @RequestParam("song_name") String songName,
+            @RequestParam("artist") String artist,
+            @RequestParam("genre") Integer genre,
+            @RequestParam("img") MultipartFile img) throws IOException {
+        Song song = songService.findBySongId(id);
+        song.setSongName(songName);
+        song.setArtist(artist);
+        song.setGenre(genreService.findByGenreId(genre));
+        // Nếu có ảnh mới thì sửa ko thì thôi
+        boolean isDuplicateImage =
+                songService.imgIsExisted("/assets/img/song/" + img.getOriginalFilename());
+        if (!img.isEmpty() && !isDuplicateImage) {
+            //Xóa ảnh cũ
+            songService.deleteFile("./src/main/resources/static" + song.getSongImg());
+            String imgUploadDir = "./src/main/resources/static/assets/img/song/" + img.getOriginalFilename();
+            Path imgPath = Paths.get(imgUploadDir);
+            Files.write(imgPath, img.getBytes());
+            song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
+        } else {
+            System.out.println("Trống hoặc trùng lặp");
+        }
+        songService.saveSong(song);
+        return "redirect:/admin/song";
+    }
+
+    @RequestMapping("/song/deleteSongId={songId}")
+    public String deleteSong(@PathVariable Integer songId) {
+        songService.deleteSong(songId);
+        return "redirect:/admin/song";
+    }
+
+    // Quản lý thể loại
+    @RequestMapping("/genre")
+    public String adminGenresPage(Model model) {
+        List<GenreDTO> listAllGenre = genreService.listALlGenre();
+        model.addAttribute("listAllGenre", listAllGenre);
+        return "admin/genre";
+    }
+
+    @PostMapping("/genre/addGenre")
+    public String addGenre(
+            @RequestParam("genre_name") String genreName,
+            @RequestParam("img") MultipartFile img
+    ) throws IOException {
+        // Lấy đường dẫn để thêm nhạc và ảnh vào
+        String imgUploadDir = "./src/main/resources/static/assets/img/genre/" + img.getOriginalFilename();
+        Path imgPath = Paths.get(imgUploadDir);
+        Files.write(imgPath, img.getBytes());
+
+        Genre genre = new Genre();
+        genre.setGenreName(genreName);
+        genre.setGenreImg(imgUploadDir.replace("./src/main/resources/static", ""));
+
+        boolean isDuplicateImage = genreService.imgIsExisted(genre.getGenreImg());
+
+        // Xử lý trường hợp trùng lặp
+        if (isDuplicateImage) {
+            System.out.println("Trùng lặp");
+        } else {
+            genreService.saveGenre(genre);
+        }
+        return "redirect:/admin/genre";
+    }
+
+    @PostMapping("/genre/updateGenre")
+    public String updateGenre(
+            @RequestParam("genre_id") Integer genreId,
+            @RequestParam("genre_name") String genreName,
+            @RequestParam("img") MultipartFile img) throws IOException {
+        Genre genre = genreService.findByGenreId(genreId);
+        genre.setGenreName(genreName);
+        // Nếu có ảnh mới thì sửa ko thì thôi
+        boolean isDuplicateImage =
+                genreService.imgIsExisted("/assets/img/genre/" + img.getOriginalFilename());
+        if (!img.isEmpty() && !isDuplicateImage) {
+            //Xóa ảnh cũ
+            genreService.deleteFile("./src/main/resources/static" + genre.getGenreImg());
+            String imgUploadDir = "./src/main/resources/static/assets/img/genre/" + img.getOriginalFilename();
+            Path imgPath = Paths.get(imgUploadDir);
+            Files.write(imgPath, img.getBytes());
+            genre.setGenreImg(imgUploadDir.replace("./src/main/resources/static", ""));
+        } else {
+            System.out.println("Trống hoặc trùng lặp");
+        }
+        genreService.saveGenre(genre);
+        return "redirect:/admin/genre";
+    }
+
+    @RequestMapping("/genre/deleteGenreId={genreId}")
+    public String deleteGenre(@PathVariable("genreId") Integer genreId){
+        genreService.deleteGenre(genreId);
+        return "redirect:/admin/genre";
+    }
+
+    // Quản lý album
+    @RequestMapping("/album")
+    public String adminAlbumPage(Model model) {
+        List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
+        model.addAttribute("listAllAlbum", listAllAlbum);
+        return "admin/album";
+    }
+
+    @RequestMapping("/album/{albumId}")
+    public String adminAlbumDetailPage(Model model, @PathVariable Integer albumId) {
+        List<SongDTO> listAllSong = songService.listALlSong();
+        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
+        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(albumId));
+        model.addAttribute("listAllSong", listAllSong);
+        model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
+        model.addAttribute("album", album);
+        return "admin/album-detail";
+    }
+
+    @PostMapping("/album/addSongToAlbum")
+    public String addSongToPlaylist(@RequestParam("songId") Integer songId,
+                                    @RequestParam("albumId") Integer albumId) {
+        songService.addSongToAlbum(songId, albumId);
+        return "redirect:/admin/album/" + albumId;
+    }
+
     @PostMapping("/addAlbum")
-    public String addSong(
+    public String addAlbum(
             @RequestParam("album_name") String albumName,
             @RequestParam("img") MultipartFile img
     ) throws IOException {
@@ -138,34 +236,6 @@ public class AdminController {
         return "redirect:/admin/album";
     }
 
-    @PostMapping("/updateSong")
-    public String updateSong(
-            @RequestParam("id") Integer id,
-            @RequestParam("song_name") String songName,
-            @RequestParam("artist") String artist,
-            @RequestParam("genre") Integer genre,
-            @RequestParam("img") MultipartFile img) throws IOException {
-        Song song = songService.findBySongId(id);
-        song.setSongName(songName);
-        song.setArtist(artist);
-        song.setGenre(genreService.findGenreByGenreId(genre));
-        // Nếu có ảnh mới thì sửa ko thì thôi
-        boolean isDuplicateImage =
-                songService.imgIsExisted("/assets/img/song/" + img.getOriginalFilename());
-        if (!img.isEmpty() && !isDuplicateImage) {
-            //Xóa ảnh cũ
-            songService.deleteFile("./src/main/resources/static" + song.getSongImg());
-            String imgUploadDir = "./src/main/resources/static/assets/img/song/" + img.getOriginalFilename();
-            Path imgPath = Paths.get(imgUploadDir);
-            Files.write(imgPath, img.getBytes());
-            song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
-        } else {
-            System.out.println("Trống hoặc trùng lặp");
-        }
-        songService.saveSong(song);
-        return "redirect:/admin/song";
-    }
-
     @PostMapping("/album/{albumId}/updateAlbum")
     public String updateSong(
             @PathVariable("albumId") Integer albumId,
@@ -174,12 +244,6 @@ public class AdminController {
         album.setAlbumName(albumName);
         albumService.saveAlbum(album);
         return "redirect:/admin/album/{albumId}";
-    }
-
-    @RequestMapping("/song/deleteSongId={songId}")
-    public String deleteSong(@PathVariable Integer songId) {
-        songService.deleteSong(songId);
-        return "redirect:/admin/song";
     }
 
     @RequestMapping("/album/{albumId}/deleteSongId={songId}")

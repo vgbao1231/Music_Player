@@ -5,35 +5,67 @@
     height: 88vh;
     transition: margin-left 0.5s ease;
 }
-.genres-container::-webkit-scrollbar{
-
-}
 .genres-section{
     padding: 4px;
 }
 .genres-section-name{
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 600;
     margin: 10px;
 }
 .genres-section-list{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 30px;
 }
-.genres-section-item{
-    width: 23%;
-    margin: 10px;
-}
+
 .genres-img{
-    display: flex;
     width: 100%;
     height: 22vh;
     border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
     align-items: end;
-
+    cursor: pointer;
+}
+.genres-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    transition: all 0.7s ease;
 }
 .genres-name{
+    position: absolute;
     font-weight: bolder;
     font-size: 20px;
     text-transform: uppercase;
-    padding: 20px;
+    padding: 10px;
+}
+
+.songs {
+    display: flex;
+}
+
+.song-img{
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: end;
+}
+.song-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.genres-img:hover>img {
+    scale: 1.15;
 }

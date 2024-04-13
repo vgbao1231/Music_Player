@@ -1,11 +1,13 @@
 package org.music_player.web.service;
 
 import org.music_player.web.dto.GenreDTO;
+import org.music_player.web.entity.Album;
 import org.music_player.web.entity.Genre;
 import org.music_player.web.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -27,7 +29,30 @@ public class GenreService {
         }
         return listAllGenre;
     }
-    public Genre findGenreByGenreId(Integer genreId){
-        return genreRepository.findGenreByGenreId(genreId);
+    public void deleteGenre(Integer genreId) {
+        Genre genre = genreRepository.getReferenceById(genreId);
+        deleteFile("./src/main/resources/static" + genre.getGenreImg());
+        genreRepository.deleteById(genreId);
+    }
+    public void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Xóa file thành công: " + filePath);
+            } else {
+                System.out.println("Không thể xóa file: " + filePath);
+            }
+        } else {
+            System.out.println("File không tồn tại: " + filePath);
+        }
+    }
+    public Genre findByGenreId(Integer genreId){
+        return genreRepository.findByGenreId(genreId);
+    }
+    public boolean imgIsExisted(String img) {
+        return genreRepository.existsByGenreImg(img);
+    }
+    public void saveGenre(Genre genre) {
+        genreRepository.save(genre);
     }
 }

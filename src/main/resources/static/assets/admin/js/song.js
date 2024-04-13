@@ -8,6 +8,7 @@ const songArtist = $('.modal-song input[name="artist"]');
 const songGenre = $('.modal-song select[name="genre"]');
 const songAudio = $('.modal-song input[name="audio"]');
 const audioInput = $('.audio-input')
+const previewImage = $('.modal-song .preview-img img');
 const songImg = $('.modal-song input[name="img"]');
 const acceptBtn = $(".modal-song .accept-btn")
 
@@ -24,7 +25,7 @@ function openAddSongModal() {
     audioInput.style.display = 'block'
     songAudio.value = ''
     songImg.value = ''
-    previewImage.src = "";
+    previewImage.src = ''
     //Bật modal
     modalSong.style.display = "flex"
 }
@@ -42,6 +43,7 @@ function openUpdateSongModal() {
     songArtist.value = updateBtn.dataset.artist
     songGenre.value = updateBtn.dataset.genre
     audioInput.style.display = "none"
+    songImg.value = ''
     previewImage.src = updateBtn.dataset.img
     //Bật modal
     modalSong.style.display = "flex"

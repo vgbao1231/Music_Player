@@ -26,7 +26,7 @@ modals.forEach((modal) => {
 const menuBtn = $('.menu-button')
 menuBtn.addEventListener('click', function () {
     const sidebar = $(".sidebar")
-    const mainContent = $(".content")
+    const mainContent = $(".main-content")
     if (sidebar.offsetWidth !== 0) {
         sidebar.style.width = "0"
         mainContent.style.left = "9vw"

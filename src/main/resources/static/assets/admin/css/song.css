@@ -140,7 +140,7 @@
     max-height: 100px;
 }
 .preview-img img{
-    width: 28%;
-    max-height: 110%;
+    height: 100%;
+    width: 26%;
     object-fit: cover;
 }

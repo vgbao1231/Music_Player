@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+</head>
+<link rel="stylesheet" href="/assets/admin/css/base.css">
+<link rel="stylesheet" href="/assets/admin/css/genre.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<body>
+<div th:replace="~{admin/fragments/header :: header}"></div>
+<div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
+<div class="main-content" style="display: flex;">
+    <div class="genre-add m-20">
+        <div class="genre-add__container">
+            <div class="table-frame__name m-10">Thêm thể loại mới</div>
+            <form action="/admin/genre/addGenre" method="post" enctype="multipart/form-data">
+                <div class="genre-info m-10">
+                    <div class="input-wrapper">
+                        <label>
+                            <input type="text" name="genre_name" placeholder="Tên thể loại:">
+                        </label>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>Ảnh hiện tại</label>
+                        <div class="preview-img">
+                            <img src="" alt="Chưa có hình ảnh">
+                        </div>
+                        <label>Chọn hình ảnh</label>
+                        <input type="file" name="img" placeholder="Hình ảnh:">
+                    </div>
+                </div>
+                <div class="modal-btn">
+                    <button class="accept-btn p-10" type="submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="genre-list m-20">
+        <div class="table-frame__name m-10">DANH SÁCH THỂ LOẠI</div>
+        <div class="table-wrapper">
+            <table class="genre-list__table">
+                <thead>
+                <tr>
+                    <th style="width: 10%;">STT</th>
+                    <th style="width: 15%;">Ảnh</th>
+                    <th style="width: 40%;">Tên Thể Loại</th>
+                    <th style="width: 35%;">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="GenreDTO,genre : ${listAllGenre}">
+                    <td th:text="${genre.index} + 1"></td>
+                    <td>
+                        <div class="img-container">
+                            <img th:src="${GenreDTO.getGenreImg()}" alt="">
+                        </div>
+                    </td>
+                    <td th:text="${GenreDTO.getGenreName()}"></td>
+                    <td>
+                        <div class="center">
+                            <button onclick="openUpdateGenreModal()" class="update-btn center mr-10"
+                                    th:data-id="${GenreDTO.getGenreId()}"
+                                    th:data-img="${GenreDTO.getGenreImg()}"
+                                    th:data-genre_name="${GenreDTO.getGenreName()}">
+                                <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                     alt="pencil"/>
+                                Chỉnh sửa
+                            </button>
+                            <a th:href="'/admin/genre/deleteGenreId=' + ${GenreDTO.getGenreId()}"
+                               class="delete-btn center">
+                                <img width="30" height="30"
+                                     src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
+                                Xóa
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal modal-genre">
+    <div class="modal-container">
+        <form action="/admin/genre/updateGenre" method="post" enctype="multipart/form-data">
+            <div class="table-frame__name">Sửa thông tin thể loại</div>
+            <label><input type="text" name="genre_id" hidden="hidden"></label>
+            <div class="genre-info m-20">
+                <div class="input-wrapper">
+                    <label>
+                        <input type="text" name="genre_name" placeholder="Tên thể loại:">
+                    </label>
+                </div>
+                <div class="input-wrapper">
+                    <label>Ảnh hiện tại</label>
+                    <div class="preview-img">
+                        <img src="" alt="Chưa có hình ảnh">
+                    </div>
+                    <label>Chọn hình ảnh</label>
+                    <input type="file" name="img" placeholder="Hình ảnh:">
+                </div>
+            </div>
+            <div class="modal-btn">
+                <button class="accept-btn p-10" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="/assets/admin/js/base.js"></script>
+<script src="/assets/admin/js/genre.js"></script>
+</html>
