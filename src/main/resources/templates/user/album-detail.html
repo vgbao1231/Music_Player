@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
 </head>
 <link rel="stylesheet" href="/assets/user/css/base.css">
-<link rel="stylesheet" href="/assets/user/css/home.css">
+<link rel="stylesheet" href="/assets/user/css/album-detail.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{user/fragments/header :: header}"></div>
@@ -15,42 +17,38 @@
 <div class="background"
      style="background: url('/assets/img/background/home.png') center center / cover no-repeat;"></div>
 <div class="main-content">
-    <div class="home-container">
-        <div class="album-section">
-            <div class="album-section-name">Nổi Bật</div>
-            <div class="album-section-list">
-                <div class="album-section-album"
-                     th:each="AlbumDTO : ${listAllAlbum}">
-                    <a th:href="'/user/home/album/'+${AlbumDTO.getAlbumId()}" class="album-img">
-                        <img th:src="${AlbumDTO.getAlbumImg()}" alt="Chưa có hình ảnh">
-                        <div class="album-action center">
-                            <i class="fa-solid fa-circle-play"></i>
-                        </div>
-                    </a>
-                    <span class="album-name" th:text="${AlbumDTO.getAlbumName()}"></span>
-                </div>
+    <div class="album-container">
+        <div class="album-detail">
+            <div class="album-img">
+                <img th:src="${album.getAlbumImg()}" alt="Chưa có hình ảnh">
             </div>
+            <span class="album-name" th:text="${album.getAlbumName()}"></span>
         </div>
-        <div class="songs-section">
-            <div class="songs-section-name">Bài hát mới</div>
-            <div class="songs-section-list">
-                <div class="list-song">
-                    <!-- biến song để lấy ra index và lệnh if để chỉ show ra 12 bài đầu-->
-                    <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index} < 12"
-                         class="list-song-item center">
-                        <a th:href="'/user/playlist/songIndex='+${song.index}" class="song-item center">
+        <div class="album-song">
+            <div class="list-song-header center">
+                <span style="flex: 4"><i class="fa-solid fa-list-music m-10"></i>Bài hát</span>
+                <span style="flex: 4;text-align: center;">Thể loại</span>
+                <span style="flex: 1">Thời gian</span>
+            </div>
+            <div class="list-song">
+                <div th:each="SongDTO,song : ${listAllSongAlbum}" class="list-song-item center">
+                    <a th:href="'/user/album/' + ${albumId} + '/songIndex='+${song.index}" class="song center">
+                        <div class="song-info center">
+                            <i class="fa-regular fa-music m-10"></i>
                             <div class="song-img">
                                 <img th:src="${SongDTO.getSongImg()}" alt="">
                             </div>
-                            <div class="song-info">
+                            <div class="song-name">
                                 <span th:text="${SongDTO.getSongName()}"></span>
                                 <span th:text="${SongDTO.getArtist()}"></span>
                             </div>
-                        </a>
-                        <div class="song-item-option p-10" th:data-id="${SongDTO.getSongId()}">
+                        </div>
+                        <div class="song-genres" th:text="${SongDTO.getGenre().getGenreName()}"></div>
+                    </a>
+                        <div class="song-duration" th:data-audio="${SongDTO.getAudio()}"></div>
+                        <div class="song-option" th:data-id="${SongDTO.getSongId()}">
                             <i class="fa-solid fa-plus"></i>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +71,8 @@
         </form>
     </div>
 </div>
+
 </body>
 <script src="/assets/user/js/base.js"></script>
-<script src="/assets/user/js/home.js"></script>
+<script src="/assets/user/js/album-detail.js"></script>
 </html>

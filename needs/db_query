@@ -7,3 +7,17 @@ INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Pop',
 INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Rock', NULL);
 INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Vui', NULL);
 
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Chillies', '/assets/song/song1.mp3', '/assets/img/song/song1.jpg', 'Cứ Chill Thôi', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Vani, An An', '/assets/song/song2.mp3', '/assets/img/song/song2.jpg', 'Crush', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Xesi, Hoaprox', '/assets/song/song3.mp3', '/assets/img/song/song3.jpg', 'Vô Tình', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'AMEE', '/assets/song/song5.mp3', '/assets/img/song/song5.jpg', 'Mama Boy', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Yun x Dr A', '/assets/song/song6.mp3', '/assets/img/song/song6.jpg', 'Cửu Vĩ Hồ (Hồ Ly)', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Soobin Hoàng Sơn', '/assets/song/song7.mp3', '/assets/img/song/song7.jpg', 'Anh Đã Quen Với Cô Đơn', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Xesi, Masew', '/assets/song/song8.mp3', '/assets/img/song/song8.jpg', 'Túy Âm', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Rum, NIT, Masew', '/assets/song/song9.mp3', '/assets/img/song/song9.jpg', 'Kém Duyên', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Kha', '/assets/song/song11.mp3', '/assets/img/song/song11.jpg', 'Em Có Nghe', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Sơn Tùng', '/assets/song/song12.mp3', '/assets/img/song/song12.jpg', 'Lạc Trôi', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Sơn Tùng', '/assets/song/song13.mp3', '/assets/img/song/song13.jpg', 'Một Năm Mới Bình An', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Nguyễn Trọng Tài', '/assets/song/song14.mp3', '/assets/img/song/song14.jpg', 'Hongkong 12', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Da LAB, Miu Lê', '/assets/song/song15.mp3', '/assets/img/song/song15.jpg', 'Gác Lại Âu Lo', '4');
+INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Sơn Tùng', '/assets/song/song16.mp3', '/assets/img/song/song16.jpg', 'Chạy Ngay Đi', '4');

@@ -33,7 +33,7 @@ public class SongService {
     public SongDTO convertSongEntityToDTO(Song song) {
         SongDTO songDTO = new SongDTO();
         songDTO.setSongId(song.getSongId());
-        songDTO.setTitle(song.getTitle());
+        songDTO.setSongName(song.getSongName());
         songDTO.setGenre(song.getGenre());
         songDTO.setArtist(song.getArtist());
         songDTO.setAudio(song.getAudio());

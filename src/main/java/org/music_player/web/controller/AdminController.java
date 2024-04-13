@@ -78,7 +78,7 @@ public class AdminController {
 
     @PostMapping("/addSong")
     public String addSong(
-            @RequestParam("title") String title,
+            @RequestParam("song_name") String songName,
             @RequestParam("artist") String artist,
             @RequestParam("genre") Integer genre,
             @RequestParam("audio") MultipartFile audio,
@@ -92,7 +92,7 @@ public class AdminController {
         Path imgPath = Paths.get(imgUploadDir);
 
         Song song = new Song();
-        song.setTitle(title);
+        song.setSongName(songName);
         song.setArtist(artist);
         song.setGenre(genreService.findGenreByGenreId(genre));
         song.setAudio(audioUploadDir.replace("./src/main/resources/static", ""));
@@ -115,7 +115,7 @@ public class AdminController {
 
     @PostMapping("/addAlbum")
     public String addSong(
-            @RequestParam("title") String title,
+            @RequestParam("album_name") String albumName,
             @RequestParam("img") MultipartFile img
     ) throws IOException {
         // Lấy đường dẫn để thêm nhạc và ảnh vào
@@ -124,7 +124,7 @@ public class AdminController {
         Files.write(imgPath, img.getBytes());
 
         Album album = new Album();
-        album.setAlbumName(title);
+        album.setAlbumName(albumName);
         album.setAlbumImg(imgUploadDir.replace("./src/main/resources/static", ""));
 
         boolean isDuplicateImage = albumService.imgIsExisted(album.getAlbumImg());
@@ -141,12 +141,12 @@ public class AdminController {
     @PostMapping("/updateSong")
     public String updateSong(
             @RequestParam("id") Integer id,
-            @RequestParam("title") String title,
+            @RequestParam("song_name") String songName,
             @RequestParam("artist") String artist,
             @RequestParam("genre") Integer genre,
             @RequestParam("img") MultipartFile img) throws IOException {
         Song song = songService.findBySongId(id);
-        song.setTitle(title);
+        song.setSongName(songName);
         song.setArtist(artist);
         song.setGenre(genreService.findGenreByGenreId(genre));
         // Nếu có ảnh mới thì sửa ko thì thôi

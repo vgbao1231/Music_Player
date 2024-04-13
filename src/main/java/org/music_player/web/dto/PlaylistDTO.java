@@ -10,6 +10,6 @@ import org.music_player.web.entity.User;
 @Getter
 public class PlaylistDTO {
     private Integer playlistId;
-    private String title;
+    private String playlistName;
     private User user;
 }

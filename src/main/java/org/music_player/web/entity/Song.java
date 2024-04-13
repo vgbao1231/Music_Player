@@ -19,8 +19,8 @@ public class Song {
     @Column(name = "song_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer songId;
-    @Column(name = "title")
-    private String title;
+    @Column(name = "song_name")
+    private String songName;
     @Column(name = "artist")
     private String artist;
 

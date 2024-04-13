@@ -40,7 +40,7 @@
     background-color: white;
 }
 .table-wrapper {
-    height: 65vh;
+    max-height: 72vh;
     position: relative;
     border-radius: 10px;
     overflow-y: scroll;

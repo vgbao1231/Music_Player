@@ -3,7 +3,7 @@ const form = $(".modal-song form");
 const modalName = $(".modal-song .table-frame__name")
 //Thông tin phòng trong modal
 const songId = $('.modal-song input[name="id"]');
-const songName = $('.modal-song input[name="title"]');
+const songName = $('.modal-song input[name="song_name"]');
 const songArtist = $('.modal-song input[name="artist"]');
 const songGenre = $('.modal-song select[name="genre"]');
 const songAudio = $('.modal-song input[name="audio"]');
@@ -38,7 +38,7 @@ function openUpdateSongModal() {
     //Gắn các thông tin hiện tại của bài hát vào các input
     const updateBtn = event.currentTarget;
     songId.value = updateBtn.dataset.id
-    songName.value = updateBtn.dataset.title
+    songName.value = updateBtn.dataset.song_name
     songArtist.value = updateBtn.dataset.artist
     songGenre.value = updateBtn.dataset.genre
     audioInput.style.display = "none"

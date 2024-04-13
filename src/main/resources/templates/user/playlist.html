@@ -14,7 +14,7 @@
 <div th:replace="~{user/fragments/header :: header}"></div>
 <div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
 <div class="background"></div>
-<div class="content">
+<div class="main-content">
     <div class="player-container center">
         <div class="player">
             <div class="dashboard">
@@ -50,7 +50,7 @@
                 <label for="progress"></label>
                 <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
                 <div class="current-time">00:00</div>
-                <div class="duration">00:00</div>
+                <div class="duration"></div>
                 <!-- Audio -->
                 <audio id="audio" src=""></audio>
             </div>
@@ -62,13 +62,13 @@
                      th:data-index="${song.index}"
                      th:data-img="${SongDTO.getSongImg()}"
                      th:data-audio="${SongDTO.getAudio()}"
-                     th:data-title="${SongDTO.getTitle()}"
+                     th:data-song_name="${SongDTO.getSongName()}"
                      th:data-artist="${SongDTO.getArtist()}">
                     <div class="thumbnail">
                         <img th:src="${SongDTO.getSongImg()}" alt="">
                     </div>
                     <div class="song-info">
-                        <h2 th:text="${SongDTO.getTitle()}"></h2>
+                        <h2 th:text="${SongDTO.getSongName()}"></h2>
                         <h4 th:text="${SongDTO.getArtist()}"></h4>
                     </div>
                     <div class="song-option delete-song__btn"

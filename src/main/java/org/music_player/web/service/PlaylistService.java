@@ -17,7 +17,7 @@ public class PlaylistService {
     public PlaylistDTO convertPlaylistEntityToDTO(Playlist playlist){
         PlaylistDTO playlistDTO = new PlaylistDTO();
         playlistDTO.setPlaylistId(playlist.getPlaylistId());
-        playlistDTO.setTitle(playlist.getTitle());
+        playlistDTO.setPlaylistName(playlist.getPlaylistName());
         playlistDTO.setUser(playlist.getUser());
         return playlistDTO;
     }

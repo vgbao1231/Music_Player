@@ -1,38 +1,74 @@
-.home-container{
+.home-container {
     color: white;
     padding: 2vh;
     margin: 2vh;
     height: 88vh;
     transition: margin-left 0.5s ease;
 }
-.home-container::-webkit-scrollbar{
+
+.home-container::-webkit-scrollbar {
 
 }
-.album-section,.songs-section{
+
+.album-section, .songs-section {
     padding: 4px;
 }
-.album-section-name,.songs-section-name{
+
+.album-section-name, .songs-section-name {
     font-size: 20px;
     margin: 10px;
 }
-.album-section-list{
+
+.album-section-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
 }
-.album-section-album{
+
+.album-section-album {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 10px;
 }
-.album-img{
+
+.album-img {
     width: 100%;
     height: 30vh;
     border-radius: 10px;
+    overflow: hidden;
+    position: relative;
 }
-.album-name{
+
+.album-img img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+}
+
+.album-action {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 40px;
+    transition: all 0.2s ease;
+}
+
+.album-img:hover img {
+    scale: 1.06;
+}
+
+.album-img:hover .album-action {
+    opacity: 1;
+}
+
+.album-name {
     font-size: 18px;
     margin: 10px;
     max-width: 100%;
@@ -40,80 +76,92 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.songs-section-list{
+
+.songs-section-list {
     display: flex;
     max-height: 32vh;
 }
-.list-song{
+
+.list-song {
     display: flex;
     width: 33%;
     flex-direction: column;
     flex-wrap: wrap;
 }
-.list-song-item{
+
+.list-song-item {
     width: 100%;
     padding: 4px;
     margin: 4px;
     transition: all 0.2s ease;
 }
-.list-song-item:hover{
+
+.list-song-item:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 6px;
     padding-bottom: 6px;
 }
-.song-item{
+
+.song-item {
     flex-grow: 1;
     padding: 0 10px;
     color: white;
 }
-.song-img{
+
+.song-img {
     width: 40px;
     height: 40px;
     overflow: hidden;
     background-size: 180%;
     background-position: center;
     border-radius: 4px;
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
-.song-img img{
+
+.song-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.song-info{
+
+.song-info {
     flex-grow: 1;
     margin: 0 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
-.song-info span:first-child{
+
+.song-info span:first-child {
     font-size: 18px;
     font-weight: 600;
 }
-.song-info span:last-child{
+
+.song-info span:last-child {
     font-size: 14px;
     color: gray;
 }
 
-.song-item-option{
+.song-item-option {
     cursor: pointer;
 }
 
-.modal-select-playlist{
+.modal-select-playlist {
     display: none;
 }
-.modal-select-playlist .modal-container{
+
+.modal-select-playlist .modal-container {
     width: 16vw;
 }
 
-.playlist{
+.playlist {
     padding-right: 10px;
     max-height: 26vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
 .playlist::-webkit-scrollbar {
     width: 4px;
 }
@@ -123,7 +171,7 @@
     border-radius: 8px;
 }
 
-.playlist-btn{
+.playlist-btn {
     padding: 10px;
     font-size: 20px;
     color: white;
@@ -136,7 +184,7 @@
     transition: all 0.4s ease;
 }
 
-.playlist-btn:hover{
+.playlist-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding-top: 12px;

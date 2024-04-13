@@ -83,7 +83,7 @@
                                 <img th:src="${SongDTO.getSongImg()}" alt="">
                             </div>
                         </td>
-                        <td th:text="${SongDTO.getTitle()}"></td>
+                        <td th:text="${SongDTO.getSongName()}"></td>
                         <td th:text="${SongDTO.getArtist()}"></td>
                         <td th:text="${SongDTO.getGenre().getGenreName()}"></td>
                         <td>
@@ -95,7 +95,7 @@
                             <button onclick="openUpdateSongModal()" class="update-btn center mr-20"
                                     th:data-id="${SongDTO.getSongId()}"
                                     th:data-img="${SongDTO.getSongImg()}"
-                                    th:data-title="${SongDTO.getTitle()}"
+                                    th:data-song_name="${SongDTO.getSongName()}"
                                     th:data-artist="${SongDTO.getArtist()}"
                                     th:data-genre="${SongDTO.getGenre().getGenreId()}">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
@@ -124,7 +124,7 @@
             <div class="song-info m-20">
                 <div class="input-wrapper">
                     <label>
-                        <input type="text" name="title" placeholder="Tên bài hát:">
+                        <input type="text" name="song_name" placeholder="Tên bài hát:">
                     </label>
                 </div>
                 <div class="input-wrapper">

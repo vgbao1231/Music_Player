@@ -55,6 +55,14 @@ public class UserController {
         model.addAttribute("listAllAlbum", listAllAlbum);
         return "user/home";
     }
+    @RequestMapping("/home/album/{albumId}")
+    public String userAlbum(Model model, @PathVariable Integer albumId) {
+        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
+        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(albumId));
+        model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
+        model.addAttribute("album", album);
+        return "user/album-detail";
+    }
 
     @RequestMapping("/genres")
     public String userGenres() {
@@ -76,11 +84,20 @@ public class UserController {
         model.addAttribute("currentSong", songIndex);
         return "user/playlist";
     }
+    @RequestMapping("/album/{albumId}/songIndex={songIndex}")
+    public String userAllSongAlbum(Model model,
+                                   @PathVariable Integer albumId,
+                                   @PathVariable Integer songIndex) {
+        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
+        model.addAttribute("listAllSong", listAllSongByAlbum);
+        model.addAttribute("currentSong", songIndex);
+        return "user/playlist";
+    }
 
     @PostMapping("/addPlaylist")
-    public String addPlaylist(@RequestParam("title") String title, @ModelAttribute("userId") Integer userId) {
+    public String addPlaylist(@RequestParam("playlist_name") String playlistName, @ModelAttribute("userId") Integer userId) {
         Playlist playlist = new Playlist();
-        playlist.setTitle(title);
+        playlist.setPlaylistName(playlistName);
         playlist.setUser(userService.findByUserId(userId));
         playlistService.savePlaylist(playlist);
         return "redirect:/user/home";
@@ -96,9 +113,9 @@ public class UserController {
 
     @PostMapping("/updatePlaylist")
     public String updatePlaylist(@RequestParam("playlistId") Integer playlistId,
-                                 @RequestParam("title") String title) throws IOException {
+                                 @RequestParam("playlist_name") String playlistName) throws IOException {
         Playlist playlist = playlistService.getPlaylistById(playlistId);
-        playlist.setTitle(title);
+        playlist.setPlaylistName(playlistName);
         playlistService.savePlaylist(playlist);
         return "redirect:/user/home";
     }

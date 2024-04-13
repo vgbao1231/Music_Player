@@ -25,7 +25,7 @@
                     <label>
                         <input name="playlistId" hidden th:value="${PlaylistDTO.getPlaylistId()}">
                     </label>
-                    <input class="playlist-name" disabled name="title" th:value="${PlaylistDTO.getTitle()}">
+                    <input class="playlist-name" disabled name="playlist_name" th:value="${PlaylistDTO.getPlaylistName()}">
                     <button type="submit" hidden=""></button>
                 </form>
             </a>
@@ -58,7 +58,7 @@
                 <div class="song-info m-20">
                     <div class="input-wrapper">
                         <label>
-                            <input type="text" name="title" placeholder="Nhập tên playlist:">
+                            <input type="text" name="playlist_name" placeholder="Nhập tên playlist:">
                         </label>
                     </div>
                 </div>

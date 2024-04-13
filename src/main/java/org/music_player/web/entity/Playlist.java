@@ -21,8 +21,8 @@ public class Playlist {
     @Column(name = "playlist_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer playlistId;
-    @Column(name = "title")
-    private String title;
+    @Column(name = "playlist_name")
+    private String playlistName;
 
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.REMOVE)
     private List<SongPlaylist> songPlaylists;

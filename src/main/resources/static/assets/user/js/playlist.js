@@ -25,7 +25,7 @@ cdThumbAnimation.pause()
 const songList = []
 $$(".song").forEach(song => {
     const songInfo = {
-        title: song.dataset.title,
+        songName: song.dataset.song_name,
         artist: song.dataset.artist,
         audio: song.dataset.audio,
         img: song.dataset.img
@@ -153,24 +153,26 @@ const app = {
     },
     loadCurrentSong: function () {
         background.style.background = `url('${this.currentSong.img}') no-repeat center/ cover`
-        musicName.innerText = this.currentSong.title
+        musicName.innerText = this.currentSong.songName
         cdThumb.style.backgroundImage = `url('${this.currentSong.img}')`
         audio.src = this.currentSong.audio
+        audio.onloadedmetadata = function() {
+            let duration = audio.duration;
+            let minutes = Math.floor(duration / 60);
+            let seconds = Math.floor(duration % 60);
+            minutes = minutes < 10 ? "0" + minutes : minutes
+            seconds = seconds < 10 ? "0" + seconds : seconds
+            $('.duration').innerText = minutes + ":" + seconds;
+        };
     },
     loadProgress: function () {
         let currentTime = $('.current-time')
-        let duration = $('.duration')
         if (audio.duration) {
             let currentMinute = Math.floor(audio.currentTime / 60)
             let currentSecond = Math.floor(audio.currentTime - currentMinute * 60)
-            let durationMinute = Math.floor(audio.duration / 60)
-            let durationSecond = Math.floor(audio.duration - durationMinute * 60)
             currentMinute = currentMinute < 10 ? "0" + currentMinute : currentMinute
             currentSecond = currentSecond < 10 ? "0" + currentSecond : currentSecond
             currentTime.innerText = currentMinute + ":" + currentSecond
-            durationMinute = durationMinute < 10 ? "0" + durationMinute : durationMinute
-            durationSecond = durationSecond < 10 ? "0" + durationSecond : durationSecond
-            duration.innerText = durationMinute + ":" + durationSecond
         }
     },
     start: function () {

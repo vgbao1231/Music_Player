@@ -1,0 +1,168 @@
+.album-container {
+    display: flex;
+    margin: 40px;
+    color: white;
+}
+
+.album-detail {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+.album-img {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.album-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.album-name{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 10px 40px;
+}
+
+.album-song{
+    flex-grow: 1;
+}
+
+.list-song-header{
+    font-size: 18px;
+}
+
+.list-song {
+    max-height: 76vh;
+    overflow-y: scroll;
+}
+.list-song::-webkit-scrollbar {
+    display: none;
+}
+
+.list-song-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.2s ease;
+}
+
+.song {
+    flex: 8;
+    color: white;
+}
+
+.song-info {
+    flex: 4;
+}
+
+.song-img {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    background-size: 180%;
+    background-position: center;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.song-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-name {
+    flex-grow: 1;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.song-name span:first-child {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.song-name span:last-child {
+    font-size: 14px;
+    color: gray;
+}
+
+.song-genres {
+    flex: 4;
+    text-align: center;
+}
+
+.song-duration {
+    flex: 1;
+    text-align: center;
+}
+.song-option{
+    display: none;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.list-song-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.list-song-item:hover .song-option{
+    display: block;
+}
+.list-song-item:hover .song-duration{
+    display: none;
+}
+
+.modal-select-playlist {
+    display: none;
+}
+
+.modal-select-playlist .modal-container {
+    width: 16vw;
+}
+
+.playlist {
+    padding-right: 10px;
+    max-height: 26vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.playlist::-webkit-scrollbar {
+    width: 4px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.playlist-btn {
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    width: 100%;
+    margin: 10px 0;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.4s ease;
+}
+
+.playlist-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
