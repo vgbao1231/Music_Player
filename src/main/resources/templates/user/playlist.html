@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="/assets/user/css/base.css">
 <link rel="stylesheet" href="/assets/user/css/playlist.css">
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{user/fragments/header :: header}"></div>
 <div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
@@ -71,7 +70,7 @@
                         <h2 th:text="${SongDTO.getSongName()}"></h2>
                         <h4 th:text="${SongDTO.getArtist()}"></h4>
                     </div>
-                    <div class="song-option delete-song__btn"
+                    <div th:if="${topicName} == 'playlist'" class="song-option delete-song__btn"
                          th:data-id="${SongDTO.getSongId()}">
                         <i class="fa-solid fa-trash-can mr-10"></i>
                     </div>

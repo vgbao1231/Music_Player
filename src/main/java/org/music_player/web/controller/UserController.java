@@ -1,6 +1,7 @@
 package org.music_player.web.controller;
 
 import org.music_player.web.dto.AlbumDTO;
+import org.music_player.web.dto.GenreDTO;
 import org.music_player.web.dto.PlaylistDTO;
 import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.CustomUserDetails;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +24,8 @@ public class UserController {
     private SongService songService;
     @Autowired
     private AlbumService albumService;
+    @Autowired
+    private GenreService genreService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -49,24 +52,52 @@ public class UserController {
 
     @RequestMapping(value = {"", "/home"}, method = RequestMethod.GET)
     public String userHome(Model model) {
-        List<SongDTO> listAllSong = songService.listALlSong();
+        List<SongDTO> listAllSong = songService.listAllSong();
         List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
         model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("listAllAlbum", listAllAlbum);
         return "user/home";
     }
-    @RequestMapping("/home/album/{albumId}")
-    public String userAlbum(Model model, @PathVariable Integer albumId) {
-        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
-        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(albumId));
-        model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
-        model.addAttribute("album", album);
-        return "user/album-detail";
+    @RequestMapping("/{topic}/{topicId}/songIndex={songIndex}")
+    public String userSongTopic(Model model,
+                                @PathVariable String topic,
+                                @PathVariable Integer topicId,
+                                @PathVariable Integer songIndex) {
+        List<SongDTO> listAllSong = switch (topic) {
+            case "genre" -> songService.listAllSongByGenre(topicId);
+            case "album" -> songService.listAllSongByAlbum(topicId);
+            default -> songService.listAllSong();
+        };
+        model.addAttribute("listAllSong", listAllSong);
+        model.addAttribute("currentSong", songIndex);
+        return "user/playlist";
+    }
+    @RequestMapping("/topic/album/{topicId}")
+    public String userAlbum(Model model, @PathVariable Integer topicId) {
+        List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(topicId);
+        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(topicId));
+        model.addAttribute("listAllSong", listAllSongByAlbum);
+        model.addAttribute("topic", album);
+        model.addAttribute("topicName", "album");
+        return "user/topic-detail";
+    }
+    @RequestMapping("/topic/genre/{topicId}")
+    public String userGenre(Model model, @PathVariable Integer topicId) {
+        List<SongDTO> listAllSongByGenre = songService.listAllSongByGenre(topicId);
+        GenreDTO genre = genreService.convertGenreEntityToDTO(genreService.findByGenreId(topicId));
+        model.addAttribute("listAllSong", listAllSongByGenre);
+        model.addAttribute("topic", genre);
+        model.addAttribute("topicName", "genre");
+        return "user/topic-detail";
     }
 
-    @RequestMapping("/genres")
-    public String userGenres() {
-        return "user/genres";
+    @RequestMapping("/topic")
+    public String userGenres(Model model) {
+        List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
+        List<GenreDTO> listAllGenre = genreService.listALlGenre();
+        model.addAttribute("listAllAlbum", listAllAlbum);
+        model.addAttribute("listAllGenre", listAllGenre);
+        return "user/topic";
     }
 
     @RequestMapping("/playlist/{playlistId}")
@@ -74,16 +105,10 @@ public class UserController {
         List<SongDTO> listAllSongByPlaylist = songService.listAllSongByPlaylist(playlistId);
         model.addAttribute("listAllSong", listAllSongByPlaylist);
         model.addAttribute("currentSong", 0);
+        model.addAttribute("topicName", "playlist");
         return "user/playlist";
     }
 
-    @RequestMapping("/playlist/songIndex={songIndex}")
-    public String userAllSong(Model model, @PathVariable Integer songIndex) {
-        List<SongDTO> listAllSong = songService.listALlSong();
-        model.addAttribute("listAllSong", listAllSong);
-        model.addAttribute("currentSong", songIndex);
-        return "user/playlist";
-    }
     @RequestMapping("/album/{albumId}/songIndex={songIndex}")
     public String userAllSongAlbum(Model model,
                                    @PathVariable Integer albumId,
@@ -113,7 +138,7 @@ public class UserController {
 
     @PostMapping("/updatePlaylist")
     public String updatePlaylist(@RequestParam("playlistId") Integer playlistId,
-                                 @RequestParam("playlist_name") String playlistName) throws IOException {
+                                 @RequestParam("playlist_name") String playlistName) {
         Playlist playlist = playlistService.getPlaylistById(playlistId);
         playlist.setPlaylistName(playlistName);
         playlistService.savePlaylist(playlist);
@@ -131,5 +156,4 @@ public class UserController {
         songPlaylistService.deleteSongFromPlaylist(playlistId,songId);
         return "redirect:/user/playlist/{playlistId}";
     }
-
 }

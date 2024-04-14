@@ -2,6 +2,8 @@ package org.music_player.web.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -9,5 +11,6 @@ import lombok.*;
 @Getter
 public class AlbumDTO {
     private Integer albumId;
-    private String albumName, AlbumImg;
+    private String name, img;
+    private List<String> commonSongImg;
 }

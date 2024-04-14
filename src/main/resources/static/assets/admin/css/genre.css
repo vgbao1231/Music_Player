@@ -23,11 +23,11 @@
     font-size: 18px;
 }
 .preview-img{
-    max-height: 166px;
+    max-height: 168px;
 }
 .preview-img img{
     height: 100%;
-    max-width: 166px;
+    max-width: 168px;
     object-fit: cover;
 }
 

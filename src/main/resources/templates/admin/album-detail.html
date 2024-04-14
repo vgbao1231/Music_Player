@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
@@ -22,12 +21,12 @@
         <div class="album-container">
             <div class="album-detail">
                 <div class="album-img">
-                    <img th:src="${album.getAlbumImg()}" alt="Chưa có hình ảnh">
+                    <img th:src="${album.getImg()}" alt="Chưa có hình ảnh">
                 </div>
                 <form th:action="${albumId} + '/updateAlbum'" method="post" class="album-name">
-                    <span th:text="${album.getAlbumName()}"></span>
+                    <span th:text="${album.getName()}"></span>
                     <label>
-                        <input name="albumName" th:value="${album.getAlbumName()}">
+                        <input name="albumName" th:value="${album.getName()}">
                     </label>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </form>

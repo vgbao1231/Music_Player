@@ -1,26 +1,29 @@
-.genres-container{
+.topic-container{
     color: white;
-    padding: 2vh;
-    margin: 2vh;
-    height: 88vh;
+    padding: 20px;
+    height: 100%;
+    overflow-y: scroll;
     transition: margin-left 0.5s ease;
 }
-.genres-section{
-    padding: 4px;
+.topic-container::-webkit-scrollbar{
+    display: none;
 }
-.genres-section-name{
+.topic-section{
+    padding: 5px;
+}
+.topic-section-name{
     font-size: 24px;
     font-weight: 600;
     margin: 10px;
 }
-.genres-section-list{
+.topic-section-list{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
     gap: 30px;
 }
 
-.genres-img{
+.topic-section-item{
+    color: white;
     width: 100%;
     height: 22vh;
     border-radius: 10px;
@@ -30,19 +33,20 @@
     align-items: end;
     cursor: pointer;
 }
-.genres-img img{
+.topic-section-item img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: absolute;
     transition: all 0.7s ease;
 }
-.genres-name{
+.topic-name{
     position: absolute;
     font-weight: bolder;
     font-size: 20px;
     text-transform: uppercase;
     padding: 10px;
+    text-shadow: 0 0 10px black;
 }
 
 .songs {
@@ -66,6 +70,6 @@
     position: absolute;
 }
 
-.genres-img:hover>img {
-    scale: 1.15;
+.topic-section-item:hover>img {
+    scale: 1.1;
 }

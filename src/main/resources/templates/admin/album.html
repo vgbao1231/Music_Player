@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
@@ -59,10 +58,10 @@
                     <td th:text="${album.index} + 1"></td>
                     <td>
                         <div class="img-container">
-                            <img th:src="${AlbumDTO.getAlbumImg()}" alt="">
+                            <img th:src="${AlbumDTO.getImg()}" alt="">
                         </div>
                     </td>
-                    <td th:text="${AlbumDTO.getAlbumName()}"></td>
+                    <td th:text="${AlbumDTO.getName()}"></td>
                     <td>
                         <div class="center">
                             <a th:href="'/admin/album/' + ${AlbumDTO.getAlbumId()}" class="view-btn center mr-10">

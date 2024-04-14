@@ -10,5 +10,5 @@ import org.music_player.web.entity.Genre;
 @Getter
 public class GenreDTO {
     private Integer genreId;
-    private String genreName, genreImg;
+    private String name, img;
 }

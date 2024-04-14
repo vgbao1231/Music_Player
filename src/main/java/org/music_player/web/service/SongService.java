@@ -1,20 +1,15 @@
 package org.music_player.web.service;
 
 import org.music_player.web.dto.SongDTO;
-import org.music_player.web.dto.SongPlaylistDTO;
-import org.music_player.web.entity.Playlist;
 import org.music_player.web.entity.Song;
 import org.music_player.web.entity.SongAlbum;
 import org.music_player.web.entity.SongPlaylist;
 import org.music_player.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -41,7 +36,7 @@ public class SongService {
         return songDTO;
     }
 
-    public List<SongDTO> listALlSong() {
+    public List<SongDTO> listAllSong() {
         List<SongDTO> listAllSong = new ArrayList<>();
         for (Song song : songRepository.findAllSong()) {
             listAllSong.add(convertSongEntityToDTO(song));
@@ -58,12 +53,19 @@ public class SongService {
         return listAllSongByPlaylist;
     }
     public List<SongDTO> listAllSongByAlbum(Integer albumId) {
-        List<SongDTO> listAllSongByPlaylist = new ArrayList<>();
-        for (SongAlbum songAlbum : songAlbumRepository.listAllSongByAlbum(albumId)) {
-            listAllSongByPlaylist.add(convertSongEntityToDTO
+        List<SongDTO> listAllSongByAlbum = new ArrayList<>();
+        for (SongAlbum songAlbum : songAlbumRepository.findAllSongByAlbum(albumId)) {
+            listAllSongByAlbum.add(convertSongEntityToDTO
                     (songRepository.findBySongId(songAlbum.getSong().getSongId())));
         }
-        return listAllSongByPlaylist;
+        return listAllSongByAlbum;
+    }
+    public List<SongDTO> listAllSongByGenre(Integer genreId) {
+        List<SongDTO> listAllSongByGenre = new ArrayList<>();
+        for (Song song : songRepository.findAllSongByGenreId(genreId)) {
+            listAllSongByGenre.add(convertSongEntityToDTO(song));
+        }
+        return listAllSongByGenre;
     }
 
     public void addSongToPlaylist(Integer songId, Integer playlistId) {

@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
@@ -59,16 +58,16 @@
                     <td th:text="${genre.index} + 1"></td>
                     <td>
                         <div class="img-container">
-                            <img th:src="${GenreDTO.getGenreImg()}" alt="">
+                            <img th:src="${GenreDTO.getImg()}" alt="">
                         </div>
                     </td>
-                    <td th:text="${GenreDTO.getGenreName()}"></td>
+                    <td th:text="${GenreDTO.getName()}"></td>
                     <td>
                         <div class="center">
                             <button onclick="openUpdateGenreModal()" class="update-btn center mr-10"
                                     th:data-id="${GenreDTO.getGenreId()}"
-                                    th:data-img="${GenreDTO.getGenreImg()}"
-                                    th:data-genre_name="${GenreDTO.getGenreName()}">
+                                    th:data-img="${GenreDTO.getImg()}"
+                                    th:data-genre_name="${GenreDTO.getName()}">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
                                      alt="pencil"/>
                                 Chỉnh sửa

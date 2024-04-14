@@ -1,15 +1,15 @@
-.album-container {
+.topic-container {
     display: flex;
     margin: 40px;
     color: white;
 }
 
-.album-detail {
+.topic-detail {
     width: 32%;
     display: flex;
     flex-direction: column;
 }
-.album-img {
+.topic-img {
     width: 300px;
     height: 300px;
     overflow: hidden;
@@ -17,20 +17,20 @@
     border-radius: 10px;
 }
 
-.album-img img {
+.topic-img img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.album-name{
+.topic-name{
     text-align: center;
     font-size: 24px;
     font-weight: 500;
     margin: 10px 40px;
 }
 
-.album-song{
+.topic-song{
     flex-grow: 1;
 }
 

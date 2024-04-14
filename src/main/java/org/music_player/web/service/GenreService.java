@@ -16,10 +16,9 @@ public class GenreService {
     private GenreRepository genreRepository;
     public GenreDTO convertGenreEntityToDTO(Genre genre){
         GenreDTO genreDTO = new GenreDTO();
-
         genreDTO.setGenreId(genre.getGenreId());
-        genreDTO.setGenreName(genre.getGenreName());
-        genreDTO.setGenreImg(genre.getGenreImg());
+        genreDTO.setName(genre.getGenreName());
+        genreDTO.setImg(genre.getGenreImg());
         return genreDTO;
     }
     public List<GenreDTO> listALlGenre(){

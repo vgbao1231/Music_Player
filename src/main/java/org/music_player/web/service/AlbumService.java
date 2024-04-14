@@ -1,10 +1,11 @@
 package org.music_player.web.service;
 
 import org.music_player.web.dto.AlbumDTO;
-import org.music_player.web.dto.SongDTO;
 import org.music_player.web.entity.Album;
-import org.music_player.web.entity.Song;
+import org.music_player.web.entity.SongAlbum;
 import org.music_player.web.repository.AlbumRepository;
+import org.music_player.web.repository.SongAlbumRepository;
+import org.music_player.web.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,21 @@ import java.util.List;
 public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private SongRepository songRepository;
+    @Autowired
+    private SongAlbumRepository songAlbumRepository;
 
     public AlbumDTO convertAlbumEntityToDTO(Album album) {
         AlbumDTO albumDTO = new AlbumDTO();
         albumDTO.setAlbumId(album.getAlbumId());
-        albumDTO.setAlbumName(album.getAlbumName());
-        albumDTO.setAlbumImg(album.getAlbumImg());
+        albumDTO.setName(album.getAlbumName());
+        albumDTO.setImg(album.getAlbumImg());
+        List<String> commonSongImg = new ArrayList<>();
+        for (SongAlbum songAlbum : songAlbumRepository.findCommonSongByAlbum(album.getAlbumId())){
+            commonSongImg.add(songRepository.findBySongId(songAlbum.getSong().getSongId()).getSongImg());
+        }
+        albumDTO.setCommonSongImg(commonSongImg);
         return albumDTO;
     }
     public List<AlbumDTO> listAllAlbum() {

@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
@@ -56,7 +55,7 @@
                         <select>
                             <option value="" selected disabled hidden>Thể Loại</option>
                             <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
-                                    th:text="${GenreDTO.getGenreName()}"></option>
+                                    th:text="${GenreDTO.getName()}"></option>
                         </select>
                     </label>
                     <i class="fa-solid fa-circle-chevron-down"
@@ -68,16 +67,17 @@
             <table class="song-list__table">
                 <thead>
                     <tr>
+                        <th style="width: 5%;">STT</th>
                         <th style="width: 10%;">Ảnh</th>
-                        <th style="width: 20%;">Tên Bài Hát</th>
-                        <th style="width: 15%;">Nghệ Sĩ</th>
+                        <th style="width: 25%;">Tên Bài Hát</th>
+                        <th style="width: 20%;">Nghệ Sĩ</th>
                         <th style="width: 15%;">Thể Loại</th>
-                        <th style="width: 15%;">Ngày Thêm</th>
                         <th style="width: 25%;">Thao Tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="SongDTO : ${listAllSong}">
+                    <tr th:each="SongDTO,song : ${listAllSong}">
+                        <td th:text="${song.index + 1}"></td>
                         <td>
                             <div class="img-container">
                                 <img th:src="${SongDTO.getSongImg()}" alt="">
@@ -86,11 +86,6 @@
                         <td th:text="${SongDTO.getSongName()}"></td>
                         <td th:text="${SongDTO.getArtist()}"></td>
                         <td th:text="${SongDTO.getGenre().getGenreName()}"></td>
-                        <td>
-                            <audio>
-                                <source th:src="${SongDTO.getAudio()}" type="audio/mp3"/>
-                            </audio>
-                        </td>
                         <td class="center">
                             <button onclick="openUpdateSongModal()" class="update-btn center mr-10"
                                     th:data-id="${SongDTO.getSongId()}"
@@ -137,7 +132,7 @@
                         <select name="genre">
                             <option value="" selected disabled hidden>Thể Loại</option>
                             <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
-                                    th:text="${GenreDTO.getGenreName()}"></option>
+                                    th:text="${GenreDTO.getName()}"></option>
                         </select>
                     </label>
                 </div>

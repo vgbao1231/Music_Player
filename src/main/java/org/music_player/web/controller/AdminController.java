@@ -1,6 +1,5 @@
 package org.music_player.web.controller;
 
-import jakarta.transaction.Transactional;
 import org.music_player.web.dto.AlbumDTO;
 import org.music_player.web.dto.GenreDTO;
 import org.music_player.web.dto.SongDTO;
@@ -12,7 +11,6 @@ import org.music_player.web.service.GenreService;
 import org.music_player.web.service.SongAlbumService;
 import org.music_player.web.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +42,7 @@ public class AdminController {
     // Quản lý bài hát (Song)
     @RequestMapping("/song")
     public String adminSongPage(Model model) {
-        List<SongDTO> listAllSong = songService.listALlSong();
+        List<SongDTO> listAllSong = songService.listAllSong();
         List<GenreDTO> listAllGenre = genreService.listALlGenre();
         model.addAttribute("listAllGenre", listAllGenre);
         model.addAttribute("listAllSong", listAllSong);
@@ -195,7 +193,7 @@ public class AdminController {
 
     @RequestMapping("/album/{albumId}")
     public String adminAlbumDetailPage(Model model, @PathVariable Integer albumId) {
-        List<SongDTO> listAllSong = songService.listALlSong();
+        List<SongDTO> listAllSong = songService.listAllSong();
         List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
         AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(albumId));
         model.addAttribute("listAllSong", listAllSong);
@@ -239,7 +237,7 @@ public class AdminController {
     @PostMapping("/album/{albumId}/updateAlbum")
     public String updateSong(
             @PathVariable("albumId") Integer albumId,
-            @RequestParam("albumName") String albumName) throws IOException {
+            @RequestParam("albumName") String albumName) {
         Album album = albumService.findByAlbumId(albumId);
         album.setAlbumName(albumName);
         albumService.saveAlbum(album);

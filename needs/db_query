@@ -2,10 +2,13 @@
 INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'ADMIN', 'admin');
 INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'USER', 'user');
 
-INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'EDM', NULL);
-INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Pop', NULL);
-INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Rock', NULL);
-INSERT INTO `genre` (`genre_id`, `genre_name`, `genre_img`) VALUES (NULL, 'Vui', NULL);
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre1.jpg', 'Lofi');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre2.jpg', 'Pop');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre3.jpg', 'Rock');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre4.jpg', 'EDM');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre5.jpg', 'Buồn');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre6.jpg', 'Vui vẻ');
+INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre7.jpg', 'Hip hop');
 
 INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Chillies', '/assets/song/song1.mp3', '/assets/img/song/song1.jpg', 'Cứ Chill Thôi', '4');
 INSERT INTO `song` (`song_id`, `artist`, `audio`, `song_img`, `song_name`, `genre_id`) VALUES (NULL, 'Vani, An An', '/assets/song/song2.mp3', '/assets/img/song/song2.jpg', 'Crush', '4');

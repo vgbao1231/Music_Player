@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+</head>
+<link rel="stylesheet" href="/assets/user/css/base.css">
+<link rel="stylesheet" href="/assets/user/css/topic.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+<body>
+<div th:replace="~{user/fragments/header :: header}"></div>
+<div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
+<div class="background"
+     style="background: url('/assets/img/background/home.png') center center / cover no-repeat;"></div>
+<div class="main-content">
+    <div class="topic-container">
+
+        <div class="topic-section">
+            <div class="topic-section-name">THỂ LOẠI</div>
+            <div class="topic-section-list">
+                <a th:each="GenreDTO: ${listAllGenre}"
+                   th:href="'/user/topic/genre/'+${GenreDTO.getGenreId()}"
+                   class="topic-section-item">
+                    <img th:src="${GenreDTO.getImg()}" alt="">
+                    <div class="topic-name">
+                        <span th:text="${GenreDTO.getName()}"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <div class="topic-section-name">ALBUM</div>
+            <div class="topic-section-list">
+                <a th:each="AlbumDTO: ${listAllAlbum}"
+                   th:href="'/user/topic/album/'+${AlbumDTO.getAlbumId()}"
+                   class="topic-section-item">
+                    <img th:src="${AlbumDTO.getImg()}" alt="">
+                    <div class="topic-name">
+                        <span th:text="${AlbumDTO.getName()}"></span>
+                        <div class="songs">
+                            <div th:each="songImg : ${AlbumDTO.getCommonSongImg()}" class="song-img">
+                                <img th:src="${songImg}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/assets/user/js/base.js"></script>
+</html>
