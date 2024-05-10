@@ -1,6 +1,7 @@
 package org.music_player.web.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer albumId;
     @Column(name = "album_name")
+    @NotBlank(message = "Tên album không được để trống")
     private String albumName;
     @Column(name = "album_img")
     private String albumImg;

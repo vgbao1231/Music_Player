@@ -14,6 +14,8 @@
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div th:if="${error != null}" th:data-type="error" th:data-message="${error}" id="toast"></div>
+<div th:if="${success != null}" th:data-type="success" th:data-message="${success}" id="toast"></div>
 <div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
 <div class="main-content">
     <div class="table-frame m-20">
@@ -21,13 +23,14 @@
         <div class="album-container">
             <div class="album-detail">
                 <div class="album-img">
-                    <img th:src="${album.getImg()}" alt="Chưa có hình ảnh">
+                    <img th:src="${album.getAlbumImg()}" alt="Chưa có hình ảnh">
                 </div>
-                <form th:action="${albumId} + '/updateAlbum'" method="post" class="album-name">
-                    <span th:text="${album.getName()}"></span>
+                <form th:action="@{__${albumId}__/updateAlbum}"  th:object="${album}" method="post" class="album-name">
+                    <span th:text="${album.getAlbumName()}"></span>
                     <label>
-                        <input name="albumName" th:value="${album.getName()}">
+                        <input name="albumName" th:field="*{albumName}" th:value="${album.getAlbumName()}">
                     </label>
+                    <input type="text" name="albumImg" th:field="*{albumImg}" th:value="${album.getAlbumImg()}" hidden>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </form>
                 <div class="add-song m-10">

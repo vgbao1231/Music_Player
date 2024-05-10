@@ -14,16 +14,18 @@
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div th:if="${error != null}" th:data-type="error" th:data-message="${error}" id="toast"></div>
+<div th:if="${success != null}" th:data-type="success" th:data-message="${success}" id="toast"></div>
 <div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
 <div class="main-content" style="display: flex;">
     <div class="album-add m-20">
         <div class="album-add__container">
             <div class="table-frame__name m-10">Thêm album mới</div>
-            <form action="/admin/addAlbum" method="post" enctype="multipart/form-data">
+            <form th:action="@{/admin/album/addAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
                 <div class="album-info m-10">
                     <div class="input-wrapper">
                         <label>
-                            <input type="text" name="album_name" placeholder="Tên album:">
+                            <input type="text" name="album_name" th:field="*{albumName}" placeholder="Tên album:">
                         </label>
                     </div>
                     <div class="input-wrapper">
