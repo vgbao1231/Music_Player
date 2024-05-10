@@ -258,7 +258,7 @@ hr{
     bottom: -20px;
     right: -20px;
     z-index: -1;
-    filter: blur(6px);
+    filter: blur(4px) brightness(0.5);
 }
 
 /*Modal*/

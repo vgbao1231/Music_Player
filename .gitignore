@@ -16,7 +16,6 @@ target/
 ### IntelliJ IDEA ###
 src/main/resources/static/assets/song
 src/main/resources/static/assets/img
-application.properties
 .idea
 *.iws
 *.iml
