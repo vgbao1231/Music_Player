@@ -21,7 +21,7 @@
     <div class="album-add m-20">
         <div class="album-add__container">
             <div class="table-frame__name m-10">Thêm album mới</div>
-            <form th:action="@{/admin/album/addAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
+            <form th:action="'/admin/album/addAlbum'" th:object="${album}" method="post" enctype="multipart/form-data">
                 <div class="album-info m-10">
                     <div class="input-wrapper">
                         <label>
@@ -56,8 +56,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="AlbumDTO,album : ${listAllAlbum}">
-                    <td th:text="${album.index} + 1"></td>
+                <tr th:each="AlbumDTO,index : ${listAllAlbum}">
+                    <td th:text="${index.index} + 1"></td>
                     <td>
                         <div class="img-container">
                             <img th:src="${AlbumDTO.getImg()}" alt="">
@@ -65,18 +65,19 @@
                     </td>
                     <td th:text="${AlbumDTO.getName()}"></td>
                     <td>
-                        <div class="center">
+                        <form th:action="'/admin/album/deleteAlbum'" th:object="${album}" method="post" class="center">
                             <a th:href="'/admin/album/' + ${AlbumDTO.getAlbumId()}" class="view-btn center mr-10">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/fine-print.png"
                                      alt="fine-print"/>
                                 Xem
                             </a>
-                            <a th:href="'/admin/album/deleteAlbumId=' + ${AlbumDTO.getAlbumId()}" class="delete-btn center">
+                            <button name="albumId" th:field="*{albumId}" th:value="${AlbumDTO.getAlbumId()}"
+                                    class="delete-btn center">
                                 <img width="30" height="30"
                                      src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
                                 Xóa
-                            </a>
-                        </div>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

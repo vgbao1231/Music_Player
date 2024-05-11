@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +132,7 @@ public class UserController {
     @PostMapping("/addSongToPlaylist")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
                                     @RequestParam("playlistId") Integer playlistId,
-                                    @ModelAttribute("userId") Integer userId) {
+                                    @ModelAttribute("userId") Integer userId) throws IOException {
         songService.addSongToPlaylist(songId, playlistId);
         return "redirect:/user/home";
     }

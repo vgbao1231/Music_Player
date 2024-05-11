@@ -74,10 +74,10 @@ public class AlbumService {
         albumRepository.flush();
     }
 
-    public void deleteAlbum(Integer albumId) {
-        Album album = albumRepository.getReferenceById(albumId);
-        deleteFile("./src/main/resources/static" + album.getAlbumImg());
-        albumRepository.deleteById(albumId);
+    public void deleteAlbum(Album album) {
+        Album a = findByAlbumId(album.getAlbumId());
+        deleteFile("./src/main/resources/static" + a.getAlbumImg());
+        albumRepository.delete(a);
     }
 
     public void deleteFile(String filePath) {
@@ -95,10 +95,6 @@ public class AlbumService {
 
     public boolean imgIsExisted(String img) {
         return albumRepository.existsByAlbumImg(img);
-    }
-
-    public void saveAlbum(Album album) {
-        albumRepository.save(album);
     }
 
     public Album findByAlbumId(Integer albumId) {

@@ -81,7 +81,7 @@ function toast({ message, type }) {
         // Auto close
         const autoCloseId = setTimeout(function () {
             toastContainer.removeChild(toast)
-        }, 30300)
+        }, 30000)
         // Close when click
         toast.onclick = function () {
             // toast.style.opacity = 0

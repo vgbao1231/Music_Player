@@ -53,12 +53,11 @@ public class AdminController {
     }
 
     @PostMapping("/addSong")
-    public String addSong(
-        @RequestParam("song_name") String songName,
-        @RequestParam("artist") String artist,
-        @RequestParam("genre") Integer genre,
-        @RequestParam("audio") MultipartFile audio,
-        @RequestParam("img") MultipartFile img
+    public String addSong(@RequestParam("song_name") String songName,
+                          @RequestParam("artist") String artist,
+                          @RequestParam("genre") Integer genre,
+                          @RequestParam("audio") MultipartFile audio,
+                          @RequestParam("img") MultipartFile img
     ) throws IOException {
         // Lấy đường dẫn để thêm nhạc và ảnh vào
         String audioUploadDir = "./src/main/resources/static/assets/song/" + audio.getOriginalFilename();
@@ -90,12 +89,11 @@ public class AdminController {
     }
 
     @PostMapping("/updateSong")
-    public String updateSong(
-        @RequestParam("id") Integer id,
-        @RequestParam("song_name") String songName,
-        @RequestParam("artist") String artist,
-        @RequestParam("genre") Integer genre,
-        @RequestParam("img") MultipartFile img) throws IOException {
+    public String updateSong(@RequestParam("id") Integer id,
+                             @RequestParam("song_name") String songName,
+                             @RequestParam("artist") String artist,
+                             @RequestParam("genre") Integer genre,
+                             @RequestParam("img") MultipartFile img) throws IOException {
         Song song = songService.findBySongId(id);
         song.setSongName(songName);
         song.setArtist(artist);
@@ -132,9 +130,8 @@ public class AdminController {
     }
 
     @PostMapping("/genre/addGenre")
-    public String addGenre(
-        @RequestParam("genre_name") String genreName,
-        @RequestParam("img") MultipartFile img
+    public String addGenre(@RequestParam("genre_name") String genreName,
+                           @RequestParam("img") MultipartFile img
     ) throws IOException {
         // Lấy đường dẫn để thêm nhạc và ảnh vào
         String imgUploadDir = "./src/main/resources/static/assets/img/genre/" + img.getOriginalFilename();
@@ -157,10 +154,9 @@ public class AdminController {
     }
 
     @PostMapping("/genre/updateGenre")
-    public String updateGenre(
-        @RequestParam("genre_id") Integer genreId,
-        @RequestParam("genre_name") String genreName,
-        @RequestParam("img") MultipartFile img) throws IOException {
+    public String updateGenre(@RequestParam("genre_id") Integer genreId,
+                              @RequestParam("genre_name") String genreName,
+                              @RequestParam("img") MultipartFile img) throws IOException {
         Genre genre = genreService.findByGenreId(genreId);
         genre.setGenreName(genreName);
         // Nếu có ảnh mới thì sửa ko thì thôi
@@ -195,74 +191,95 @@ public class AdminController {
         return "admin/album";
     }
 
+    @PostMapping("/album/addAlbum")
+    public String addAlbum(@ModelAttribute Album album,
+                           @RequestParam("img") MultipartFile img,
+                           RedirectAttributes redirectAttributes
+    ) {
+        try {
+            albumService.addAlbum(album, img);
+            redirectAttributes.addFlashAttribute("success", "Thêm album thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/album";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/album";
+        }
+        return "redirect:/admin/album";
+    }
+
+    @PostMapping("/album/updateAlbum")
+    public String updateSong(@ModelAttribute Album album,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            albumService.updateAlbum(album);
+            redirectAttributes.addFlashAttribute("success", "Cập nhật album thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/album/" + album.getAlbumId();
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/album/" + album.getAlbumId();
+        }
+        return "redirect:/admin/album/" + album.getAlbumId();
+    }
+
+    @PostMapping("/album/deleteAlbum")
+    public String deleteAlbum(@ModelAttribute Album album,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            albumService.deleteAlbum(album);
+            redirectAttributes.addFlashAttribute("success", "Xóa album thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/album";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/album";
+        }
+        return "redirect:/admin/album";
+    }
+
     @RequestMapping("/album/{albumId}")
     public String adminAlbumDetailPage(Model model, @PathVariable Integer albumId) {
         List<SongDTO> listAllSong = songService.listAllSong();
         List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
-        Album album = albumService.findByAlbumId(albumId);
         model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
+        Album album = albumService.findByAlbumId(albumId);
         model.addAttribute("album", album);
         return "admin/album-detail";
     }
 
-    @PostMapping("/album/addSongToAlbum")
+    @PostMapping("/album/addSongAlbum")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
-                                    @RequestParam("albumId") Integer albumId) {
-        songService.addSongToAlbum(songId, albumId);
-        return "redirect:/admin/album/" + albumId;
-    }
-
-    @PostMapping("/album/addAlbum")
-    public String addAlbum(
-        @ModelAttribute Album album,
-        @RequestParam("img") MultipartFile img,
-        RedirectAttributes redirectAttributes
-    ) {
+                                    @ModelAttribute("albumId") Album album,
+                                    RedirectAttributes redirectAttributes) {
         try {
-            albumService.addAlbum(album,img);
-            redirectAttributes.addFlashAttribute("success", "Thêm album thành công");
-        }catch (ConstraintViolationException ex) {
-            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
-            redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/album";
-        } catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/album";
+            songAlbumService.addSongAlbum(songId, album);
+            redirectAttributes.addFlashAttribute("success", "Thêm bài hát vào album thành công");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Bài hát đã có trong album");
+            return "redirect:/admin/album/" + album.getAlbumId();
         }
-        return "redirect:/admin/album";
+        return "redirect:/admin/album/" + album.getAlbumId();
     }
 
-    @PostMapping("/album/{albumId}/updateAlbum")
-    public String updateSong(
-        @PathVariable("albumId") Integer albumId,
-        @ModelAttribute Album album,
-        RedirectAttributes redirectAttributes) {
+    @PostMapping("/album/deleteSongAlbum")
+    public String deleteSongFromAlbum(@RequestParam("songId") Integer songId,
+                                      @ModelAttribute("albumId") Album album,
+                                      RedirectAttributes redirectAttributes) {
         try {
-            album.setAlbumId(albumId);
-            albumService.updateAlbum(album);
-            redirectAttributes.addFlashAttribute("success", "Cập nhật album thành công");
-        }catch (ConstraintViolationException ex) {
-            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
-            redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/album/{albumId}";
-        } catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/album/{albumId}";
+            songAlbumService.deleteSongFromAlbum(songId, album);
+            redirectAttributes.addFlashAttribute("success", "Xóa bài hát khỏi album thành công");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Không thể xóa bài hát khỏi album");
+            return "redirect:/admin/album/" + album.getAlbumId();
         }
-        return "redirect:/admin/album/{albumId}";
-    }
-
-    @RequestMapping("/album/{albumId}/deleteSongId={songId}")
-    public String deleteSongFromAlbum(@PathVariable("albumId") Integer albumId,
-                                      @PathVariable("songId") Integer songId) {
-        songAlbumService.deleteSongFromAlbum(albumId, songId);
-        return "redirect:/admin/album/{albumId}";
-    }
-
-    @RequestMapping("/album/deleteAlbumId={albumId}")
-    public String deleteAlbum(@PathVariable("albumId") Integer albumId) {
-        albumService.deleteAlbum(albumId);
-        return "redirect:/admin/album";
+        return "redirect:/admin/album/" + album.getAlbumId();
     }
 }

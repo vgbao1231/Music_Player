@@ -20,7 +20,7 @@ public class SongAlbum {
     @ManyToOne
     @JoinColumn(name = "song_id",referencedColumnName = "song_id")
     private Song song;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.REMOVE)
     @JoinColumn(name = "album_id",referencedColumnName = "album_id")
     private Album album;
 }

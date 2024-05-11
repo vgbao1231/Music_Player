@@ -1,6 +1,7 @@
 package org.music_player.web.service;
 
 import org.music_player.web.dto.SongDTO;
+import org.music_player.web.entity.Album;
 import org.music_player.web.entity.Song;
 import org.music_player.web.entity.SongAlbum;
 import org.music_player.web.entity.SongPlaylist;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,6 @@ public class SongService {
     private SongAlbumRepository songAlbumRepository;
     @Autowired
     private PlaylistRepository playlistRepository;
-    @Autowired
-    private AlbumRepository albumRepository;
 
     public SongDTO convertSongEntityToDTO(Song song) {
         SongDTO songDTO = new SongDTO();
@@ -68,25 +68,14 @@ public class SongService {
         return listAllSongByGenre;
     }
 
-    public void addSongToPlaylist(Integer songId, Integer playlistId) {
+    public void addSongToPlaylist(Integer songId, Integer playlistId) throws IOException {
         SongPlaylist songPlaylist = new SongPlaylist();
         songPlaylist.setSong(findBySongId(songId));
         songPlaylist.setPlaylist(playlistRepository.findByPlaylistId(playlistId));
         try {
             songPlaylistRepository.save(songPlaylist);
         } catch (Exception e) {
-            System.out.println("Bài hát đã có trong playlist");
-        }
-    }
-    public void addSongToAlbum(Integer songId, Integer albumId) {
-        SongAlbum songAlbum = new SongAlbum();
-        songAlbum.setSong(findBySongId(songId));
-        songAlbum.setAlbum(albumRepository.findByAlbumId(albumId));
-        try {
-            System.out.println("Chạy");
-            songAlbumRepository.save(songAlbum);
-        } catch (Exception e) {
-            System.out.println("Bài hát đã có trong album");
+            throw new IOException("Bài hát đã có trong playlist");
         }
     }
 
