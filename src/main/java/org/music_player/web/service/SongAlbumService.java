@@ -26,7 +26,7 @@ public class SongAlbumService {
     }
 
     public void deleteSongFromAlbum(Integer songId, Album album) {
-        SongAlbum songAlbum = songAlbumRepository.findByAlbumIdAndSongId(album.getAlbumId(), songId);
+        SongAlbum songAlbum = songAlbumRepository.findSongAlbumByAlbumIdAndSongId(album.getAlbumId(), songId);
         songAlbumRepository.delete(songAlbum);
     }
 }

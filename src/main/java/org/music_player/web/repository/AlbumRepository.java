@@ -11,7 +11,5 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
     @Query(value = "select * from album", nativeQuery = true)
     List<Album> findAllAlbum();
 
-    Album findByAlbumId(Integer albumId);
-
     boolean existsByAlbumImg(String img);
 }

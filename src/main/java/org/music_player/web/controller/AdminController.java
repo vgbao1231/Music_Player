@@ -69,7 +69,7 @@ public class AdminController {
         Song song = new Song();
         song.setSongName(songName);
         song.setArtist(artist);
-        song.setGenre(genreService.findByGenreId(genre));
+        song.setGenre(genreService.findGenreByGenreId(genre));
         song.setAudio(audioUploadDir.replace("./src/main/resources/static", ""));
         song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
 
@@ -97,7 +97,7 @@ public class AdminController {
         Song song = songService.findBySongId(id);
         song.setSongName(songName);
         song.setArtist(artist);
-        song.setGenre(genreService.findByGenreId(genre));
+        song.setGenre(genreService.findGenreByGenreId(genre));
         // Nếu có ảnh mới thì sửa ko thì thôi
         boolean isDuplicateImage =
             songService.imgIsExisted("/assets/img/song/" + img.getOriginalFilename());
@@ -126,59 +126,63 @@ public class AdminController {
     public String adminGenresPage(Model model) {
         List<GenreDTO> listAllGenre = genreService.listALlGenre();
         model.addAttribute("listAllGenre", listAllGenre);
+        model.addAttribute("genre", new Genre());
         return "admin/genre";
     }
 
     @PostMapping("/genre/addGenre")
-    public String addGenre(@RequestParam("genre_name") String genreName,
-                           @RequestParam("img") MultipartFile img
-    ) throws IOException {
-        // Lấy đường dẫn để thêm nhạc và ảnh vào
-        String imgUploadDir = "./src/main/resources/static/assets/img/genre/" + img.getOriginalFilename();
-        Path imgPath = Paths.get(imgUploadDir);
-        Files.write(imgPath, img.getBytes());
-
-        Genre genre = new Genre();
-        genre.setGenreName(genreName);
-        genre.setGenreImg(imgUploadDir.replace("./src/main/resources/static", ""));
-
-        boolean isDuplicateImage = genreService.imgIsExisted(genre.getGenreImg());
-
-        // Xử lý trường hợp trùng lặp
-        if (isDuplicateImage) {
-            System.out.println("Trùng lặp");
-        } else {
-            genreService.saveGenre(genre);
+    public String addGenre(@ModelAttribute Genre genre,
+                           @RequestParam("img") MultipartFile img,
+                           RedirectAttributes redirectAttributes) {
+        try {
+            genreService.addGenre(genre, img);
+            redirectAttributes.addFlashAttribute("success", "Thêm thể loại thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/genre";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/genre";
         }
         return "redirect:/admin/genre";
     }
 
     @PostMapping("/genre/updateGenre")
-    public String updateGenre(@RequestParam("genre_id") Integer genreId,
-                              @RequestParam("genre_name") String genreName,
-                              @RequestParam("img") MultipartFile img) throws IOException {
-        Genre genre = genreService.findByGenreId(genreId);
-        genre.setGenreName(genreName);
-        // Nếu có ảnh mới thì sửa ko thì thôi
-        boolean isDuplicateImage =
-            genreService.imgIsExisted("/assets/img/genre/" + img.getOriginalFilename());
-        if (!img.isEmpty() && !isDuplicateImage) {
-            //Xóa ảnh cũ
-            genreService.deleteFile("./src/main/resources/static" + genre.getGenreImg());
-            String imgUploadDir = "./src/main/resources/static/assets/img/genre/" + img.getOriginalFilename();
-            Path imgPath = Paths.get(imgUploadDir);
-            Files.write(imgPath, img.getBytes());
-            genre.setGenreImg(imgUploadDir.replace("./src/main/resources/static", ""));
-        } else {
-            System.out.println("Trống hoặc trùng lặp");
+    public String updateGenre(@ModelAttribute Genre genre,
+                              @RequestParam("img") MultipartFile img,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            System.out.println(genre.getGenreId());
+            System.out.println(genre.getGenreImg());
+            System.out.println(genre.getGenreName());
+            genreService.updateGenre(genre, img);
+            redirectAttributes.addFlashAttribute("success", "Cập nhật thể loại thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/genre";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/genre";
         }
-        genreService.saveGenre(genre);
         return "redirect:/admin/genre";
     }
 
-    @RequestMapping("/genre/deleteGenreId={genreId}")
-    public String deleteGenre(@PathVariable("genreId") Integer genreId) {
-        genreService.deleteGenre(genreId);
+    @PostMapping("/genre/deleteGenre")
+    public String deleteGenre(@ModelAttribute Genre genre,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            genreService.deleteGenre(genre);
+            redirectAttributes.addFlashAttribute("success", "Xóa thể loại thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/genre";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/genre";
+        }
         return "redirect:/admin/genre";
     }
 
@@ -194,8 +198,7 @@ public class AdminController {
     @PostMapping("/album/addAlbum")
     public String addAlbum(@ModelAttribute Album album,
                            @RequestParam("img") MultipartFile img,
-                           RedirectAttributes redirectAttributes
-    ) {
+                           RedirectAttributes redirectAttributes) {
         try {
             albumService.addAlbum(album, img);
             redirectAttributes.addFlashAttribute("success", "Thêm album thành công");
@@ -250,14 +253,14 @@ public class AdminController {
         List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(albumId);
         model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("listAllSongAlbum", listAllSongByAlbum);
-        Album album = albumService.findByAlbumId(albumId);
+        Album album = albumService.findAlbumByAlbumId(albumId);
         model.addAttribute("album", album);
         return "admin/album-detail";
     }
 
     @PostMapping("/album/addSongAlbum")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
-                                    @ModelAttribute("albumId") Album album,
+                                    @ModelAttribute("album") Album album,
                                     RedirectAttributes redirectAttributes) {
         try {
             songAlbumService.addSongAlbum(songId, album);
@@ -271,7 +274,7 @@ public class AdminController {
 
     @PostMapping("/album/deleteSongAlbum")
     public String deleteSongFromAlbum(@RequestParam("songId") Integer songId,
-                                      @ModelAttribute("albumId") Album album,
+                                      @ModelAttribute("album") Album album,
                                       RedirectAttributes redirectAttributes) {
         try {
             songAlbumService.deleteSongFromAlbum(songId, album);

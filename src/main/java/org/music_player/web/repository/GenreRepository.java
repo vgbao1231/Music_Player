@@ -9,7 +9,7 @@ import java.util.List;
 public interface GenreRepository extends JpaRepository<Genre,Integer> {
     @Query(value = "select * from genre", nativeQuery = true)
     List<Genre> findAllGenre();
-    Genre findByGenreId(Integer genreId);
+    Genre findGenreByGenreId(Integer genreId);
     boolean existsByGenreImg(String img);
 }
 

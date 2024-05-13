@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,24 +51,25 @@ public class AlbumService {
     }
 
     public void addAlbum(Album album, MultipartFile albumImg) throws IOException {
-        if (albumImg == null || albumImg.isEmpty()) {
+        if (albumImg == null || albumImg.isEmpty())
             throw new IOException("Ảnh album không được để trống");
-        }
-        // Lấy đường dẫn để thêm nhạc và ảnh vào
-        String imgUploadDir = "./src/main/resources/static/assets/img/album/" + albumImg.getOriginalFilename();
-        Path imgPath = Paths.get(imgUploadDir);
-        Files.write(imgPath, albumImg.getBytes());
+        // Đọc dữ liệu hình ảnh từ MultipartFile
+        if (ImageIO.read(albumImg.getInputStream()) == null)
+            throw new IOException("Tệp vừa chọn không phải là hình ảnh");
 
-        album.setAlbumImg(imgUploadDir.replace("./src/main/resources/static", ""));
-        boolean isDuplicateImage = imgIsExisted(album.getAlbumImg());
-
+        // Lấy đường dẫn để thêm ảnh vào
+        String imgUploadDir = "/assets/img/album/" + albumImg.getOriginalFilename();
+        album.setAlbumImg(imgUploadDir);
         // Xử lý trường hợp trùng lặp
-        if (isDuplicateImage) {
-            System.out.println("Trùng lặp");
+        if (imgIsExisted(album.getAlbumImg())) {
+            throw new IOException("Đã có album có hình ảnh này");
         } else {
             albumRepository.save(album);
+            Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
+            Files.write(imgPath, albumImg.getBytes());
         }
     }
+
     @Transactional
     public void updateAlbum(Album album) {
         albumRepository.save(album);
@@ -75,7 +77,7 @@ public class AlbumService {
     }
 
     public void deleteAlbum(Album album) {
-        Album a = findByAlbumId(album.getAlbumId());
+        Album a = findAlbumByAlbumId(album.getAlbumId());
         deleteFile("./src/main/resources/static" + a.getAlbumImg());
         albumRepository.delete(a);
     }
@@ -97,7 +99,7 @@ public class AlbumService {
         return albumRepository.existsByAlbumImg(img);
     }
 
-    public Album findByAlbumId(Integer albumId) {
-        return albumRepository.findByAlbumId(albumId);
+    public Album findAlbumByAlbumId(Integer albumId) {
+        return albumRepository.getReferenceById(albumId);
     }
 }

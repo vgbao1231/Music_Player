@@ -76,7 +76,7 @@ public class UserController {
     @RequestMapping("/topic/album/{topicId}")
     public String userAlbum(Model model, @PathVariable Integer topicId) {
         List<SongDTO> listAllSongByAlbum = songService.listAllSongByAlbum(topicId);
-        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findByAlbumId(topicId));
+        AlbumDTO album = albumService.convertAlbumEntityToDTO(albumService.findAlbumByAlbumId(topicId));
         model.addAttribute("listAllSong", listAllSongByAlbum);
         model.addAttribute("topic", album);
         model.addAttribute("topicName", "album");
@@ -85,7 +85,7 @@ public class UserController {
     @RequestMapping("/topic/genre/{topicId}")
     public String userGenre(Model model, @PathVariable Integer topicId) {
         List<SongDTO> listAllSongByGenre = songService.listAllSongByGenre(topicId);
-        GenreDTO genre = genreService.convertGenreEntityToDTO(genreService.findByGenreId(topicId));
+        GenreDTO genre = genreService.convertGenreEntityToDTO(genreService.findGenreByGenreId(topicId));
         model.addAttribute("listAllSong", listAllSongByGenre);
         model.addAttribute("topic", genre);
         model.addAttribute("topicName", "genre");
