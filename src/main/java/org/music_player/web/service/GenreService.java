@@ -2,7 +2,6 @@ package org.music_player.web.service;
 
 import jakarta.transaction.Transactional;
 import org.music_player.web.dto.GenreDTO;
-import org.music_player.web.entity.Album;
 import org.music_player.web.entity.Genre;
 import org.music_player.web.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +16,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
-    public GenreDTO convertGenreEntityToDTO(Genre genre){
+
+    public GenreDTO convertGenreEntityToDTO(Genre genre) {
         GenreDTO genreDTO = new GenreDTO();
         genreDTO.setGenreId(genre.getGenreId());
         genreDTO.setName(genre.getGenreName());
         genreDTO.setImg(genre.getGenreImg());
         return genreDTO;
     }
-    public List<GenreDTO> listALlGenre(){
+
+    public List<GenreDTO> listALlGenre() {
         List<GenreDTO> listAllGenre = new ArrayList<>();
-        for(Genre genre : genreRepository.findAllGenre()){
+        for (Genre genre : genreRepository.findAllGenre()) {
             listAllGenre.add(convertGenreEntityToDTO(genre));
         }
         return listAllGenre;
@@ -49,25 +51,28 @@ public class GenreService {
         // Xử lý trường hợp trùng lặp
         if (imgIsExisted(genre.getGenreImg())) {
             throw new IOException("Đã có thể loại có hình ảnh này");
-        } else {
-            genreRepository.save(genre);
-            Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
-            Files.write(imgPath, genreImg.getBytes());
         }
+        Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
+        Files.write(imgPath, genreImg.getBytes());
+        genreRepository.save(genre);
     }
 
     @Transactional
     public void updateGenre(Genre genre, MultipartFile genreImg) throws IOException {
+        Genre g = genreRepository.getReferenceById(genre.getGenreId());
+        genre.setGenreImg(g.getGenreImg());
         // Nếu có ảnh mới thì sửa ko thì thôi
-        boolean isDuplicateImage = imgIsExisted("/assets/img/genre/" + genreImg.getOriginalFilename());
-        if (!genreImg.isEmpty() && !isDuplicateImage){
+        if (!genreImg.isEmpty()) {
             // Đọc dữ liệu hình ảnh từ MultipartFile
             if (ImageIO.read(genreImg.getInputStream()) == null)
                 throw new IOException("Tệp vừa chọn không phải là hình ảnh");
-            //Xóa ảnh cũ
-            deleteFile("./src/main/resources/static" + genre.getGenreImg());
+
             String imgUploadDir = "/assets/img/genre/" + genreImg.getOriginalFilename();
             Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
+            if (imgIsExisted(imgUploadDir)) throw new IOException("Đã có thể loại có hình ảnh này");
+            //Xóa ảnh cũ
+            deleteFile("./src/main/resources/static" + genre.getGenreImg());
+            //Tạo file ảnh mới
             Files.write(imgPath, genreImg.getBytes());
             genre.setGenreImg(imgUploadDir);
         }
@@ -80,6 +85,7 @@ public class GenreService {
         deleteFile("./src/main/resources/static" + genre.getGenreImg());
         genreRepository.delete(g);
     }
+
     public void deleteFile(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
@@ -92,9 +98,11 @@ public class GenreService {
             System.out.println("File không tồn tại: " + filePath);
         }
     }
-    public Genre findGenreByGenreId(Integer genreId){
+
+    public Genre findGenreByGenreId(Integer genreId) {
         return genreRepository.findGenreByGenreId(genreId);
     }
+
     public boolean imgIsExisted(String img) {
         return genreRepository.existsByGenreImg(img);
     }

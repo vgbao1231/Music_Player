@@ -63,15 +63,16 @@ public class AlbumService {
         // Xử lý trường hợp trùng lặp
         if (imgIsExisted(album.getAlbumImg())) {
             throw new IOException("Đã có album có hình ảnh này");
-        } else {
-            albumRepository.save(album);
-            Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
-            Files.write(imgPath, albumImg.getBytes());
         }
+        Path imgPath = Paths.get("./src/main/resources/static" + imgUploadDir);
+        Files.write(imgPath, albumImg.getBytes());
+        albumRepository.save(album);
     }
 
     @Transactional
     public void updateAlbum(Album album) {
+        Album a = albumRepository.getReferenceById(album.getAlbumId());
+        album.setAlbumImg(a.getAlbumImg());
         albumRepository.save(album);
         albumRepository.flush();
     }

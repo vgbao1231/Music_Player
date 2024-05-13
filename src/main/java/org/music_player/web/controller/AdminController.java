@@ -52,72 +52,57 @@ public class AdminController {
         return "admin/song";
     }
 
-    @PostMapping("/addSong")
-    public String addSong(@RequestParam("song_name") String songName,
-                          @RequestParam("artist") String artist,
-                          @RequestParam("genre") Integer genre,
+    @PostMapping("/song/addSong")
+    public String addSong(@ModelAttribute Song song,
+                          @RequestParam("img") MultipartFile img,
                           @RequestParam("audio") MultipartFile audio,
-                          @RequestParam("img") MultipartFile img
-    ) throws IOException {
-        // Lấy đường dẫn để thêm nhạc và ảnh vào
-        String audioUploadDir = "./src/main/resources/static/assets/song/" + audio.getOriginalFilename();
-        Path audioPath = Paths.get(audioUploadDir);
-
-        String imgUploadDir = "./src/main/resources/static/assets/img/song/" + img.getOriginalFilename();
-        Path imgPath = Paths.get(imgUploadDir);
-
-        Song song = new Song();
-        song.setSongName(songName);
-        song.setArtist(artist);
-        song.setGenre(genreService.findGenreByGenreId(genre));
-        song.setAudio(audioUploadDir.replace("./src/main/resources/static", ""));
-        song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
-
-        //Kiểm tra ảnh và nhạc đã tồn tại chưa
-        boolean isDuplicateImage = songService.imgIsExisted(song.getSongImg());
-        boolean isDuplicateAudio = songService.audioIsExisted(song.getAudio());
-        // Xử lý trường hợp đã tồn tại
-        if (isDuplicateImage || isDuplicateAudio) {
-            System.out.println("Trùng lặp");
-        } else {
-            Files.write(audioPath, audio.getBytes());
-            Files.write(imgPath, img.getBytes());
-
-            songService.saveSong(song);
+                          RedirectAttributes redirectAttributes) {
+        try {
+            songService.addSong(song, img, audio);
+            redirectAttributes.addFlashAttribute("success", "Thêm bài hát thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/song";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/song";
         }
         return "redirect:/admin/song";
     }
 
-    @PostMapping("/updateSong")
-    public String updateSong(@RequestParam("id") Integer id,
-                             @RequestParam("song_name") String songName,
-                             @RequestParam("artist") String artist,
-                             @RequestParam("genre") Integer genre,
-                             @RequestParam("img") MultipartFile img) throws IOException {
-        Song song = songService.findBySongId(id);
-        song.setSongName(songName);
-        song.setArtist(artist);
-        song.setGenre(genreService.findGenreByGenreId(genre));
-        // Nếu có ảnh mới thì sửa ko thì thôi
-        boolean isDuplicateImage =
-            songService.imgIsExisted("/assets/img/song/" + img.getOriginalFilename());
-        if (!img.isEmpty() && !isDuplicateImage) {
-            //Xóa ảnh cũ
-            songService.deleteFile("./src/main/resources/static" + song.getSongImg());
-            String imgUploadDir = "./src/main/resources/static/assets/img/song/" + img.getOriginalFilename();
-            Path imgPath = Paths.get(imgUploadDir);
-            Files.write(imgPath, img.getBytes());
-            song.setSongImg(imgUploadDir.replace("./src/main/resources/static", ""));
-        } else {
-            System.out.println("Trống hoặc trùng lặp");
+    @PostMapping("/song/updateSong")
+    public String updateSong(@ModelAttribute Song song,
+                             @RequestParam("img") MultipartFile img,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            songService.updateSong(song, img);
+            redirectAttributes.addFlashAttribute("success", "Cập nhật bài hát thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/song";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/song";
         }
-        songService.saveSong(song);
         return "redirect:/admin/song";
     }
 
-    @RequestMapping("/song/deleteSongId={songId}")
-    public String deleteSong(@PathVariable Integer songId) {
-        songService.deleteSong(songId);
+    @RequestMapping("/song/deleteSong")
+    public String deleteSong(@ModelAttribute Song song,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            songService.deleteSong(song);
+            redirectAttributes.addFlashAttribute("success", "Xóa bài hát thành công");
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/admin/song";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/song";
+        }
         return "redirect:/admin/song";
     }
 
@@ -153,9 +138,6 @@ public class AdminController {
                               @RequestParam("img") MultipartFile img,
                               RedirectAttributes redirectAttributes) {
         try {
-            System.out.println(genre.getGenreId());
-            System.out.println(genre.getGenreImg());
-            System.out.println(genre.getGenreName());
             genreService.updateGenre(genre, img);
             redirectAttributes.addFlashAttribute("success", "Cập nhật thể loại thành công");
         } catch (ConstraintViolationException ex) {
@@ -260,7 +242,7 @@ public class AdminController {
 
     @PostMapping("/album/addSongAlbum")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
-                                    @ModelAttribute("album") Album album,
+                                    @ModelAttribute Album album,
                                     RedirectAttributes redirectAttributes) {
         try {
             songAlbumService.addSongAlbum(songId, album);
@@ -274,7 +256,7 @@ public class AdminController {
 
     @PostMapping("/album/deleteSongAlbum")
     public String deleteSongFromAlbum(@RequestParam("songId") Integer songId,
-                                      @ModelAttribute("album") Album album,
+                                      @ModelAttribute Album album,
                                       RedirectAttributes redirectAttributes) {
         try {
             songAlbumService.deleteSongFromAlbum(songId, album);

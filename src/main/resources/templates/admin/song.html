@@ -14,6 +14,8 @@
 <body>
 <div th:replace="~{admin/fragments/header :: header}"></div>
 <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+<div th:if="${error != null}" th:data-type="error" th:data-message="${error}" id="toast"></div>
+<div th:if="${success != null}" th:data-type="success" th:data-message="${success}" id="toast"></div>
 <div class="background" style="background-color: rgba(0,0,0,0.05);"></div>
 <div class="main-content">
     <div class="song-list table-frame m-20">
@@ -76,8 +78,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="SongDTO,song : ${listAllSong}">
-                        <td th:text="${song.index + 1}"></td>
+                    <tr th:each="SongDTO,index : ${listAllSong}">
+                        <td th:text="${index.index + 1}"></td>
                         <td>
                             <div class="img-container">
                                 <img th:src="${SongDTO.getSongImg()}" alt="">
@@ -90,20 +92,21 @@
                             <button onclick="openUpdateSongModal()" class="update-btn center mr-10"
                                     th:data-id="${SongDTO.getSongId()}"
                                     th:data-img="${SongDTO.getSongImg()}"
-                                    th:data-song_name="${SongDTO.getSongName()}"
+                                    th:data-song-name="${SongDTO.getSongName()}"
                                     th:data-artist="${SongDTO.getArtist()}"
                                     th:data-genre="${SongDTO.getGenre().getGenreId()}">
                                 <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
                                      alt="pencil"/>
                                 Chỉnh sửa
                             </button>
-                            <a th:href="'/admin/song/deleteSongId=' + ${SongDTO.getSongId()}">
-                                <button class="delete-btn center">
+                            <form th:action="'/admin/song/deleteSong'" th:object="${song}" method="post">
+                                <button name="songId" th:field="*{songId}" th:value="${SongDTO.getSongId()}"
+                                        class="delete-btn center">
                                     <img width="30" height="30"
                                          src="https://img.icons8.com/pulsar-color/30/delete-trash.png" alt="delete-trash"/>
                                     Xóa
                                 </button>
-                            </a>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
@@ -113,23 +116,23 @@
 </div>
 <div class="modal modal-song">
     <div class="modal-container">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" th:object="${song}" enctype="multipart/form-data">
             <div class="table-frame__name"></div>
-            <label><input type="text" name="id" hidden="hidden"></label>
+            <label><input type="hidden" name="songId" th:field="*{songId}"></label>
             <div class="song-info m-20">
                 <div class="input-wrapper">
                     <label>
-                        <input type="text" name="song_name" placeholder="Tên bài hát:">
+                        <input type="text" name="songName" th:field="*{songName}" placeholder="Tên bài hát:">
                     </label>
                 </div>
                 <div class="input-wrapper">
                     <label>
-                        <input type="text" name="artist" placeholder="Nghệ sĩ:">
+                        <input type="text" name="artist" th:field="*{artist}" placeholder="Nghệ sĩ:">
                     </label>
                 </div>
                 <div class="input-wrapper">
                     <label>
-                        <select name="genre">
+                        <select th:field="*{genre.genreId}">
                             <option value="" selected disabled hidden>Thể Loại</option>
                             <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
                                     th:text="${GenreDTO.getName()}"></option>
@@ -138,7 +141,7 @@
                 </div>
                 <div class="input-wrapper audio-input">
                     <label>Chọn bài hát</label>
-                    <input type="file" accept="audio/mp3" name="audio" placeholder="File bài hát:">
+                    <input type="file" name="audio" placeholder="File bài hát:">
                 </div>
                 <div class="input-wrapper">
                     <label>Ảnh hiện tại</label>

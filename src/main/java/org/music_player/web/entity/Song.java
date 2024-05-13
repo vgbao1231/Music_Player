@@ -1,6 +1,7 @@
 package org.music_player.web.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,10 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer songId;
     @Column(name = "song_name")
+    @NotBlank(message = "Tên bài hát không được để trống")
     private String songName;
     @Column(name = "artist")
+    @NotBlank(message = "Tên nghệ sĩ không được để trống")
     private String artist;
 
     @ManyToOne
@@ -30,12 +33,11 @@ public class Song {
 
     @Column(name = "song_img")
     private String songImg;
-    @Column(name = "audio")
-    private String audio;
+    @Column(name = "song_audio")
+    private String songAudio;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
     private Set<SongAlbum> songAlbum;
     @OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
     private Set<SongPlaylist> songPlaylist;
-
 }
