@@ -70,9 +70,13 @@
                         <h2 th:text="${SongDTO.getSongName()}"></h2>
                         <h4 th:text="${SongDTO.getArtist()}"></h4>
                     </div>
-                    <div th:if="${topicName} == 'playlist'" class="song-option delete-song__btn"
+                    <div th:if="${topicName} == 'playlist'" class="song-option delete-song"
                          th:data-id="${SongDTO.getSongId()}">
                         <i class="fa-solid fa-trash-can mr-10"></i>
+                    </div>
+                    <div th:if="${topicName} != 'playlist'" class="song-option add-to-playlist"
+                         th:data-id="${SongDTO.getSongId()}">
+                        <i class="fa-solid fa-plus"></i>
                     </div>
                 </div>
             </div>
@@ -89,6 +93,23 @@
                 <button class="accept-btn p-10">Xóa</button>
             </a>
         </div>
+    </div>
+</div>
+<div class="modal modal-select-playlist">
+    <div class="modal-container">
+        <form action="/user/addSongToPlaylist" method="post">
+            <label>
+                <input type="text" name="songId" hidden>
+            </label>
+            <div class="table-frame__name center m-10">Chọn playlist:</div>
+            <div class="playlist">
+                <button class="playlist-btn" th:each="PlaylistDTO : ${listAllPlaylist}"
+                        name="playlistId" th:value="${PlaylistDTO.getPlaylistId()}">
+                    <i class="fa-solid fa-list-music mr-10"></i>
+                    <span th:text="${PlaylistDTO.getPlaylistName()}"></span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 </body>

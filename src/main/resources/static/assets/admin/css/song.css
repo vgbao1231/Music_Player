@@ -1,51 +1,51 @@
 .song-list__tool {
-    margin: 10px 40px;
-    font-size: 24px;
     justify-content: space-between;
-    white-space: nowrap;
-}
-
-.song-list__tool > div {
-    background-color: var(--lightblue-background);
-    border-radius: 30px;
 }
 
 .tool {
-    height: 50px;
-    margin: 4px;
+    width: 60%;
+    font-size: 20px;
+    white-space: nowrap;
+    background-color: #dce8f6;
+    border-radius: 30px;
+    justify-content: space-between;
+}
+
+#filter-tool,
+#search-tool {
     background-color: white;
     border-radius: 30px;
-    cursor: pointer;
-}
-
-.tool {
-    position: relative;
-}
-
-.tool select {
-    appearance: none;
-    width: 12vw;
-    height: 100%;
-    border-radius: 30px;
-    font-size: 22px;
-    padding: 0 10px;
-}
-
-.tool i {
-    position: absolute;
-    right: 4px;
-    pointer-events: none;
+    margin: 4px;
 }
 
 #search-tool input {
-    height: 100%;
-    width: 8vw;
-    margin: 0 10px;
-    font-size: 22px;
+    width: 12vw;
+    margin: 4px;
+    font-size: 20px;
+    background-color: #dce8f6;
+    border-radius: 30px;
+    padding: 6px 10px;
 }
 
-#search-tool input::placeholder {
-    font-size: 22px;
+.select-field select {
+    background-color: #dce8f6;
+    appearance: none;
+    height: 100%;
+    border-radius: 30px;
+    font-size: 20px;
+    padding: 6px 20px;
+    margin-right: 4px;
+}
+
+.add-song {
+    color: white;
+    background-color: #479FFF;
+    font-size: 20px;
+    min-width: 8vw;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .table-wrapper{

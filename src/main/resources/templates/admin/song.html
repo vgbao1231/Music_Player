@@ -20,49 +20,34 @@
 <div class="main-content">
     <div class="song-list table-frame m-20">
         <div class="table-frame__name">DANH SÁCH BÀI HÁT</div>
-        <div class="song-list__tool center">
-            <div onclick="openAddSongModal()" id="add-tool">
-                <div class="tool center p-10">
-                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/add.png" alt="add"/>
-                    Thêm bài hát
-                </div>
-            </div>
-            <div id="search-tool" class="center">
-                <form class="tool center p-10" action="" role="search">
-                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/search.png"
-                         alt="search"/>
-                    <label>
-                        <input type="search" placeholder="Tìm kiếm" name="song" autocomplete="off">
-                    </label>
-                </form>
-                <div class="tool select-container center">
-                    <label>
-                        <select onchange=getSelectedField()>
-                            <option value="1">Tên Bài Hát</option>
-                            <option value="2">Nghệ sĩ</option>
-                        </select>
-                    </label>
-                    <i class="fa-solid fa-circle-chevron-down"
-                       style="color: var(--lightblue-background);font-size: 44px;"></i>
-                </div>
-            </div>
-            <div id="filter-tool" class="center">
-                <div class="tool center p-10">
-                    <img width="44" height="44" src="https://img.icons8.com/pulsar-color/44/filter.png"
-                         alt="filter"/>
-                    Lọc
-                </div>
-                <div class="tool select-container center">
-                    <label>
-                        <select>
+        <div class="song-list__tool center m-20">
+            <div class="tool center">
+                <div id="filter-tool" class="center">
+                    <span class="p-10">Lọc</span>
+                    <div class="select-field">
+                        <select class="filter-field">
                             <option value="" selected disabled hidden>Thể Loại</option>
                             <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
                                     th:text="${GenreDTO.getName()}"></option>
                         </select>
-                    </label>
-                    <i class="fa-solid fa-circle-chevron-down"
-                       style="color: var(--lightblue-background);font-size: 44px;"></i>
+                    </div>
                 </div>
+                <div id="search-tool" class="center">
+                    <label>
+                        <input type="search" placeholder="Tìm kiếm" name="" autocomplete="off">
+                    </label>
+                    <div class="select-field center">
+                        <select class="search-field">
+                            <option value="2">Tên bài hát</option>
+                            <option value="3">Nghệ sĩ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button onclick="openAddSongModal()" class="add-song">
+                    Thêm bài hát
+                </button>
             </div>
         </div>
         <div class="table-wrapper">

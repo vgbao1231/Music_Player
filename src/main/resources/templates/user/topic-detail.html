@@ -46,7 +46,7 @@
                         <div class="song-genres" th:text="${SongDTO.getGenre().getGenreName()}"></div>
                     </a>
                         <div class="song-duration" th:data-audio="${SongDTO.getAudio()}"></div>
-                        <div class="song-option" th:data-id="${SongDTO.getSongId()}">
+                        <div class="song-option add-to-playlist" th:data-id="${SongDTO.getSongId()}">
                             <i class="fa-solid fa-plus"></i>
                         </div>
                 </div>

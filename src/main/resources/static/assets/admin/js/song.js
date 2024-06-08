@@ -48,3 +48,5 @@ function openUpdateSongModal() {
     //Bật modal
     modalSong.style.display = "flex"
 }
+customizeSortingListEvent()
+customizeSearchingListEvent([...$$('.table-wrapper tbody tr')])

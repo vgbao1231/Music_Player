@@ -170,3 +170,44 @@ header h4 {
 .active {
     color: rgba(255, 255, 255, 0.8) !important;
 }
+
+/* Modal select playlist*/
+.modal-select-playlist .modal-container {
+    width: 16vw;
+}
+
+.playlist {
+    padding-right: 10px;
+    max-height: 26vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.playlist::-webkit-scrollbar {
+    width: 4px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.playlist-btn {
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    width: 100%;
+    margin: 10px 0;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.4s ease;
+}
+
+.playlist-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}

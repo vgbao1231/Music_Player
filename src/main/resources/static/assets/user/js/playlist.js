@@ -101,11 +101,16 @@ const app = {
 
         //Chọn bài hát
         musicList.onclick = function (e) {
-            const songOption = e.target.closest('.song-option')
-            if (songOption) {
+            const deleteSongOption = e.target.closest('.song-option.delete-song')
+            const addToPlaylistOption = e.target.closest('.song-option.add-to-playlist')
+            if (deleteSongOption) {
                 // Truyền @PathVariable playlistId và songId cho controller xử lý
-                $(".modal-delete-song a").href = "/user/playlist/"+currentPage+"/deleteSongId=" + songOption.dataset.id
+                $(".modal-delete-song a").href = "/user/playlist/"+currentPage+"/deleteSongId=" + deleteSongOption.dataset.id
                 $(".modal-delete-song").style.display = 'flex'
+            } else if (addToPlaylistOption){
+                // Truyền @PathVariable playlistId và songId cho controller xử lý
+                $(".modal-select-playlist input[name='songId']").value = addToPlaylistOption.dataset.id
+                $(".modal-select-playlist").style.display = 'flex'
             } else {
                 app.currentIndex = e.target.closest('.song').dataset.index
                 app.loadCurrentSong()
