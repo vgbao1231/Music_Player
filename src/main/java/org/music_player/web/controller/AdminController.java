@@ -63,10 +63,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/song";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/song";
         }
         return "redirect:/admin/song";
     }
@@ -81,10 +79,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/song";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/song";
         }
         return "redirect:/admin/song";
     }
@@ -98,10 +94,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/song";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/song";
         }
         return "redirect:/admin/song";
     }
@@ -125,10 +119,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/genre";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/genre";
         }
         return "redirect:/admin/genre";
     }
@@ -143,10 +135,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/genre";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/genre";
         }
         return "redirect:/admin/genre";
     }
@@ -160,10 +150,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/genre";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/genre";
         }
         return "redirect:/admin/genre";
     }
@@ -187,10 +175,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/album";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/album";
         }
         return "redirect:/admin/album";
     }
@@ -204,10 +190,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/album/" + album.getAlbumId();
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/album/" + album.getAlbumId();
         }
         return "redirect:/admin/album/" + album.getAlbumId();
     }
@@ -221,10 +205,8 @@ public class AdminController {
         } catch (ConstraintViolationException ex) {
             String errorMessage = ex.getConstraintViolations().iterator().next().getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/admin/album";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/admin/album";
         }
         return "redirect:/admin/album";
     }
@@ -249,7 +231,6 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("success", "Thêm bài hát vào album thành công");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Bài hát đã có trong album");
-            return "redirect:/admin/album/" + album.getAlbumId();
         }
         return "redirect:/admin/album/" + album.getAlbumId();
     }
@@ -263,7 +244,6 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("success", "Xóa bài hát khỏi album thành công");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Không thể xóa bài hát khỏi album");
-            return "redirect:/admin/album/" + album.getAlbumId();
         }
         return "redirect:/admin/album/" + album.getAlbumId();
     }

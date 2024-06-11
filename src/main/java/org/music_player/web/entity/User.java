@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class User {
     @Id
     @Column(name = "user_id")
@@ -22,9 +23,15 @@ public class User {
     private String userName;
     @Column(name = "password")
     private String password;
+    @Column(name = "email",unique = true)
+    private String email;
     @Column(name = "role")
     private String role;
+    @Column(name = "status")
+    private Boolean status;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Playlist> playlists;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private OTP otp;
 }

@@ -85,14 +85,6 @@
     display: flex;
 }
 
-.notification {
-    width: 36px;
-    height: 36px;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
 .account {
     justify-content: unset;
     padding: 0 10px;

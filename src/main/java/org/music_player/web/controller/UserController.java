@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,12 +51,14 @@ public class UserController {
     public List<PlaylistDTO> listAllPlaylist(@ModelAttribute("userId") Integer userId) {
         return playlistService.listALlPlaylist(userId);
     }
+    @ModelAttribute("listAllSong")
+    public List<SongDTO> listAllSong() {
+        return songService.listAllSong();
+    }
 
     @RequestMapping(value = {"", "/home"}, method = RequestMethod.GET)
     public String userHome(Model model) {
-        List<SongDTO> listAllSong = songService.listAllSong();
         List<AlbumDTO> listAllAlbum = albumService.listAllAlbum();
-        model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("listAllAlbum", listAllAlbum);
         return "user/home";
     }
@@ -69,7 +72,6 @@ public class UserController {
             case "album" -> songService.listAllSongByAlbum(topicId);
             default -> songService.listAllSong();
         };
-        model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("currentSong", songIndex);
         return "user/playlist";
     }
@@ -121,40 +123,71 @@ public class UserController {
     }
 
     @PostMapping("/addPlaylist")
-    public String addPlaylist(@RequestParam("playlist_name") String playlistName, @ModelAttribute("userId") Integer userId) {
-        Playlist playlist = new Playlist();
-        playlist.setPlaylistName(playlistName);
-        playlist.setUser(userService.findByUserId(userId));
-        playlistService.savePlaylist(playlist);
+    public String addPlaylist(@RequestParam("playlist_name") String playlistName,
+                              @ModelAttribute("userId") Integer userId,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            Playlist playlist = new Playlist();
+            playlist.setPlaylistName(playlistName);
+            playlist.setUser(userService.findByUserId(userId));
+            playlistService.savePlaylist(playlist);
+            redirectAttributes.addFlashAttribute("success","Tạo playlist thành công");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
         return "redirect:/user/home";
     }
 
     @PostMapping("/addSongToPlaylist")
     public String addSongToPlaylist(@RequestParam("songId") Integer songId,
                                     @RequestParam("playlistId") Integer playlistId,
-                                    @ModelAttribute("userId") Integer userId) throws IOException {
-        songService.addSongToPlaylist(songId, playlistId);
+                                    @ModelAttribute("userId") Integer userId,
+                                    RedirectAttributes redirectAttributes) {
+        try {
+            songService.addSongToPlaylist(songId, playlistId);
+            redirectAttributes.addFlashAttribute("success","Thêm vào playlist thành công");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
         return "redirect:/user/home";
     }
 
     @PostMapping("/updatePlaylist")
     public String updatePlaylist(@RequestParam("playlistId") Integer playlistId,
-                                 @RequestParam("playlist_name") String playlistName) {
-        Playlist playlist = playlistService.getPlaylistById(playlistId);
-        playlist.setPlaylistName(playlistName);
-        playlistService.savePlaylist(playlist);
+                                 @RequestParam("playlist_name") String playlistName,
+                                 RedirectAttributes redirectAttributes) {
+        try {
+            Playlist playlist = playlistService.getPlaylistById(playlistId);
+            playlist.setPlaylistName(playlistName);
+            playlistService.savePlaylist(playlist);
+            redirectAttributes.addFlashAttribute("success","Cập nhật playlist thành công");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
         return "redirect:/user/home";
     }
 
     @RequestMapping("/playlist/deletePlaylistId={playlistId}")
-    public String deletePlaylist(@PathVariable("playlistId") Integer playlistId) {
-        playlistService.deletePlaylist(playlistId);
+    public String deletePlaylist(@PathVariable("playlistId") Integer playlistId,
+                                 RedirectAttributes redirectAttributes) {
+        try {
+            playlistService.deletePlaylist(playlistId);
+            redirectAttributes.addFlashAttribute("success","Xóa playlist thành công");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
         return "redirect:/user/home";
     }
     @RequestMapping("/playlist/{playlistId}/deleteSongId={songId}")
     public String deleteSong(@PathVariable("playlistId") Integer playlistId,
-                             @PathVariable("songId") Integer songId) {
-        songPlaylistService.deleteSongFromPlaylist(playlistId,songId);
+                             @PathVariable("songId") Integer songId,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            songPlaylistService.deleteSongFromPlaylist(playlistId,songId);
+            redirectAttributes.addFlashAttribute("success","Xóa bài hát khỏi playlist thành công");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
         return "redirect:/user/playlist/{playlistId}";
     }
 }

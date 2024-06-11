@@ -64,16 +64,16 @@
                         </div>
                     </td>
                     <td th:text="${GenreDTO.getName()}"></td>
-                    <td class="center">
-                        <button onclick="openUpdateGenreModal()" class="update-btn center mr-10"
-                                th:data-id="${GenreDTO.getGenreId()}"
-                                th:data-img="${GenreDTO.getImg()}"
-                                th:data-genre-name="${GenreDTO.getName()}">
-                            <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
-                                 alt="pencil"/>
-                            Chỉnh sửa
-                        </button>
-                        <form th:action="'/admin/genre/deleteGenre'" th:object="${genre}" method="post">
+                    <td>
+                        <form th:action="'/admin/genre/deleteGenre'" th:object="${genre}" method="post" class="center">
+                            <button onclick="openUpdateGenreModal()" type="button" class="update-btn center mr-10"
+                                    th:data-id="${GenreDTO.getGenreId()}"
+                                    th:data-img="${GenreDTO.getImg()}"
+                                    th:data-genre-name="${GenreDTO.getName()}">
+                                <img width="30" height="30" src="https://img.icons8.com/pulsar-color/30/pencil.png"
+                                     alt="pencil"/>
+                                Chỉnh sửa
+                            </button>
                             <button name="genreId" th:field="*{genreId}" th:value="${GenreDTO.getGenreId()}"
                                     class="delete-btn center">
                                 <img width="30" height="30"

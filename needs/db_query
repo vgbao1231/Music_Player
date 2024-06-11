@@ -1,6 +1,6 @@
 
-INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'ADMIN', 'admin');
-INSERT INTO `user` (`user_id`, `password`, `role`, `username`) VALUES (NULL, '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'USER', 'user');
+INSERT INTO `user` (`user_id`, `email`, `password`, `role`, `status`, `username`) VALUES (NULL, 'vgbao3@gmail.com', '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'ADMIN', b'1', 'admin');
+INSERT INTO `user` (`user_id`, `email`, `password`, `role`, `status`, `username`) VALUES (NULL, 'quangloi1231@gmail.com', '$2a$10$o.cxNabEaUfdLQHRd40GfOVNlSUwPqGOOqsy09N3.Y.fTN5LwkcVK', 'USER', b'1', 'user');
 
 INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre1.jpg', 'Lofi');
 INSERT INTO `genre` (`genre_id`, `genre_img`, `genre_name`) VALUES (NULL, '/assets/img/genre/genre2.jpg', 'Pop');

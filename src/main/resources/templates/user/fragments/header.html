@@ -7,12 +7,27 @@
             Music Player
         </div>
         <div class="search-bar">
-            <form action="" role="search">
-                <label>
-                    <input class="search-field" type="text" name="song" placeholder="Tìm kiếm bài hát...">
-                </label>
-                <button class="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+            <label>
+                <input class="search-field" type="text" name="song" placeholder="Tìm kiếm bài hát...">
+            </label>
+            <button class="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <div class="search-result">
+                <div th:each="SongDTO,song : ${listAllSong}" th:if="${song.index} < 12"
+                     class="list-song-item center">
+                    <a th:href="'/user/song/0/songIndex='+${song.index}" class="song-item center">
+                        <div class="song-img">
+                            <img th:src="${SongDTO.getSongImg()}" alt="">
+                        </div>
+                        <div class="song-info">
+                            <span th:text="${SongDTO.getSongName()}"></span>
+                            <span th:text="${SongDTO.getArtist()}"></span>
+                        </div>
+                    </a>
+                    <div class="song-option add-to-playlist p-10" th:data-id="${SongDTO.getSongId()}">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="user center">
             <div class="account mr-10">

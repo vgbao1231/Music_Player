@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+</head>
+<link rel="stylesheet" href="/assets/public/css/base.css">
+<link rel="stylesheet" href="/assets/public/css/login.css">
+<link rel="stylesheet" href="/assets/public/css/verify-otp.css">
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+<body>
+<div th:if="${error != null}" th:data-type="error" th:data-message="${error}" id="toast"></div>
+<div th:if="${success != null}" th:data-type="success" th:data-message="${success}" id="toast"></div>
+<div id="background" style="background: url('/assets/img/background/login.png') center center / cover no-repeat;"></div>
+<div id="container">
+    <div class="verify-form">
+        <form action="/verify-otp" method="post">
+            <div class="verify-form__title">Xác nhận OTP</div>
+            <div class="fields-input">
+                <input type="number" class="otp_field" placeholder="0" min="0" max="9" required
+                       onpaste="false">
+                <input type="number" class="otp_field" placeholder="0" min="0" max="9" required
+                       onpaste="false">
+                <input type="number" class="otp_field" placeholder="0" min="0" max="9" required
+                       onpaste="false">
+                <input type="number" class="otp_field" placeholder="0" min="0" max="9" required
+                       onpaste="false">
+            </div>
+            <input type="hidden" name="otp">
+            <div class="verify-button">
+                <button type="submit">Xác nhận</button>
+            </div>
+        </form>
+        <form action="/send-otp-again" method="post" class="center">
+            <button class="send-otp-again" type="submit">Gửi lại mã OTP?</button>
+        </form>
+    </div>
+</div>
+</body>
+<script src="/assets/public/js/base.js"></script>
+</html>

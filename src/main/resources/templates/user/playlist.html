@@ -12,6 +12,8 @@
 <body>
 <div th:replace="~{user/fragments/header :: header}"></div>
 <div th:replace="~{user/fragments/sidebar :: sidebar}"></div>
+<div th:if="${error != null}" th:data-type="error" th:data-message="${error}" id="toast"></div>
+<div th:if="${success != null}" th:data-type="success" th:data-message="${success}" id="toast"></div>
 <div class="background"></div>
 <div class="main-content">
     <div class="player-container center">

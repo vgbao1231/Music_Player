@@ -1,6 +1,7 @@
 package org.music_player.web.config;
 
 import org.music_player.web.service.custom.CustomAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @Bean
     BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -23,7 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login","register","verify-otp","/send-otp-again",
+                            "forgot-password","reset-password").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated())
@@ -33,7 +37,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
-                                .successHandler(customAuthenticationSuccessHandler())
+                                .successHandler(customAuthenticationSuccessHandler)
                 ).csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
@@ -41,9 +45,5 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web->web.ignoring().requestMatchers("/assets/**");
-    }
-    @Bean
-    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
     }
 }

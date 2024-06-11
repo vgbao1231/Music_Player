@@ -58,7 +58,7 @@ inputImgs.forEach(inputImg => {
     });
 })
 
-// Thống báo toast
+// Thông báo toast
 const toastContainer = $("#toast")
 if (toastContainer){
     toast({
@@ -90,7 +90,7 @@ function toast({ message, type }) {
         // Auto close
         const autoCloseId = setTimeout(function () {
             toastContainer.removeChild(toast)
-        }, 30000)
+        }, 3000)
         // Close when click
         toast.onclick = function () {
             // toast.style.opacity = 0
@@ -148,9 +148,9 @@ function customizeSortingListEvent() {
 
 //Tìm kiếm theo field
 function customizeSearchingListEvent(plainTableRows) {
-    const searchingInputTag = document.querySelector('#search-tool input');
-    const selectField = document.querySelector('#search-tool select');
-    let tableBody = document.querySelector('tbody');
+    const searchingInputTag = $('#search-tool input');
+    const selectField = $('#search-tool select');
+    let tableBody = $('tbody');
     if (plainTableRows.length === 0)
         tableBody.innerHTML = `<tr><td colspan="10">Không tìm thấy dữ liệu</td></tr>`;
     const handleSearchingListEvent = e => {
