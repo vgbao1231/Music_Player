@@ -72,6 +72,7 @@ public class UserController {
             case "album" -> songService.listAllSongByAlbum(topicId);
             default -> songService.listAllSong();
         };
+        model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("currentSong", songIndex);
         return "user/playlist";
     }

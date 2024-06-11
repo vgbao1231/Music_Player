@@ -89,11 +89,13 @@
             </div>
             <form th:action="'/admin/album/addSongAlbum'" th:object="${album}" method="post" class="song">
                 <input type="hidden" name="albumId" th:field="*{albumId}" th:value="${albumId}">
-                <button class="song-btn" th:each="SongDTO : ${listAllSong}"
-                        name="songId" th:value="${SongDTO.getSongId()}">
-                    <i class="fa-solid fa-list-music mr-10"></i>
-                    <span th:text="${SongDTO.getSongName()}"></span>
-                </button>
+                <div class="list-song">
+                    <button class="song-btn" th:each="SongDTO : ${listAllSong}"
+                            name="songId" th:value="${SongDTO.getSongId()}">
+                        <i class="fa-solid fa-list-music mr-10"></i>
+                        <span th:text="${SongDTO.getSongName()}"></span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
