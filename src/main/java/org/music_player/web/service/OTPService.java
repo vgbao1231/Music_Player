@@ -54,7 +54,7 @@ public class OTPService {
         }
     }
 
-    public boolean verifyOTP(String email, String otp) throws IOException {
+    public void verifyOTP(String email, String otp) throws IOException {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {
             throw new IOException("Tài khoản không tồn tại");
@@ -66,14 +66,10 @@ public class OTPService {
         if (!otpEntity.getOtp().equals(otp))
             throw new IOException("Mã OTP không đúng");
         if (otpEntity.getExpiredTime().isBefore(LocalDateTime.now())) {
-            deleteOTP(otpEntity);
+            otpRepository.delete(otpEntity);
             throw new IOException("Mã OTP đã hết hạn");
         }
-        deleteOTP(otpEntity);
-        return true;
+        otpRepository.delete(otpEntity);
     }
 
-    public void deleteOTP (OTP otp){
-        otpRepository.delete(otp);
-    }
 }

@@ -22,26 +22,17 @@
         <div class="table-frame__name">DANH SÁCH BÀI HÁT</div>
         <div class="song-list__tool center m-20">
             <div class="tool center">
-                <div id="filter-tool" class="center">
-                    <span class="p-10">Lọc</span>
-                    <div class="select-field">
-                        <select class="filter-field">
-                            <option value="" selected disabled hidden>Thể Loại</option>
-                            <option th:each="GenreDTO : ${listAllGenre}" th:value="${GenreDTO.getGenreId()}"
-                                    th:text="${GenreDTO.getName()}"></option>
-                        </select>
-                    </div>
-                </div>
                 <div id="search-tool" class="center">
-                    <label>
-                        <input type="search" placeholder="Tìm kiếm" name="" autocomplete="off">
-                    </label>
                     <div class="select-field center">
                         <select class="search-field">
                             <option value="2">Tên bài hát</option>
                             <option value="3">Nghệ sĩ</option>
+                            <option value="4">Thể loại</option>
                         </select>
                     </div>
+                    <label>
+                        <input type="search" placeholder="Tìm kiếm" name="" autocomplete="off">
+                    </label>
                 </div>
             </div>
             <div class="button-wrapper">

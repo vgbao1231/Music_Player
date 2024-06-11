@@ -45,8 +45,6 @@ public class AdminController {
     @RequestMapping("/song")
     public String adminSongPage(Model model) {
         List<SongDTO> listAllSong = songService.listAllSong();
-        List<GenreDTO> listAllGenre = genreService.listALlGenre();
-        model.addAttribute("listAllGenre", listAllGenre);
         model.addAttribute("listAllSong", listAllSong);
         model.addAttribute("song", new Song());
         return "admin/song";

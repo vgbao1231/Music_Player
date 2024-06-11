@@ -102,7 +102,6 @@ public class PublicController {
         return "/public/verify-otp";
     }
 
-    @Transactional
     @PostMapping("/verify-otp")
     public String verifyOTP(@RequestParam String otp,
                             HttpSession session,
@@ -113,18 +112,16 @@ public class PublicController {
                 redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng trong phiên làm việc.");
                 return "redirect:/verify-otp";
             }
-            boolean isValid = otpService.verifyOTP(user.getEmail(), otp);
-            if (isValid) {
-                if (!user.getStatus()) {
-                    user.setStatus(true); // Kích hoạt tài khoản
-                    userService.saveUser(user);
-                    session.removeAttribute("user");
-                    redirectAttributes.addFlashAttribute("success", "Xác minh OTP thành công");
-                    return "redirect:/login";
-                } else {
-                    redirectAttributes.addFlashAttribute("success", "Xác minh OTP thành công");
-                    return "redirect:/reset-password";
-                }
+            otpService.verifyOTP(user.getEmail(), otp);
+            if (!user.getStatus()) {
+                user.setStatus(true); // Kích hoạt tài khoản
+                userService.saveUser(user);
+                session.removeAttribute("user");
+                redirectAttributes.addFlashAttribute("success", "Xác minh OTP thành công");
+                return "redirect:/login";
+            } else {
+                redirectAttributes.addFlashAttribute("success", "Xác minh OTP thành công");
+                return "redirect:/reset-password";
             }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
