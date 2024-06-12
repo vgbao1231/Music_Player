@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -18,6 +19,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    private final String Email_Regex = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+    private final Pattern pattern = Pattern.compile(Email_Regex);
 
     public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
@@ -34,6 +37,8 @@ public class UserService {
     public User addUser(String email, String username, String password, String verifyPassword) throws IOException {
         if (email == null)
             throw new IOException("Email không được để trống");
+        if (!pattern.matcher(email).matches())
+            throw new IOException("Email không đúng định dạng");
         if (username == null)
             throw new IOException("Tên tài khoản không được để trống");
         if (password == null)
